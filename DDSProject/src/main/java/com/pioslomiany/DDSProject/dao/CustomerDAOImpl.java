@@ -12,20 +12,38 @@ import org.springframework.stereotype.Repository;
 import com.pioslomiany.DDSProject.entity.Customer;
 
 @Repository
-public class CusomerDAOImpl {
+public class CustomerDAOImpl {
 
 	@Autowired
 	private EntityManager entityManager;
 	
 	public List<Customer> getAll() {
-		
 		Session session = entityManager.unwrap(Session.class);
 		
 		Query<Customer> query = session.createQuery("FROM Customer", Customer.class);
 		
 		return query.getResultList();
 	}
+	
+	public void saveCustomer(Customer theCustomer) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		session.saveOrUpdate(theCustomer);
+	}
 
+	public Customer getCustomerById(int theId) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		return session.get(Customer.class, theId);
+	}
+
+	public void deleteCustomerById(int theId) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		Customer customer = session.get(Customer.class, theId);
+		
+		session.delete(customer);
+	}
 	
 	
 }

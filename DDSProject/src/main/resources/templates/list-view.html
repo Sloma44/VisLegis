@@ -9,8 +9,9 @@
 
 	
 	<body>
-		<h2>On this page soon will be list of cutomers</h2>
-		
+		<h2>List of customers</h2>
+		<a th:href="@{/dds/list/saveCustomerForm}"><input type="button" value="Add customer"></a>
+		<hr>
 		
 		<table>
 			<thead>
@@ -18,17 +19,21 @@
 		            <th> Id </th>
 		            <th> First name </th>
 		            <th> Last name </th>
+		            <th> Action </th>
 		        </tr>
 	    	</thead>
     	
 	    	<tbody>
 		        <tr th:each="customer : ${customers}">
+		        	<td>
 		            <td><span th:text="${customer.id}"> ID </span></td>
 		            <td><span th:text="${customer.firstName}"> FIRST NAME </span></td>
 		            <td><span th:text="${customer.lastName}"> LAST NAME </span></td>
+		            <td><a th:href="@{/dds/list/customerDetails(customerId=${customer.id})}"><input type="button" value="Details"></a>
 		        </tr>
 	    	</tbody>
 		</table>
+	
 	
 	</body>
 

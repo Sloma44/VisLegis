@@ -1,0 +1,26 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+      
+	<head>
+		<title>Customer's details</title>
+	</head>
+
+	
+	<body>
+		<h2>Customer's details</h2>
+		<a th:href="@{/dds/list/updateCustomerForm(customerId=${customer.id})}"><input type="button" value="Modify"></a>
+		<a th:href="@{/dds/list/customerDetails/deleteCustomer(customerId=${customer.id})}"><input type="button" value="Delete"></a>
+		<hr>
+		<h3>Basic info</h3>
+		<p th:text="${customer.id}"></p>
+		<p th:text="${customer.firstName}"></p>
+		<p th:text="${customer.lastName}"></p>
+		<hr>
+		<h3>Contact info</h3>
+	
+	
+	</body>
+
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+      
+	<head>
+		<title>Save customers</title>
+	</head>
+
+	
+	<body>
+		<h2>Save customer</h2>
+		<hr>
+		<form action="#" th:action="@{saveCustomer}" th:object="${customer}" method="POST">
+			<input type="hidden" th:field="*{id}"/>
+			<p>First name: <input type="text" th:field="*{firstName}"/></p>
+			<p>Last name: <input type="text" th:field="*{lastName}"/></p>
+			<p><input type="submit" value="Submit"/></p>
+		</form>
+	
+	
+	</body>
+
+</html>
