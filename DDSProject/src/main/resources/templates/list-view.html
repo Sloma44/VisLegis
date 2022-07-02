@@ -1,0 +1,35 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+      
+	<head>
+		<title>List of customers</title>
+	</head>
+
+	
+	<body>
+		<h2>On this page soon will be list of cutomers</h2>
+		
+		
+		<table>
+			<thead>
+		        <tr>
+		            <th> Id </th>
+		            <th> First name </th>
+		            <th> Last name </th>
+		        </tr>
+	    	</thead>
+    	
+	    	<tbody>
+		        <tr th:each="customer : ${customers}">
+		            <td><span th:text="${customer.id}"> ID </span></td>
+		            <td><span th:text="${customer.firstName}"> FIRST NAME </span></td>
+		            <td><span th:text="${customer.lastName}"> LAST NAME </span></td>
+		        </tr>
+	    	</tbody>
+		</table>
+	
+	</body>
+
+</html>
