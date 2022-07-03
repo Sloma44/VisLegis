@@ -1,5 +1,7 @@
 package com.pioslomiany.DDSProject.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -29,6 +32,9 @@ public class Customer {
 	 @OneToOne(mappedBy = "customer", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	 @PrimaryKeyJoinColumn
 	 private CustomerContactInfo customerContactInfo;
+	 
+	 @OneToMany(mappedBy="customer", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	 private List<LawCase> lawCases;
 
 	public Customer() {
 		
@@ -71,4 +77,15 @@ public class Customer {
 	public void setCustomerContactInfo(CustomerContactInfo customerContactInfo) {
 		this.customerContactInfo = customerContactInfo;
 	}
+
+	public List<LawCase> getLawCases() {
+		return lawCases;
+	}
+
+	public void setLawCases(List<LawCase> lawCases) {
+		this.lawCases = lawCases;
+	}
+
+	
+	
 }

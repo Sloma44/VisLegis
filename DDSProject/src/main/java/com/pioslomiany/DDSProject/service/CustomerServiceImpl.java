@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pioslomiany.DDSProject.dao.CustomerContactInfoDAOImpl;
 import com.pioslomiany.DDSProject.dao.CustomerDAOImpl;
+import com.pioslomiany.DDSProject.dao.LawCaseDAOImpl;
 import com.pioslomiany.DDSProject.entity.Customer;
 import com.pioslomiany.DDSProject.entity.CustomerContactInfo;
+import com.pioslomiany.DDSProject.entity.LawCase;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -19,6 +21,9 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
 	private CustomerContactInfoDAOImpl customerContactInfoDAOImpl;
+	
+	@Autowired
+	private LawCaseDAOImpl lawCaseDAOImpl;
 	
 	@Override
 	@Transactional
@@ -44,6 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
 		customerDAO.deleteCustomerById(theId);
 	}
 	
+	//do usuniecia transactional
 	@Override
 	@Transactional
 	public CustomerContactInfo getCustomerInfo(Customer theCustomer) {
@@ -55,6 +61,19 @@ public class CustomerServiceImpl implements CustomerService {
 	public void saveCustomerContactInfo(Customer theCustomer, CustomerContactInfo theCustomerContactInfo) {
 		customerContactInfoDAOImpl.saveCustomerContactInfo(theCustomer, theCustomerContactInfo);
 	}
+
+	@Override
+	@Transactional
+	public List<LawCase> getCustomerLawCases(Customer theCustomer) {
+		return lawCaseDAOImpl.getCustomerLawCases(theCustomer);
+	}
+
+	@Override
+	@Transactional
+	public void saveLawCase(Customer theCustomer, LawCase theLawCase) {
+		lawCaseDAOImpl.saveLawCase(theCustomer, theLawCase);
+	}
+	
 	
 	
 	

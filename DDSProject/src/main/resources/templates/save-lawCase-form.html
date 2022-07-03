@@ -1,0 +1,30 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+      
+	<head>
+		<title>Save law case</title>
+	</head>
+
+	
+	<body>
+		<h2>Save law case</h2>
+		<hr>
+		<form action="#" th:action="@{saveLawCase}" th:object="${lawCase}" method="POST">
+			<input type="hidden" th:value="${customer.id}" name="id"/>
+			<input type="hidden" th:value="${lawCase.caseId}" name="caseId"/>
+			<p>Signature: <input type="text" th:value="${lawCase.signature}" name="signature"/></p>
+			<p>Case description: <input type="text" th:value="${lawCase.caseDescription}" name="caseDescription"/></p>
+			<p>Authority: <input type="text" th:value="${lawCase.authority}" name="authority"/></p>
+			<input type="radio" value="Z urzedu" name="sort" th:field="*{sort}">
+			<label>Z urzędu</label>
+			<input type="radio" value="Z wyboru" name="sort" th:field="*{sort}">
+			<label>Z wyboru</label>
+			
+			<p><input type="submit" value="Submit"/></p>
+		</form>
+
+	</body>
+
+</html>

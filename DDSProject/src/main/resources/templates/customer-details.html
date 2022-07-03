@@ -26,6 +26,31 @@
 		<p th:text="${customerContactInfo.houseNumber}"></p>
 		<p th:text="${customerContactInfo.telephone}"></p>
 		<p th:text="${customerContactInfo.email}"></p>
+		<hr>
+		<h3>Customer cases</h3>
+		<a th:href="@{/dds/list/customerDetails/saveLawCaseForm(customerId=${customer.id})}"><input type="button" value="Add case"></a>
+		<table>
+			<thead>
+				<tr>
+					<th>Signature</th>
+					<th>Case description</th>
+					<th>Authority</th>
+					<th>Sort</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="lawCase : ${lawCases}">
+					<td><span th:text="${lawCase.signature}"> SIGNATURE</span></td>
+					<td><span th:text="${lawCase.caseDescription}"> DESCRIPTION</span></td>
+					<td><span th:text="${lawCase.authority}"> AUTHORITY</span></td>
+					<td><span th:text="${lawCase.sort}"> SORT </span></td>
+					<td><a th:href="@{/dds/list/customerDetails(customerId=${customer.id})}"><input type="button" value="Details"></a>				
+				</tr>
+			</tbody>
+			
+		</table>
 	
 	
 	</body>

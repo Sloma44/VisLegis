@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pioslomiany.DDSProject.entity.Customer;
 import com.pioslomiany.DDSProject.entity.CustomerContactInfo;
+import com.pioslomiany.DDSProject.entity.LawCase;
 import com.pioslomiany.DDSProject.service.CustomerService;
 
 @Controller
@@ -48,7 +49,7 @@ public class MainController {
 		
 		model.addAttribute("customer", theCustomer);
 		model.addAttribute("customerContactInfo", customerService.getCustomerInfo(theCustomer));
-		
+
 		return "save-customer-form";
 	}
 	
@@ -68,14 +69,34 @@ public class MainController {
 		
 		Customer theCustomer = customerService.getCustomerById(theId);
 		model.addAttribute("customer", theCustomer);
-		model.addAttribute("customerContactInfo", customerService.getCustomerInfo(theCustomer));			
-
+		model.addAttribute("customerContactInfo", customerService.getCustomerInfo(theCustomer));
+		model.addAttribute("lawCases", customerService.getCustomerLawCases(theCustomer));
+		
 		return "customer-details";
 	}
 	
 	@GetMapping("/list/customerDetails/deleteCustomer")
 	public String deleteCustomer(@RequestParam("customerId") int theId) {
 		customerService.deleteCustomerById(theId);
+		
+		return "redirect:/dds/list";
+	}
+	
+	@GetMapping("list/customerDetails/saveLawCaseForm")
+	public String saveLawCaseForm(@RequestParam("customerId") int theId, Model model) {
+		
+		model.addAttribute("customer", customerService.getCustomerById(theId));
+		model.addAttribute("lawCase", new LawCase());
+		
+		return "save-lawCase-form";
+	}
+	
+	@PostMapping("/list/customerDetails/saveLawCase")
+	public String saveLawCase(@ModelAttribute("lawCase") LawCase theLawCase,
+								@ModelAttribute("customer") Customer theCustomer,
+								Model model) {
+		
+		customerService.saveLawCase(theCustomer, theLawCase);
 		
 		return "redirect:/dds/list";
 	}

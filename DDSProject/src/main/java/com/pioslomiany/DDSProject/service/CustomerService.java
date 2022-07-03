@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.pioslomiany.DDSProject.entity.Customer;
 import com.pioslomiany.DDSProject.entity.CustomerContactInfo;
+import com.pioslomiany.DDSProject.entity.LawCase;
 
 public interface CustomerService {
 	
@@ -18,5 +19,9 @@ public interface CustomerService {
 	public CustomerContactInfo getCustomerInfo(Customer theCustomer);
 
 	public void saveCustomerContactInfo(Customer theCustomer, CustomerContactInfo theCustomerContactInfo);
+
+	public List<LawCase> getCustomerLawCases(Customer theCustomer);
+
+	public void saveLawCase(Customer theCustomer, LawCase theLawCase);
 	
 }
