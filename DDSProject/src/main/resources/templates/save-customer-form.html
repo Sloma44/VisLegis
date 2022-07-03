@@ -11,14 +11,20 @@
 	<body>
 		<h2>Save customer</h2>
 		<hr>
-		<form action="#" th:action="@{saveCustomer}" th:object="${customer}" method="POST">
-			<input type="hidden" th:field="*{id}"/>
-			<p>First name: <input type="text" th:field="*{firstName}"/></p>
-			<p>Last name: <input type="text" th:field="*{lastName}"/></p>
+		<form action="#" th:action="@{saveCustomer}" method="POST">
+			<input type="hidden" th:value="${customer.id}" name="id"/>
+			<p>First name: <input type="text" th:value="${customer.firstName}" name="firstName"/></p>
+			<p>Last name: <input type="text" th:value="${customer.lastName}" name="lastName"/></p>
+			<p>Country: <input type="text" th:value="${customerContactInfo.country}" name="country"/></p>
+			<p>City: <input type="text" th:value="${customerContactInfo.city}" name="city"/></p>
+			<p>Postal code: <input type="text" th:value="${customerContactInfo.postalCode}" name="postalCode"/></p>
+			<p>Street: <input type="text" th:value="${customerContactInfo.street}" name="street"/></p>
+			<p>House number: <input type="text" th:value="${customerContactInfo.houseNumber}" name="houseNumber"/></p>
+			<p>Telephone: <input type="text" th:value="${customerContactInfo.telephone}" name="telephone"/></p>
+			<p>Email: <input type="text" th:value="${customerContactInfo.email}" name="email"/></p>
 			<p><input type="submit" value="Submit"/></p>
 		</form>
-	
-	
+
 	</body>
 
 </html>

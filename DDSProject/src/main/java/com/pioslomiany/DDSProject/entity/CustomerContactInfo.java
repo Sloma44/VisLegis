@@ -44,11 +44,12 @@ public class CustomerContactInfo {
 	private Customer customer;
 	
 	public CustomerContactInfo() {
-		
+			
 	}
 
-	public CustomerContactInfo(String country, String city, String postalCode, String street,
-			String houseNumber, String telephone, String email) {
+	public CustomerContactInfo(int id, String country, String city, String postalCode, String street,
+			String houseNumber, String telephone, String email, Customer customer) {
+		this.id = id;
 		this.country = country;
 		this.city = city;
 		this.postalCode = postalCode;
@@ -56,6 +57,7 @@ public class CustomerContactInfo {
 		this.houseNumber = houseNumber;
 		this.telephone = telephone;
 		this.email = email;
+		this.customer = customer;
 	}
 
 	public int getId() {

@@ -15,6 +15,8 @@ public interface CustomerService {
 
 	public void deleteCustomerById(int theId);
 
-	CustomerContactInfo getCustomerInfo(Customer theCustomer);
+	public CustomerContactInfo getCustomerInfo(Customer theCustomer);
+
+	public void saveCustomerContactInfo(Customer theCustomer, CustomerContactInfo theCustomerContactInfo);
 	
 }

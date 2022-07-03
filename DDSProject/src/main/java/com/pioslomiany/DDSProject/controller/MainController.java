@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pioslomiany.DDSProject.entity.Customer;
+import com.pioslomiany.DDSProject.entity.CustomerContactInfo;
 import com.pioslomiany.DDSProject.service.CustomerService;
 
 @Controller
@@ -35,6 +36,7 @@ public class MainController {
 	public String saveCustomerForm(Model model) {
 		
 		model.addAttribute("customer", new Customer());
+		model.addAttribute("customerContactInfo", new CustomerContactInfo());
 		
 		return "save-customer-form";
 	}
@@ -45,14 +47,18 @@ public class MainController {
 		Customer theCustomer = customerService.getCustomerById(theId);
 		
 		model.addAttribute("customer", theCustomer);
+		model.addAttribute("customerContactInfo", customerService.getCustomerInfo(theCustomer));
 		
 		return "save-customer-form";
 	}
 	
 	@PostMapping("/list/saveCustomer")
-	public String saveCustomer(@ModelAttribute("customer") Customer theCustomer, Model model) {
+	public String saveCustomer(@ModelAttribute("customer") Customer theCustomer,
+								@ModelAttribute("customerContactInfo") CustomerContactInfo theCustomerContactInfo,
+								Model model) {
 		
 		customerService.saveCustomer(theCustomer);
+		customerService.saveCustomerContactInfo(theCustomer, theCustomerContactInfo);
 		
 		return "redirect:/dds/list";
 	}
@@ -62,8 +68,8 @@ public class MainController {
 		
 		Customer theCustomer = customerService.getCustomerById(theId);
 		model.addAttribute("customer", theCustomer);
-		model.addAttribute("customerContactInfo", customerService.getCustomerInfo(theCustomer));
-		
+		model.addAttribute("customerContactInfo", customerService.getCustomerInfo(theCustomer));			
+
 		return "customer-details";
 	}
 	

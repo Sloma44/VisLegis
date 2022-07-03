@@ -49,6 +49,12 @@ public class CustomerServiceImpl implements CustomerService {
 	public CustomerContactInfo getCustomerInfo(Customer theCustomer) {
 		return customerContactInfoDAOImpl.getCustomerInfo(theCustomer);
 	}
+
+	@Override
+	@Transactional
+	public void saveCustomerContactInfo(Customer theCustomer, CustomerContactInfo theCustomerContactInfo) {
+		customerContactInfoDAOImpl.saveCustomerContactInfo(theCustomer, theCustomerContactInfo);
+	}
 	
 	
 	
