@@ -3,6 +3,7 @@ package com.pioslomiany.DDSProject.service;
 import java.util.List;
 
 import com.pioslomiany.DDSProject.entity.Customer;
+import com.pioslomiany.DDSProject.entity.CustomerContactInfo;
 
 public interface CustomerService {
 	
@@ -13,5 +14,7 @@ public interface CustomerService {
 	public Customer getCustomerById(int theId);
 
 	public void deleteCustomerById(int theId);
+
+	CustomerContactInfo getCustomerInfo(Customer theCustomer);
 	
 }

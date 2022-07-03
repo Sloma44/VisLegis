@@ -1,10 +1,14 @@
 package com.pioslomiany.DDSProject.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +25,10 @@ public class Customer {
 	
 	@Column(name="last_name")
 	private String lastName;
+	
+	 @OneToOne(mappedBy = "customer", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	 @PrimaryKeyJoinColumn
+	 private CustomerContactInfo customerContactInfo;
 
 	public Customer() {
 		
@@ -56,6 +64,11 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
-	
-	
+	public CustomerContactInfo getCustomerContactInfo() {
+		return customerContactInfo;
+	}
+
+	public void setCustomerContactInfo(CustomerContactInfo customerContactInfo) {
+		this.customerContactInfo = customerContactInfo;
+	}
 }

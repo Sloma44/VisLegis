@@ -1,0 +1,15 @@
+USE dds_main;
+
+DROP TABLE IF EXISTS customer_contact_info;
+CREATE TABLE customer_contact_info (
+customer_id INT UNIQUE NOT NULL,
+country VARCHAR(30) DEFAULT NULL,
+city VARCHAR(50) DEFAULT NULL,
+postal_code VARCHAR(10) DEFAULT NULL,
+street VARCHAR(100) DEFAULT NULL,
+house_number VARCHAR(10) DEFAULT NULL,
+telephone VARCHAR(20) DEFAULT NULL,
+email VARCHAR(50) DEFAULT NULL,
+FOREIGN KEY (customer_id)
+	REFERENCES customer (id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

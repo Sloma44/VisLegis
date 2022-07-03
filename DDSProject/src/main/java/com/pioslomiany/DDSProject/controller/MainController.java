@@ -62,6 +62,7 @@ public class MainController {
 		
 		Customer theCustomer = customerService.getCustomerById(theId);
 		model.addAttribute("customer", theCustomer);
+		model.addAttribute("customerContactInfo", customerService.getCustomerInfo(theCustomer));
 		
 		return "customer-details";
 	}
