@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pioslomiany.DDSProject.entity.CaseIncome;
+import com.pioslomiany.DDSProject.entity.CorrespondenceJournal;
+import com.pioslomiany.DDSProject.entity.CourtHearingAgenda;
 import com.pioslomiany.DDSProject.entity.Customer;
+import com.pioslomiany.DDSProject.entity.CustomerCaseCost;
 import com.pioslomiany.DDSProject.entity.CustomerContactInfo;
 import com.pioslomiany.DDSProject.entity.LawCase;
 import com.pioslomiany.DDSProject.service.CustomerService;
@@ -135,9 +139,17 @@ public class MainController {
 		
 		LawCase theLawCase = customerService.getLawCaseById(theId);
 		Customer theCustomer = theLawCase.getCustomer();
+		List<CaseIncome> caseIncomeList = theLawCase.getCaseIncoms();
+		List<CorrespondenceJournal> theJournal = theLawCase.getCorrespondanceJournal();
+		List<CustomerCaseCost> customerCaseCostList = theLawCase.getCustomerCaseCosts();
+		List<CourtHearingAgenda> courtHearingAgendaList = theLawCase.getCourtHearingAgenda();
 		
 		model.addAttribute("lawCase", theLawCase);
 		model.addAttribute("customer", theCustomer);
+		model.addAttribute("caseIncomes", caseIncomeList);
+		model.addAttribute("journals", theJournal);
+		model.addAttribute("customerCaseCosts", customerCaseCostList);
+		model.addAttribute("courtAgenda", courtHearingAgendaList);
 		
 		return "lawCase-details";
 	}

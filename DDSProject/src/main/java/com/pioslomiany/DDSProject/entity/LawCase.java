@@ -1,12 +1,17 @@
 package com.pioslomiany.DDSProject.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -33,6 +38,18 @@ public class LawCase {
 	@ManyToOne
 	@JoinColumn(name="customerId")
 	private Customer customer;
+	
+	@OneToMany(mappedBy="lawCase", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<CaseIncome> caseIncoms;
+	
+	@OneToMany(mappedBy="lawCase", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<CorrespondenceJournal> correspondanceJournal;
+	
+	@OneToMany(mappedBy="lawCase", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<CustomerCaseCost> customerCaseCosts;
+	
+	@OneToMany(mappedBy="lawCase", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<CourtHearingAgenda> courtHearingAgenda;
 	
 	public LawCase() {
 		
@@ -92,4 +109,39 @@ public class LawCase {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+	public List<CaseIncome> getCaseIncoms() {
+		return caseIncoms;
+	}
+
+	public void setCaseIncoms(List<CaseIncome> caseIncoms) {
+		this.caseIncoms = caseIncoms;
+	}
+
+	public List<CorrespondenceJournal> getCorrespondanceJournal() {
+		return correspondanceJournal;
+	}
+
+	public void setCorrespondanceJournal(List<CorrespondenceJournal> correspondanceJournal) {
+		this.correspondanceJournal = correspondanceJournal;
+	}
+
+	public List<CustomerCaseCost> getCustomerCaseCosts() {
+		return customerCaseCosts;
+	}
+
+	public void setCustomerCaseCosts(List<CustomerCaseCost> customerCaseCosts) {
+		this.customerCaseCosts = customerCaseCosts;
+	}
+
+	public List<CourtHearingAgenda> getCourtHearingAgenda() {
+		return courtHearingAgenda;
+	}
+
+	public void setCourtHearingAgenda(List<CourtHearingAgenda> courtHearingAgenda) {
+		this.courtHearingAgenda = courtHearingAgenda;
+	}
+	
+	
+	
 }

@@ -1,0 +1,3 @@
+INSERT INTO dds_main.customer_case_cost (cost_date, cost_value, cost_comment, case_id) VALUES ('2021-12-18', '5.0', 'list polecony', '1');
+INSERT INTO dds_main.customer_case_cost (cost_date, cost_value, cost_comment, case_id) VALUES ('2022-02-14', '20.25', 'pełnomocnictwo', '12');
+INSERT INTO dds_main.customer_case_cost (cost_date, cost_value, cost_comment, case_id) VALUES ('2022-02-20', '15.85', 'opłata sądowa', '12');
