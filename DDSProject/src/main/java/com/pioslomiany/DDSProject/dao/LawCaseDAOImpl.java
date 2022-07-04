@@ -28,5 +28,19 @@ public class LawCaseDAOImpl {
 		
 		session.saveOrUpdate(lawCase);
 	}
+
+	public void deleteLawCaseById(int theId) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		LawCase lawCase = session.get(LawCase.class, theId);
+		
+		session.delete(lawCase);
+	}
+
+	public LawCase getLawCaseById(int theId) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		return session.get(LawCase.class, theId);
+	}
 	
 }

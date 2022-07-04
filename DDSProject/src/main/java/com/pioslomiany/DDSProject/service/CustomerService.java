@@ -23,5 +23,9 @@ public interface CustomerService {
 	public List<LawCase> getCustomerLawCases(Customer theCustomer);
 
 	public void saveLawCase(Customer theCustomer, LawCase theLawCase);
+
+	public void deleteLawCaseById(int theId);
+
+	public LawCase getLawCaseById(int theId);
 	
 }

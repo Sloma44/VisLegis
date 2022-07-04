@@ -49,9 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
 		customerDAO.deleteCustomerById(theId);
 	}
 	
-	//do usuniecia transactional
 	@Override
-	@Transactional
 	public CustomerContactInfo getCustomerInfo(Customer theCustomer) {
 		return customerContactInfoDAOImpl.getCustomerInfo(theCustomer);
 	}
@@ -73,6 +71,20 @@ public class CustomerServiceImpl implements CustomerService {
 	public void saveLawCase(Customer theCustomer, LawCase theLawCase) {
 		lawCaseDAOImpl.saveLawCase(theCustomer, theLawCase);
 	}
+
+	@Override
+	@Transactional
+	public void deleteLawCaseById(int theId) {
+		lawCaseDAOImpl.deleteLawCaseById(theId);
+		
+	}
+
+	@Override
+	@Transactional
+	public LawCase getLawCaseById(int theId) {
+		return lawCaseDAOImpl.getLawCaseById(theId);
+	}
+	
 	
 	
 	

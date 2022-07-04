@@ -4,30 +4,27 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Customer's details</title>
+		<title>Law case's details</title>
 	</head>
 
 	
 	<body>
-		<h2>Customer's details</h2>
-		<a th:href="@{/dds/list/updateCustomerForm(customerId=${customer.id})}"><input type="button" value="Modify"></a>
-		<a th:href="@{/dds/list/customerDetails/deleteCustomer(customerId=${customer.id})}"><input type="button" value="Delete"></a>
+		<h2>Law case's details</h2>
+		<a th:href="@{/dds/list/customerDetails/updateLawCaseForm(caseId=${lawCase.caseId})}"><input type="button" value="Modify"></a>
+		<a th:href="@{/dds/list/customerDetails/caseDetails/deleteLawCase(caseId=${lawCase.caseId})}"><input type="button" value="Delete"></a>
 		<hr>
-		<h3>Basic info</h3>
+		<h3>Customer info</h3>
 		<p th:text="${customer.id}"></p>
 		<p th:text="${customer.firstName}"></p>
 		<p th:text="${customer.lastName}"></p>
 		<hr>
-		<h3>Contact info</h3>
-		<p th:text="${customerContactInfo.country}"></p>
-		<p th:text="${customerContactInfo.city}"></p>
-		<p th:text="${customerContactInfo.postalCode}"></p>
-		<p th:text="${customerContactInfo.street}"></p>
-		<p th:text="${customerContactInfo.houseNumber}"></p>
-		<p th:text="${customerContactInfo.telephone}"></p>
-		<p th:text="${customerContactInfo.email}"></p>
+		<h3>Law case's details</h3>
+		<p th:text="${lawCase.signature}"></p>
+		<p th:text="${lawCase.caseDescription}"></p>
+		<p th:text="${lawCase.authority}"></p>
+		<p th:text="${lawCase.sort}"></p>
 		<hr>
-		<h3>Customer cases</h3>
+		<!--  <h3>Customer cases</h3>
 		<a th:href="@{/dds/list/customerDetails/saveLawCaseForm(customerId=${customer.id})}"><input type="button" value="Add case"></a>
 		<table>
 			<thead>
@@ -50,7 +47,7 @@
 				</tr>
 			</tbody>
 			
-		</table>
+		</table> -->
 	
 	
 	</body>

@@ -46,9 +46,10 @@ public class MainController {
 	public String updateCustomerForm(@RequestParam("customerId") int theId, Model model) {
 		
 		Customer theCustomer = customerService.getCustomerById(theId);
+		CustomerContactInfo theCustomerContactInfo = customerService.getCustomerInfo(theCustomer);
 		
 		model.addAttribute("customer", theCustomer);
-		model.addAttribute("customerContactInfo", customerService.getCustomerInfo(theCustomer));
+		model.addAttribute("customerContactInfo", theCustomerContactInfo);
 
 		return "save-customer-form";
 	}
@@ -68,9 +69,12 @@ public class MainController {
 	public String customerDetails(@RequestParam("customerId") int theId, Model model) {
 		
 		Customer theCustomer = customerService.getCustomerById(theId);
+		CustomerContactInfo theCustomerContactInfo = customerService.getCustomerInfo(theCustomer);
+		List<LawCase> lawCaseList = customerService.getCustomerLawCases(theCustomer);
+		
 		model.addAttribute("customer", theCustomer);
-		model.addAttribute("customerContactInfo", customerService.getCustomerInfo(theCustomer));
-		model.addAttribute("lawCases", customerService.getCustomerLawCases(theCustomer));
+		model.addAttribute("customerContactInfo", theCustomerContactInfo);
+		model.addAttribute("lawCases", lawCaseList);
 		
 		return "customer-details";
 	}
@@ -85,8 +89,22 @@ public class MainController {
 	@GetMapping("list/customerDetails/saveLawCaseForm")
 	public String saveLawCaseForm(@RequestParam("customerId") int theId, Model model) {
 		
-		model.addAttribute("customer", customerService.getCustomerById(theId));
+		Customer theCustomer = customerService.getCustomerById(theId);
+		
+		model.addAttribute("customer", theCustomer);
 		model.addAttribute("lawCase", new LawCase());
+		
+		return "save-lawCase-form";
+	}
+	
+	@GetMapping("/list/customerDetails/updateLawCaseForm")
+	public String updateLawCaseForm(@RequestParam("caseId") int theId, Model model) {
+		
+		LawCase theLawCase = customerService.getLawCaseById(theId);
+		Customer theCustomer = theLawCase.getCustomer();
+		
+		model.addAttribute("lawCase", theLawCase);
+		model.addAttribute("customer", theCustomer);
 		
 		return "save-lawCase-form";
 	}
@@ -100,5 +118,29 @@ public class MainController {
 		
 		return "redirect:/dds/list";
 	}
+	
+	@GetMapping("list/customerDetails/caseDetails/deleteLawCase")
+	public String deleteLawCase(@RequestParam("caseId") int theId) {
+		
+		LawCase lawCase = customerService.getLawCaseById(theId);
+		int theCustomerId = lawCase.getCustomer().getId();
+		
+		customerService.deleteLawCaseById(theId);
+
+		return "redirect:/dds/list/customerDetails?customerId=" + theCustomerId;
+	}
+	
+	@GetMapping("list/customerDetails/caseDetails")
+	public String caseDetails(@RequestParam("caseId") int theId, Model model) {
+		
+		LawCase theLawCase = customerService.getLawCaseById(theId);
+		Customer theCustomer = theLawCase.getCustomer();
+		
+		model.addAttribute("lawCase", theLawCase);
+		model.addAttribute("customer", theCustomer);
+		
+		return "lawCase-details";
+	}
+	
 	
 }
