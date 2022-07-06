@@ -39,9 +39,9 @@
 			
 			<tbody>
 				<tr th:each="caseIncome : ${caseIncomes}">
-					<td><span th:text="${caseIncome.incomeDate}"> DATE</span></td>
-					<td><span th:text="${caseIncome.incomeValue}"> VALUE</span></td>
-					<td><span th:text="${caseIncome.incomeComment}"> COMMENT</span></td>			
+					<td th:text="${caseIncome.incomeDate}"></td>
+					<td th:text="${caseIncome.incomeValue}"></td>
+					<td th:text="${caseIncome.incomeComment}"></td>			
 				</tr>
 			</tbody>
 		</table>
@@ -62,12 +62,12 @@
 			
 			<tbody>
 				<tr th:each="journal : ${journals}">
-					<td><span th:text="${journal.letterDate}"> DATE</span></td>
-					<td><span th:text="${journal.sort}"> SORT</span></td>
-					<td><span th:text="${journal.internalNumber}"> NUMBER</span></td>
-					<td><span th:text="${journal.recipient}"> RECIPIENT</span></td>			
-					<td><span th:text="${journal.content}"> CONTENT</span></td>			
-					<td><span th:text="${journal.cost}"> COST</span></td>			
+					<td th:text="${journal.letterDate}"></td>
+					<td th:text="${journal.sort}"></td>
+					<td th:text="${journal.internalNumber}"></td>
+					<td th:text="${journal.recipient}"></td>			
+					<td th:text="${journal.content}"></td>			
+					<td th:text="${journal.cost}"></td>			
 				</tr>
 			</tbody>
 		</table>
@@ -85,9 +85,9 @@
 			
 			<tbody>
 				<tr th:each="customerCost : ${customerCaseCosts}">
-					<td><span th:text="${customerCost.costDate}"> DATE</span></td>
-					<td><span th:text="${customerCost.costValue}"> VALUE</span></td>
-					<td><span th:text="${customerCost.costComment}"> COMMENT</span></td>			
+					<td th:text="${customerCost.costDate}"></td>
+					<td th:text="${customerCost.costValue}"></td>
+					<td th:text="${customerCost.costComment}"></td>			
 				</tr>
 			</tbody>
 		</table>
@@ -106,10 +106,10 @@
 			
 			<tbody>
 				<tr th:each="courtHearing : ${courtAgenda}">
-					<td><span th:text="${courtHearing.courtHearingDate}"> DATE</span></td>
-					<td><span th:text="${courtHearing.courtHearingHour}"> HOUR</span></td>
-					<td><span th:text="${courtHearing.place}"> PLACE</span></td>			
-					<td><span th:text="${courtHearing.room}"> ROOM</span></td>			
+					<td th:text="${courtHearing.courtHearingDate}"></td>
+					<td th:text="${courtHearing.courtHearingHour}"></td>
+					<td th:text="${courtHearing.place}"></td>			
+					<td th:text="${courtHearing.room}"></td>			
 				</tr>
 			</tbody>
 		</table>

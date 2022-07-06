@@ -43,7 +43,7 @@ public class LawCase {
 	private List<CaseIncome> caseIncoms;
 	
 	@OneToMany(mappedBy="lawCase", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	private List<CorrespondenceJournal> correspondanceJournal;
+	private List<Letter> correspondanceJournal;
 	
 	@OneToMany(mappedBy="lawCase", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<CustomerCaseCost> customerCaseCosts;
@@ -118,11 +118,11 @@ public class LawCase {
 		this.caseIncoms = caseIncoms;
 	}
 
-	public List<CorrespondenceJournal> getCorrespondanceJournal() {
+	public List<Letter> getCorrespondanceJournal() {
 		return correspondanceJournal;
 	}
 
-	public void setCorrespondanceJournal(List<CorrespondenceJournal> correspondanceJournal) {
+	public void setCorrespondanceJournal(List<Letter> correspondanceJournal) {
 		this.correspondanceJournal = correspondanceJournal;
 	}
 

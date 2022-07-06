@@ -5,6 +5,9 @@
       
 	<head>
 		<title>Save law case</title>
+		
+		
+		
 	</head>
 
 	
@@ -19,8 +22,11 @@
 			<p>Authority: <input type="text" th:value="${lawCase.authority}" name="authority"/></p>
 			<input type="radio" value="Z urzedu" name="sort" th:field="*{sort}">
 			<label>Z urzędu</label>
-			<input type="radio" value="Z wyboru" name="sort" th:field="*{sort}">
+			<input type="radio" id="radioChecked" value="Z wyboru" name="sort" th:field="*{sort}">
 			<label>Z wyboru</label>
+			<script>
+				document.getElementById("radioChecked").setAttribute("checked","checked")
+			</script>
 			
 			<p><input type="submit" value="Submit"/></p>
 		</form>

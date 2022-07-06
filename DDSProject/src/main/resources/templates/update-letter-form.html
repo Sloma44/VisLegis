@@ -1,0 +1,41 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+      
+	<head>
+		<title>Save letter</title>
+	</head>
+
+	
+	<body>
+		<h2>Save letter</h2>
+		<hr>
+		<form action="#" th:action="@{saveLetter}" th:object="${letter}" method="POST">
+			<input type="hidden" th:field="*{id}" name="id"/>
+			
+			<select th:value="${lawCase}" name="caseId">
+				<option th:value="${chosenLawCase.caseId}" th:text="${chosenLawCase.getCustomer.getLastName} + ' - ' + ${chosenLawCase.caseDescription}"></option>
+			    <option th:each="lawCase : ${lawCases}"
+			    		th:value="${lawCase.caseId}"
+			    		th:text="${lawCase.getCustomer.getLastName} + ' - ' + ${lawCase.caseDescription}">
+			    </option>
+			</select>
+			
+			<p>Date: <input type="date" th:field="*{letterDate}"/></p>
+			
+			<input type="radio" value="przychodząca" name="sort" th:field="*{sort}">
+			<label>Przychodząca</label>
+			<input type="radio" value="wychodząca" name="sort" th:field="*{sort}" checked="checked">
+			<label>Wychodząca</label>
+			
+			<p>Internal number: <input type="text" th:field="*{internalNumber}"/></p>
+			<p>Recipient: <input type="text" th:field="*{recipient}"/></p>
+			<p>Content: <input type="text" th:field="*{content}"/></p>
+			<p>Cost: <input type="number" th:field="*{cost}" step="0.01"/></p>
+			<p><input type="submit" value="Submit"/></p>
+		</form>
+		<hr>
+	</body>
+
+</html>

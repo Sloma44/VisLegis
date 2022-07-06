@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pioslomiany.DDSProject.entity.CaseIncome;
-import com.pioslomiany.DDSProject.entity.CorrespondenceJournal;
+import com.pioslomiany.DDSProject.entity.Letter;
 import com.pioslomiany.DDSProject.entity.CourtHearingAgenda;
 import com.pioslomiany.DDSProject.entity.Customer;
 import com.pioslomiany.DDSProject.entity.CustomerCaseCost;
@@ -140,7 +140,7 @@ public class MainController {
 		LawCase theLawCase = customerService.getLawCaseById(theId);
 		Customer theCustomer = theLawCase.getCustomer();
 		List<CaseIncome> caseIncomeList = theLawCase.getCaseIncoms();
-		List<CorrespondenceJournal> theJournal = theLawCase.getCorrespondanceJournal();
+		List<Letter> theJournal = theLawCase.getCorrespondanceJournal();
 		List<CustomerCaseCost> customerCaseCostList = theLawCase.getCustomerCaseCosts();
 		List<CourtHearingAgenda> courtHearingAgendaList = theLawCase.getCourtHearingAgenda();
 		

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="correspondence_journal")
-public class CorrespondenceJournal {
+public class Letter {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -42,11 +42,11 @@ public class CorrespondenceJournal {
 	@JoinColumn(name="caseId")
 	private LawCase lawCase;
 	
-	public CorrespondenceJournal() {
+	public Letter() {
 		
 	}
 
-	public CorrespondenceJournal(int id, Date letterDate, String sort, String internalNumber, String recipient,
+	public Letter(int id, Date letterDate, String sort, String internalNumber, String recipient,
 			String content, double cost, LawCase lawCase) {
 		this.id = id;
 		this.letterDate = letterDate;

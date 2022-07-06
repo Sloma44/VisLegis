@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,14 @@ public class LawCaseDAOImpl {
 
 	@Autowired
 	private EntityManager entityManager;
+	
+	public List<LawCase> getAllLawCases() {
+		Session session = entityManager.unwrap(Session.class);
+		
+		Query<LawCase> query = session.createQuery("FROM LawCase", LawCase.class);
+		
+		return query.getResultList();
+	}
 	
 	public List<LawCase> getCustomerLawCases(Customer theCustomer) {
 		return theCustomer.getLawCases();
