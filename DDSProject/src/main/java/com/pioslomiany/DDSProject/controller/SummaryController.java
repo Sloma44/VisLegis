@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.pioslomiany.DDSProject.entity.Letter;
+import com.pioslomiany.DDSProject.entity.CourtHearing;
 import com.pioslomiany.DDSProject.entity.LawCase;
+import com.pioslomiany.DDSProject.entity.Letter;
+import com.pioslomiany.DDSProject.entity.views.CustomerCaseCourtHearingView;
 import com.pioslomiany.DDSProject.entity.views.CustomerCaseJournalView;
 import com.pioslomiany.DDSProject.service.CustomerService;
 import com.pioslomiany.DDSProject.service.views.CustomerServiceViews;
@@ -28,13 +30,13 @@ public class SummaryController {
 	CustomerServiceViews customerServiceViews;
 	
 	@GetMapping("/letters")
-	public String getSummary(Model model) {
+	public String getLetters(Model model) {
 		
 		List<CustomerCaseJournalView> theCustomerCaseJournalView = customerServiceViews.getAll();
 		
 		model.addAttribute("letters", theCustomerCaseJournalView);
 		
-		return "summary-lists-main";
+		return "summary-letters";
 		
 	}
 	
@@ -74,5 +76,65 @@ public class SummaryController {
 		return "redirect:/dds/summary/letters";
 	}
 	
+	@GetMapping("/letters/deleteLetter")
+	public String deleteLetter(@RequestParam("letterId") int letterId) {
+		
+		customerService.deleteLetterById(letterId);
+		
+		return "redirect:/dds/summary/letters";
+	}
+	
+	@GetMapping("/courtHearings")
+	public String getCourtHearings(Model model) {
+		
+		List<CustomerCaseCourtHearingView> theCourtHearings = customerServiceViews.getAllCourtHearings();
+		
+		model.addAttribute("hearings", theCourtHearings);
+		
+		return "summary-courtHearings";
+	}
+	
+	@GetMapping("/courtHearings/saveHearingForm")
+	public String saveCourtHearingForm(Model model) {
+		
+		List<LawCase> lawCasesList = customerService.getAllLawCases();
+		
+		model.addAttribute("lawCases", lawCasesList);
+		model.addAttribute("hearing", new CourtHearing());
+		
+		return "save-hearing-form";
+	}
+	
+	@GetMapping("/courtHearings/updateHearingForm")
+	public String updateHearingForm(@RequestParam("hearingId") int hearingId, Model model) {
+		
+		CourtHearing theCourtHearing = customerService.getHearingById(hearingId);
+		LawCase theLawCase = theCourtHearing.getLawCase();
+		
+		List<LawCase> lawCasesList = customerService.getAllLawCases();
+		
+		model.addAttribute("lawCases", lawCasesList);
+		model.addAttribute("chosenLawCase", theLawCase);
+		model.addAttribute("hearing", theCourtHearing);
+		
+		return "update-hearing-form";
+	}
+	
+	@PostMapping("/courtHearings/saveHearing")
+	public String saveHearing(@ModelAttribute("hearing") CourtHearing theCourtHearing,
+								@ModelAttribute("lawCase") LawCase theLawCase, Model model) {
+		
+		customerService.saveCourtHearing(theLawCase, theCourtHearing);
+		
+		return "redirect:/dds/summary/courtHearings";
+	}
+	
+	@GetMapping("/courtHearings/deleteHearing")
+	public String deleteHearing(@RequestParam("hearingId") int hearingId) {
+		
+		customerService.deleteHearingById(hearingId);
+		
+		return "redirect:/dds/summary/courtHearings";
+	}
 	
 }

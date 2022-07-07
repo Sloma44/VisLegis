@@ -106,8 +106,8 @@
 			
 			<tbody>
 				<tr th:each="courtHearing : ${courtAgenda}">
-					<td th:text="${courtHearing.courtHearingDate}"></td>
-					<td th:text="${courtHearing.courtHearingHour}"></td>
+					<td th:text="${courtHearing.hearingDate}"></td>
+					<td th:text="${courtHearing.hearingHour}"></td>
 					<td th:text="${courtHearing.place}"></td>			
 					<td th:text="${courtHearing.room}"></td>			
 				</tr>

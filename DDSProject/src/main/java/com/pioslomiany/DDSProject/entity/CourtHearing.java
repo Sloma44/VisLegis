@@ -1,8 +1,5 @@
 package com.pioslomiany.DDSProject.entity;
 
-import java.sql.Date;
-import java.sql.Time;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="court_hearing_agenda")
-public class CourtHearingAgenda {
+public class CourtHearing {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -22,10 +19,10 @@ public class CourtHearingAgenda {
 	private int id;
 	
 	@Column(name="court_hearing_date")
-	private Date courtHearingDate;
+	private String hearingDate;
 	
 	@Column(name="court_hearing_hour")
-	private Time courtHearingHour;
+	private String hearingHour;
 	
 	@Column(name="place")
 	private String place;
@@ -37,15 +34,15 @@ public class CourtHearingAgenda {
 	@JoinColumn(name="caseId")
 	private LawCase lawCase;
 	
-	public CourtHearingAgenda() {
+	public CourtHearing() {
 		
 	}
 
-	public CourtHearingAgenda(int id, Date courtHearingDate, Time courtHearingHour, String place, String room,
+	public CourtHearing(int id, String hearingDate, String hearingHour, String place, String room,
 			LawCase lawCase) {
 		this.id = id;
-		this.courtHearingDate = courtHearingDate;
-		this.courtHearingHour = courtHearingHour;
+		this.hearingDate = hearingDate;
+		this.hearingHour = hearingHour;
 		this.place = place;
 		this.room = room;
 		this.lawCase = lawCase;
@@ -59,20 +56,22 @@ public class CourtHearingAgenda {
 		this.id = id;
 	}
 
-	public Date getCourtHearingDate() {
-		return courtHearingDate;
+	public String getHearingDate() {
+		return hearingDate;
 	}
 
-	public void setCourtHearingDate(Date courtHearingDate) {
-		this.courtHearingDate = courtHearingDate;
+	public void setHearingDate(String hearingDate) {		
+		this.hearingDate = hearingDate;
 	}
 
-	public Time getCourtHearingHour() {
-		return courtHearingHour;
+	public String getHearingHour() {
+
+		return hearingHour;
 	}
 
-	public void setCourtHearingHour(Time courtHearingHour) {
-		this.courtHearingHour = courtHearingHour;
+	public void setHearingHour(String hearingHour) {
+		
+		this.hearingHour = hearingHour;
 	}
 
 	public String getPlace() {

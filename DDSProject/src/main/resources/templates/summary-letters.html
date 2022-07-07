@@ -59,7 +59,7 @@
 					<td th:text="${letter.content}"> </td>	
 					<td th:text="${letter.cost}"></td>
 					<td><a th:href="@{/dds/summary/letters/updateLetterForm(letterId=${letter.letterId})}"><input type="button" value="Modify"></a>
-						<a href="#"><input type="button" value="Delete"></a>
+						<a th:href="@{/dds/summary/letters/deleteLetter(letterId=${letter.letterId})}"><input type="button" value="Delete"></a>
 					</td>
 				</tr>
 			</tbody>

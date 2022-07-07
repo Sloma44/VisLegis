@@ -6,14 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pioslomiany.DDSProject.dao.LetterDAOImpl;
+import com.pioslomiany.DDSProject.dao.CourtHearingDAOImpl;
 import com.pioslomiany.DDSProject.dao.CustomerContactInfoDAOImpl;
 import com.pioslomiany.DDSProject.dao.CustomerDAOImpl;
 import com.pioslomiany.DDSProject.dao.LawCaseDAOImpl;
-import com.pioslomiany.DDSProject.entity.Letter;
+import com.pioslomiany.DDSProject.dao.LetterDAOImpl;
+import com.pioslomiany.DDSProject.entity.CourtHearing;
 import com.pioslomiany.DDSProject.entity.Customer;
 import com.pioslomiany.DDSProject.entity.CustomerContactInfo;
 import com.pioslomiany.DDSProject.entity.LawCase;
+import com.pioslomiany.DDSProject.entity.Letter;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -29,6 +31,9 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
 	private LetterDAOImpl letterDAOImpl;
+	
+	@Autowired
+	private CourtHearingDAOImpl courtHearingDAOImpl;
 	
 	@Override
 	@Transactional
@@ -113,9 +118,30 @@ public class CustomerServiceImpl implements CustomerService {
 	public Letter getLetterById(int letterId) {
 		return letterDAOImpl.getLetterById(letterId);
 	}
-	
-	
-	
-	
-	
+
+	@Override
+	@Transactional
+	public void deleteLetterById(int letterId) {
+		letterDAOImpl.deleteLetter(letterId);
+	}
+
+	@Override
+	@Transactional
+		public void saveCourtHearing(LawCase theLawCase, CourtHearing theCourtHearing) {
+		courtHearingDAOImpl.saveCourtHearing(theLawCase, theCourtHearing);		
+	}
+
+	@Override
+	@Transactional
+	public CourtHearing getHearingById(int hearingId) {
+		return courtHearingDAOImpl.getHearingById(hearingId);
+	}
+
+	@Override
+	@Transactional
+	public void deleteHearingById(int hearingId) {
+		courtHearingDAOImpl.deleteHearingById(hearingId);
+		
+	}
+
 }

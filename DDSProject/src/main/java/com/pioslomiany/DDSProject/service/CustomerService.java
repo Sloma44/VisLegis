@@ -3,6 +3,7 @@ package com.pioslomiany.DDSProject.service;
 import java.util.List;
 
 import com.pioslomiany.DDSProject.entity.Letter;
+import com.pioslomiany.DDSProject.entity.CourtHearing;
 import com.pioslomiany.DDSProject.entity.Customer;
 import com.pioslomiany.DDSProject.entity.CustomerContactInfo;
 import com.pioslomiany.DDSProject.entity.LawCase;
@@ -36,5 +37,13 @@ public interface CustomerService {
 	public void saveLetter(LawCase theLawCase, Letter theLetter);
 
 	public Letter getLetterById(int letterId);
+
+	public void deleteLetterById(int letterId);
+
+	public void saveCourtHearing(LawCase theLawCase, CourtHearing theCourtHearing);
+
+	public CourtHearing getHearingById(int hearingId);
+
+	public void deleteHearingById(int hearingId);
 	
 }

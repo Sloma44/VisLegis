@@ -36,14 +36,21 @@ public class LetterDAOImpl {
 		session.saveOrUpdate(theLetter);
 	}
 
-	public Letter getLetterById(int letterId) {
+	public Letter getLetterById(int theLetterId) {
 		Session session = entityManager.unwrap(Session.class);
 		
-		Letter theLetter = session.get(Letter.class, letterId);
+		Letter theLetter = session.get(Letter.class, theLetterId);
 		
 		return theLetter;
 	}
 	
+	public void deleteLetter(int theLetterId) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		Letter theLetter = session.get(Letter.class, theLetterId);
+		
+		session.delete(theLetter);
+	}
 	
 
 }

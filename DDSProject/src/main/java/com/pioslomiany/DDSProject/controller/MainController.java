@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pioslomiany.DDSProject.entity.CaseIncome;
 import com.pioslomiany.DDSProject.entity.Letter;
-import com.pioslomiany.DDSProject.entity.CourtHearingAgenda;
+import com.pioslomiany.DDSProject.entity.CourtHearing;
 import com.pioslomiany.DDSProject.entity.Customer;
 import com.pioslomiany.DDSProject.entity.CustomerCaseCost;
 import com.pioslomiany.DDSProject.entity.CustomerContactInfo;
@@ -142,14 +142,14 @@ public class MainController {
 		List<CaseIncome> caseIncomeList = theLawCase.getCaseIncoms();
 		List<Letter> theJournal = theLawCase.getCorrespondanceJournal();
 		List<CustomerCaseCost> customerCaseCostList = theLawCase.getCustomerCaseCosts();
-		List<CourtHearingAgenda> courtHearingAgendaList = theLawCase.getCourtHearingAgenda();
+		List<CourtHearing> courtHearingList = theLawCase.getCourtHearing();
 		
 		model.addAttribute("lawCase", theLawCase);
 		model.addAttribute("customer", theCustomer);
 		model.addAttribute("caseIncomes", caseIncomeList);
 		model.addAttribute("journals", theJournal);
 		model.addAttribute("customerCaseCosts", customerCaseCostList);
-		model.addAttribute("courtAgenda", courtHearingAgendaList);
+		model.addAttribute("courtAgenda", courtHearingList);
 		
 		return "lawCase-details";
 	}

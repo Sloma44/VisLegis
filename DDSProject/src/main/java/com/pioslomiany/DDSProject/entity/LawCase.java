@@ -49,7 +49,7 @@ public class LawCase {
 	private List<CustomerCaseCost> customerCaseCosts;
 	
 	@OneToMany(mappedBy="lawCase", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	private List<CourtHearingAgenda> courtHearingAgenda;
+	private List<CourtHearing> courtHearings;
 	
 	public LawCase() {
 		
@@ -134,12 +134,12 @@ public class LawCase {
 		this.customerCaseCosts = customerCaseCosts;
 	}
 
-	public List<CourtHearingAgenda> getCourtHearingAgenda() {
-		return courtHearingAgenda;
+	public List<CourtHearing> getCourtHearing() {
+		return courtHearings;
 	}
 
-	public void setCourtHearingAgenda(List<CourtHearingAgenda> courtHearingAgenda) {
-		this.courtHearingAgenda = courtHearingAgenda;
+	public void setCourtHearing(List<CourtHearing> courtHearings) {
+		this.courtHearings = courtHearings;
 	}
 	
 	

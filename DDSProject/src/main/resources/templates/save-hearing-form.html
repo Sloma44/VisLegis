@@ -1,0 +1,33 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+      
+	<head>
+		<title>Save court hearing</title>
+	</head>
+
+	
+	<body>
+		<h2>Save court hearing</h2>
+		<hr>
+		<form action="#" th:action="@{saveHearing}" th:object="${hearing}" method="POST">
+			<input type="hidden" th:field="*{id}" name="id"/>
+			
+			<select th:value="${lawCase}" name="caseId">
+				<option th:each="lawCase : ${lawCases}"
+			    		th:value="${lawCase.caseId}"
+			    		th:text="${lawCase.getCustomer.getLastName} + ' - ' + ${lawCase.caseDescription}">
+			    </option>
+			</select>
+			
+			<p>Date: <input type="date" th:field="*{hearingDate}"/></p>
+			<p>Hour: <input type="time" th:field="*{hearingHour}"/></p>
+			<p>Place: <input type="text" th:field="*{place}"/></p>
+			<p>Room: <input type="text" th:field="*{room}"/></p>
+			<p><input type="submit" value="Submit"/></p>
+		</form>
+		<hr>
+	</body>
+
+</html>

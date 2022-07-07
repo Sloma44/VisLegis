@@ -25,8 +25,12 @@
 			
 			<input type="radio" value="przychodząca" name="sort" th:field="*{sort}">
 			<label>Przychodząca</label>
-			<input type="radio" value="wychodząca" name="sort" th:field="*{sort}" checked="checked">
+			<input type="radio" id="radioChecked" value="wychodząca" name="sort" th:field="*{sort}" checked="checked">
 			<label>Wychodząca</label>
+			<script>
+				document.getElementById("radioChecked").setAttribute("checked","checked")
+			</script>
+			
 			
 			<p>Internal number: <input type="text" th:field="*{internalNumber}"/></p>
 			<p>Recipient: <input type="text" th:field="*{recipient}"/></p>

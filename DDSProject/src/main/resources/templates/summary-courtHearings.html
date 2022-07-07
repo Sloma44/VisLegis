@@ -1,0 +1,153 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+      
+	<head>
+		<title>Court hearing agenda</title>
+	</head>
+
+	
+	<body>
+		<h3>Court hearing agenda</h3>
+		<a th:href="@{/dds/summary/courtHearings/saveHearingForm}"> <input type="button" value="Add"></a>
+		<table>
+			<thead>
+				<tr>
+					<th>Customer first name</th>
+					<th>Customer last name</th>
+					<th>Case description</th>
+					<th>Date</th>
+					<th>Hour</th>
+					<th>Place</th>
+					<th>Room</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="hearing : ${hearings}">
+					<td th:text="${hearing.firstName}"></td>
+					<td th:text="${hearing.lastName}"></td>
+					<td th:text="${hearing.caseDescription}"></td>
+					<td th:text="${hearing.hearingDate}"></td>	
+					<td th:text="${hearing.hearingHour}"></td>	
+					<td th:text="${hearing.place}"></td>	
+					<td th:text="${hearing.room}"></td>	
+					<td><a th:href="@{/dds/summary/courtHearings/updateHearingForm(hearingId=${hearing.id})}"><input type="button" value="Modify"></a>
+						<a th:href="@{/dds/summary/courtHearings/deleteHearing(hearingId=${hearing.id})}"><input type="button" value="Delete"></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr>
+		
+		<!--
+		<h3>Case correspondence journal</h3>
+		<a th:href="@{/dds/summary/journal/saveLetterForm}"> <input type="button" value="Add"></a>
+		<table>
+			<thead>
+				<tr>
+					<th>Customer first name</th>
+					<th>Customer last name</th>
+					<th>Case description</th>
+					<th>letter date</th>
+					<th>Sort</th>
+					<th>Internal number</th>
+					<th>Recipient</th>
+					<th>Content</th>
+					<th>Cost</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="journalen : ${journalsMix}">
+					<td><span th:text="${journalen.firstName}"> FIRST NAME</span></td>
+					<td><span th:text="${journalen.lastName}"> LAST NAME</span></td>
+					<td><span th:text="${journalen.caseDescription}"> DESCRIPTION</span></td>
+					<td><span th:text="${journalen.letterDate}"> LETTER DATE</span></td>	
+					<td><span th:text="${journalen.sort}"> SORT</span></td>	
+					<td><span th:text="${journalen.internalNumber}"> INTERNAL NUMBER</span></td>	
+					<td><span th:text="${journalen.recipient}"> RECIPIENT</span></td>	
+					<td><span th:text="${journalen.content}"> CONTENT</span></td>	
+					<td><span th:text="${journalen.cost}"> COST</span></td>	
+				</tr>
+			</tbody>
+		</table>
+		<hr>
+		
+		
+		
+		
+		
+		<h3>Case correspondence journal</h3>
+		<a th:href="@{/dds/summary/journal/saveLetterForm}"> <input type="button" value="Add"></a>
+		<table>
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Sort</th>
+					<th>Internal number</th>
+					<th>Recipient</th>
+					<th>Content</th>
+					<th>Cost</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="journal : ${journals}">
+					<td><span th:text="${journal.letterDate}"> DATE</span></td>
+					<td><span th:text="${journal.sort}"> SORT</span></td>
+					<td><span th:text="${journal.internalNumber}"> NUMBER</span></td>
+					<td><span th:text="${journal.recipient}"> RECIPIENT</span></td>			
+					<td><span th:text="${journal.content}"> CONTENT</span></td>			
+					<td><span th:text="${journal.cost}"> COST</span></td>			
+				</tr>
+			</tbody>
+		</table>
+		<hr>
+		
+		<h3>Customer Case Costs</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Value</th>
+					<th>Comment</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="customerCost : ${customerCaseCosts}">
+					<td><span th:text="${customerCost.costDate}"> DATE</span></td>
+					<td><span th:text="${customerCost.costValue}"> VALUE</span></td>
+					<td><span th:text="${customerCost.costComment}"> COMMENT</span></td>			
+				</tr>
+			</tbody>
+		</table>
+		<hr>-->
+		
+		<!--<h3>Customer Case court Hearing Agenda</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Hour</th>
+					<th>Place</th>
+					<th>room</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="courtHearing : ${courtAgenda}">
+					<td><span th:text="${courtHearing.courtHearingDate}"> DATE</span></td>
+					<td><span th:text="${courtHearing.courtHearingHour}"> HOUR</span></td>
+					<td><span th:text="${courtHearing.place}"> PLACE</span></td>			
+					<td><span th:text="${courtHearing.room}"> ROOM</span></td>			
+				</tr>
+			</tbody>
+		</table>-->
+	
+	</body>
+
+</html>

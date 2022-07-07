@@ -11,7 +11,7 @@
 	<body>
 		<h2>Save letter</h2>
 		<hr>
-		<form action="#" th:action="@{saveLetter}" th:object="${letter}" method="POST">
+		<form action="#" th:action="@{saveHearing}" th:object="${hearing}" method="POST">
 			
 			<select th:value="${lawCase}" name="caseId">
 				<option th:value="${chosenLawCase.caseId}" th:text="${chosenLawCase.getCustomer.getLastName} + ' - ' + ${chosenLawCase.caseDescription}"></option>
@@ -21,17 +21,10 @@
 			    </option>
 			</select>
 			
-			<p>Date: <input type="date" th:field="*{letterDate}"/></p>
-			
-			<input type="radio" value="przychodząca" name="sort" th:field="*{sort}">
-			<label>Przychodząca</label>
-			<input type="radio" value="wychodząca" name="sort" th:field="*{sort}" checked="checked">
-			<label>Wychodząca</label>
-			
-			<p>Internal number: <input type="text" th:field="*{internalNumber}"/></p>
-			<p>Recipient: <input type="text" th:field="*{recipient}"/></p>
-			<p>Content: <input type="text" th:field="*{content}"/></p>
-			<p>Cost: <input type="number" th:field="*{cost}" step="0.01"/></p>
+			<p>Date: <input type="date" th:field="*{hearingDate}"/></p>
+			<p>Hour: <input type="time" th:field="*{hearingHour}"/></p>
+			<p>Place: <input type="text" th:field="*{place}"/></p>
+			<p>Room: <input type="text" th:field="*{room}"/></p>
 			<p><input type="submit" value="Submit"/></p>
 		</form>
 		<hr>
