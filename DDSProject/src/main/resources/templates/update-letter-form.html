@@ -12,7 +12,7 @@
 		<h2>Save letter</h2>
 		<hr>
 		<form action="#" th:action="@{saveLetter}" th:object="${letter}" method="POST">
-			
+			<input type="hidden" th:value="${letter.id}" name="id"/>
 			<select th:value="${lawCase}" name="caseId">
 				<option th:value="${chosenLawCase.caseId}" th:text="${chosenLawCase.getCustomer.getLastName} + ' - ' + ${chosenLawCase.caseDescription}"></option>
 			    <option th:each="lawCase : ${lawCases}"
