@@ -24,6 +24,9 @@ public class CustomerCaseCourtHearingView {
 	@Column(name="case_id")
 	private int caseId;
 	
+	@Column(name="signature")
+	private String signature;
+	
 	@Column(name="case_description")
 	private String caseDescription;
 	
@@ -61,6 +64,10 @@ public class CustomerCaseCourtHearingView {
 
 	public int getCaseId() {
 		return caseId;
+	}
+	
+	public String getSignature() {
+		return signature;
 	}
 
 	public String getCaseDescription() {

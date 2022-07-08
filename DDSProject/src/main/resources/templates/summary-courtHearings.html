@@ -16,6 +16,7 @@
 				<tr>
 					<th>Customer first name</th>
 					<th>Customer last name</th>
+					<th>Signature</th>
 					<th>Case description</th>
 					<th>Date</th>
 					<th>Hour</th>
@@ -29,6 +30,7 @@
 				<tr th:each="hearing : ${hearings}">
 					<td th:text="${hearing.firstName}"></td>
 					<td th:text="${hearing.lastName}"></td>
+					<td th:text="${hearing.signature}"></td>
 					<td th:text="${hearing.caseDescription}"></td>
 					<td th:text="${hearing.hearingDate}"></td>	
 					<td th:text="${hearing.hearingHour}"></td>	
