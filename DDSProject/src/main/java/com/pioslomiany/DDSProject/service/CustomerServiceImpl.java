@@ -6,13 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pioslomiany.DDSProject.dao.CaseIncomeDAOImpl;
 import com.pioslomiany.DDSProject.dao.CourtHearingDAOImpl;
+import com.pioslomiany.DDSProject.dao.CustomerCaseCostDAOImpl;
 import com.pioslomiany.DDSProject.dao.CustomerContactInfoDAOImpl;
 import com.pioslomiany.DDSProject.dao.CustomerDAOImpl;
 import com.pioslomiany.DDSProject.dao.LawCaseDAOImpl;
 import com.pioslomiany.DDSProject.dao.LetterDAOImpl;
+import com.pioslomiany.DDSProject.entity.CaseIncome;
 import com.pioslomiany.DDSProject.entity.CourtHearing;
 import com.pioslomiany.DDSProject.entity.Customer;
+import com.pioslomiany.DDSProject.entity.CustomerCaseCost;
 import com.pioslomiany.DDSProject.entity.CustomerContactInfo;
 import com.pioslomiany.DDSProject.entity.LawCase;
 import com.pioslomiany.DDSProject.entity.Letter;
@@ -34,6 +38,12 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
 	private CourtHearingDAOImpl courtHearingDAOImpl;
+	
+	@Autowired
+	private CaseIncomeDAOImpl caseIncomeDAOImpl;
+	
+	@Autowired
+	private CustomerCaseCostDAOImpl customerCaseCostDAOImpl;
 	
 	@Override
 	@Transactional
@@ -103,8 +113,8 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	@Transactional
-	public List<Letter> getLetters() {
-		return letterDAOImpl.getLetters();
+	public List<Letter> getLetters(LawCase theLawCase) {
+		return letterDAOImpl.getLetters(theLawCase);
 	}
 
 	@Override
@@ -130,6 +140,12 @@ public class CustomerServiceImpl implements CustomerService {
 		public void saveCourtHearing(LawCase theLawCase, CourtHearing theCourtHearing) {
 		courtHearingDAOImpl.saveCourtHearing(theLawCase, theCourtHearing);		
 	}
+	
+	@Override
+	@Transactional
+	public List<CourtHearing> getAllCaseCourtHearing(LawCase theLawCase) {
+		return courtHearingDAOImpl.getAllCaseCourtHearing(theLawCase);
+	}
 
 	@Override
 	@Transactional
@@ -140,8 +156,54 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	@Transactional
 	public void deleteHearingById(int hearingId) {
-		courtHearingDAOImpl.deleteHearingById(hearingId);
-		
+		courtHearingDAOImpl.deleteHearingById(hearingId);	
 	}
 
+	@Override
+	@Transactional
+	public void saveCaseIncome(LawCase theLawCase, CaseIncome theCaseIncome) {
+		caseIncomeDAOImpl.saveCaseIncome(theLawCase, theCaseIncome);
+	}
+
+	@Override
+	@Transactional
+	public CaseIncome getCaseIncomeById(int incomeId) {
+		return caseIncomeDAOImpl.getCaseIncomeById(incomeId);
+	}
+
+	@Override
+	@Transactional
+	public void deleteCaseIncomeById(int incomeId) {
+		caseIncomeDAOImpl.deleteCaseIncomeById(incomeId);
+	}
+
+	@Override
+	@Transactional
+	public List<CaseIncome> getAllCaseIncomes(LawCase theLawCase) {
+		return caseIncomeDAOImpl.getAllCaseIncomes(theLawCase);
+	}
+
+	@Override
+	@Transactional
+	public List<CustomerCaseCost> getAllCustomerCaseCosts(LawCase theLawCase) {
+		return customerCaseCostDAOImpl.getAllCustomerCaseCosts(theLawCase);
+	}
+
+	@Override
+	@Transactional
+	public void saveCustomerCaseCost(LawCase theLawCase, CustomerCaseCost theCustomerCaseCost) {
+		customerCaseCostDAOImpl.saveCustomerCaseCost(theLawCase, theCustomerCaseCost);
+	}
+
+	@Override
+	@Transactional
+	public CustomerCaseCost getCustomerCaseCostById(int customerCaseCostId) {
+		return customerCaseCostDAOImpl.getCustomerCaseCostById(customerCaseCostId);
+	}
+
+	@Override
+	@Transactional
+	public void deleteCustomerCaseCostById(int customerCaseCostId) {
+		customerCaseCostDAOImpl.deleteCustomerCaseCostById(customerCaseCostId);
+	}
 }

@@ -9,47 +9,45 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.pioslomiany.DDSProject.entity.Letter;
+import com.pioslomiany.DDSProject.entity.CaseIncome;
 import com.pioslomiany.DDSProject.entity.LawCase;
 
 @Repository
-public class LetterDAOImpl {
+public class CaseIncomeDAOImpl {
 	
 	@Autowired
 	EntityManager entityManager;
-
-	public List<Letter> getLetters(LawCase theLawCase) {
+	
+	public List<CaseIncome> getAllCaseIncomes(LawCase theLawCase) {
 		Session session = entityManager.unwrap(Session.class);
-		
-		Query<Letter> query = session.createQuery("FROM Letter AS c WHERE c.lawCase = :lawCase ORDER BY c.letterDate", Letter.class);
+
+		Query<CaseIncome> query = session.createQuery("FROM CaseIncome c WHERE c.lawCase = :lawCase ORDER BY c.incomeDate", CaseIncome.class);
 		query.setParameter("lawCase", theLawCase);
+		
 		
 		return query.getResultList();
 	}
-
-	public void saveLetter(LawCase theLawCase, Letter theLetter) {
-		Session session = entityManager.unwrap(Session.class);
-		
-		theLetter.setLawCase(theLawCase);
-		
-		session.saveOrUpdate(theLetter);
-	}
-
-	public Letter getLetterById(int theLetterId) {
-		Session session = entityManager.unwrap(Session.class);
-		
-		Letter theLetter = session.get(Letter.class, theLetterId);
-		
-		return theLetter;
-	}
 	
-	public void deleteLetter(int theLetterId) {
+	public void saveCaseIncome(LawCase theLawCase, CaseIncome theCaseIncome) {
 		Session session = entityManager.unwrap(Session.class);
 		
-		Letter theLetter = session.get(Letter.class, theLetterId);
+		theCaseIncome.setLawCase(theLawCase);
 		
-		session.delete(theLetter);
+		session.saveOrUpdate(theCaseIncome);
 	}
-	
+
+	public CaseIncome getCaseIncomeById(int incomeId) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		return session.get(CaseIncome.class, incomeId);
+	}
+
+	public void deleteCaseIncomeById(int incomeId) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		CaseIncome theCaseIncome = session.get(CaseIncome.class, incomeId);
+		
+		session.delete(theCaseIncome);
+	}
 
 }

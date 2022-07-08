@@ -1,7 +1,5 @@
 package com.pioslomiany.DDSProject.entity;
 
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +19,7 @@ public class CaseIncome {
 	private int id;
 	
 	@Column(name="income_date")
-	private Date incomeDate;
+	private String incomeDate;
 	
 	@Column(name="income_value")
 	private double incomeValue;
@@ -37,7 +35,7 @@ public class CaseIncome {
 		
 	}
 
-	public CaseIncome(int id, Date incomeDate, double incomeValue, String incomeComment, LawCase lawCase) {
+	public CaseIncome(int id, String incomeDate, double incomeValue, String incomeComment, LawCase lawCase) {
 		this.id = id;
 		this.incomeDate = incomeDate;
 		this.incomeValue = incomeValue;
@@ -53,11 +51,11 @@ public class CaseIncome {
 		this.id = id;
 	}
 
-	public Date getIncomeDate() {
+	public String getIncomeDate() {
 		return incomeDate;
 	}
 
-	public void setIncomeDate(Date incomeDate) {
+	public void setIncomeDate(String incomeDate) {
 		this.incomeDate = incomeDate;
 	}
 

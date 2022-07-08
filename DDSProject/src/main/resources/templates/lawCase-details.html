@@ -28,12 +28,14 @@
 		<hr>
 		
 		<h3>Case incomes</h3>
+		<a th:href="@{/dds/list/customerDetails/caseDetails/saveIncomeForm(caseId=${lawCase.caseId})}"><input type="button" value="Add"></a>
 		<table>
 			<thead>
 				<tr>
 					<th>Date</th>
 					<th>Value</th>
 					<th>Comment</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			
@@ -41,7 +43,10 @@
 				<tr th:each="caseIncome : ${caseIncomes}">
 					<td th:text="${caseIncome.incomeDate}"></td>
 					<td th:text="${caseIncome.incomeValue}"></td>
-					<td th:text="${caseIncome.incomeComment}"></td>			
+					<td th:text="${caseIncome.incomeComment}"></td>
+					<td><a th:href="@{/dds/list/customerDetails/caseDetails/updateIncomeForm(incomeId=${caseIncome.id})}"><input type="button" value="Modify"></a>
+						<a th:href="@{/dds/list/customerDetails/caseDetails/deleteIncome(incomeId=${caseIncome.id})}"><input type="button" value="Delete"></a>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -74,12 +79,14 @@
 		<hr>
 		
 		<h3>Customer Case Costs</h3>
+		<a th:href="@{/dds/list/customerDetails/caseDetails/saveCustomerCaseCostForm(caseId=${lawCase.caseId})}"><input type="button" value="Add"></a>
 		<table>
 			<thead>
 				<tr>
 					<th>Date</th>
 					<th>Value</th>
 					<th>Comment</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			
@@ -87,20 +94,25 @@
 				<tr th:each="customerCost : ${customerCaseCosts}">
 					<td th:text="${customerCost.costDate}"></td>
 					<td th:text="${customerCost.costValue}"></td>
-					<td th:text="${customerCost.costComment}"></td>			
+					<td th:text="${customerCost.costComment}"></td>
+					<td><a th:href="@{/dds/list/customerDetails/caseDetails/updateCustomerCaseCostForm(customerCaseCostId=${customerCost.id})}"><input type="button" value="Modify"></a>
+						<a th:href="@{/dds/list/customerDetails/caseDetails/deleteCustomerCaseCost(customerCaseCostId=${customerCost.id})}"><input type="button" value="Delete"></a>
+					</td>
 				</tr>
 			</tbody>
 		</table>
 		<hr>
 		
 		<h3>Customer Case court Hearing Agenda</h3>
+		<a th:href="@{/dds/list/customerDetails/caseDetails/saveCourtHearingForm(caseId=${lawCase.caseId})}"><input type="button" value="Add"></a>
 		<table>
 			<thead>
 				<tr>
 					<th>Date</th>
 					<th>Hour</th>
 					<th>Place</th>
-					<th>room</th>
+					<th>Room</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			
@@ -109,7 +121,10 @@
 					<td th:text="${courtHearing.hearingDate}"></td>
 					<td th:text="${courtHearing.hearingHour}"></td>
 					<td th:text="${courtHearing.place}"></td>			
-					<td th:text="${courtHearing.room}"></td>			
+					<td th:text="${courtHearing.room}"></td>
+					<td><a th:href="@{/dds/list/customerDetails/caseDetails/updateCourtHearingForm(courtHearingId=${courtHearing.id})}"><input type="button" value="Modify"></a>
+						<a th:href="@{/dds/list/customerDetails/caseDetails/deleteCourtHearing(courtHearingId=${courtHearing.id})}"><input type="button" value="Delete"></a>
+					</td>			
 				</tr>
 			</tbody>
 		</table>

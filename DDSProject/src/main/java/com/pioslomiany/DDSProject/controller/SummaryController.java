@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pioslomiany.DDSProject.entity.CaseIncome;
 import com.pioslomiany.DDSProject.entity.CourtHearing;
 import com.pioslomiany.DDSProject.entity.LawCase;
 import com.pioslomiany.DDSProject.entity.Letter;
 import com.pioslomiany.DDSProject.entity.views.CustomerCaseCourtHearingView;
+import com.pioslomiany.DDSProject.entity.views.CustomerCaseIncomeView;
 import com.pioslomiany.DDSProject.entity.views.CustomerCaseJournalView;
 import com.pioslomiany.DDSProject.service.CustomerService;
 import com.pioslomiany.DDSProject.service.views.CustomerServiceViews;
@@ -135,6 +137,59 @@ public class SummaryController {
 		customerService.deleteHearingById(hearingId);
 		
 		return "redirect:/dds/summary/courtHearings";
+	}
+	
+	@GetMapping("/incomes")
+	public String getIncomes(Model model) {
+		
+		List<CustomerCaseIncomeView> customerCaseIncomeView = customerServiceViews.getAllIncomes();
+		
+		model.addAttribute("incomes", customerCaseIncomeView);
+		
+		return "summary-incomes";
+	}
+	
+	@GetMapping("incomes/saveIncomeForm")
+	public String saveIncomeForm(Model model) {
+		
+		List<LawCase> lawCasesList = customerService.getAllLawCases();
+		
+		model.addAttribute("lawCases", lawCasesList);
+		model.addAttribute("income", new CaseIncome());
+		
+		return "save-income-form";
+	}
+	
+	@GetMapping("incomes/updateIncomeForm")
+	public String updateIncomeForm(@RequestParam("incomeId") int incomeId, Model model) {
+		
+		CaseIncome theIncome = customerService.getCaseIncomeById(incomeId);
+		LawCase theLawCase = theIncome.getLawCase();
+		
+		List<LawCase> lawCasesList = customerService.getAllLawCases();
+		
+		model.addAttribute("lawCases", lawCasesList);
+		model.addAttribute("chosenLawCase", theLawCase);
+		model.addAttribute("income", theIncome);
+		
+		return "update-income-form";
+	}
+	
+	@PostMapping("/incomes/saveIncome")
+	public String saveIncome(@ModelAttribute("income") CaseIncome theCaseIncome,
+								@ModelAttribute("lawCase") LawCase theLawCase, Model model) {
+		
+		customerService.saveCaseIncome(theLawCase, theCaseIncome);
+		
+		return "redirect:/dds/summary/incomes";
+	}
+	
+	@GetMapping("/incomes/deleteIncome")
+	public String deleteIncome(@RequestParam("incomeId") int incomeId) {
+		
+		customerService.deleteCaseIncomeById(incomeId);
+		
+		return "redirect:/dds/summary/incomes";
 	}
 	
 }

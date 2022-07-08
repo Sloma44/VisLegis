@@ -139,10 +139,10 @@ public class MainController {
 		
 		LawCase theLawCase = customerService.getLawCaseById(theId);
 		Customer theCustomer = theLawCase.getCustomer();
-		List<CaseIncome> caseIncomeList = theLawCase.getCaseIncoms();
-		List<Letter> theJournal = theLawCase.getCorrespondanceJournal();
-		List<CustomerCaseCost> customerCaseCostList = theLawCase.getCustomerCaseCosts();
-		List<CourtHearing> courtHearingList = theLawCase.getCourtHearing();
+		List<CaseIncome> caseIncomeList = customerService.getAllCaseIncomes(theLawCase);
+		List<Letter> theJournal = customerService.getLetters(theLawCase);
+		List<CustomerCaseCost> customerCaseCostList = customerService.getAllCustomerCaseCosts(theLawCase);
+		List<CourtHearing> courtHearingList = customerService.getAllCaseCourtHearing(theLawCase);
 		
 		model.addAttribute("lawCase", theLawCase);
 		model.addAttribute("customer", theCustomer);
@@ -153,6 +153,160 @@ public class MainController {
 		
 		return "lawCase-details";
 	}
+
 	
+//	Operations on Income, CustomerCaseCost, CourtHearings
+	
+//	Income
+	
+	@GetMapping("list/customerDetails/caseDetails/saveIncomeForm")
+	public String saveIncomeForm(@RequestParam("caseId") int theId, Model model) {
+		
+		LawCase theLawCase = customerService.getLawCaseById(theId);
+		Customer theCustomer = theLawCase.getCustomer();
+		
+		model.addAttribute("lawCase", theLawCase);
+		model.addAttribute("customer", theCustomer);
+		model.addAttribute("income", new CaseIncome());
+
+		return "save-income-form-by-customer";
+	}
+	
+	@GetMapping("list/customerDetails/caseDetails/updateIncomeForm")
+	public String updateIncomeForm(@RequestParam("incomeId") int incomeId, Model model) {
+		
+		CaseIncome theCaseIncome = customerService.getCaseIncomeById(incomeId);
+		LawCase theLawCase = theCaseIncome.getLawCase();		
+		Customer theCustomer = theLawCase.getCustomer();
+		
+		model.addAttribute("lawCase", theLawCase);
+		model.addAttribute("customer", theCustomer);
+		model.addAttribute("income", theCaseIncome);
+		
+		return "save-income-form-by-customer";
+	}
+	
+	@PostMapping("list/customerDetails/caseDetails/saveIncome")
+	public String saveIncome(@ModelAttribute("lawCase") LawCase theLawCase,
+							@ModelAttribute("income") CaseIncome theCaseIncome, Model model) {
+		
+		customerService.saveCaseIncome(theLawCase, theCaseIncome);
+		
+		int caseId = theLawCase.getCaseId();
+		
+		return "redirect:/dds/list/customerDetails/caseDetails?caseId=" + caseId;
+	}
+	
+	@GetMapping("list/customerDetails/caseDetails/deleteIncome")
+	public String deleteIncome(@RequestParam("incomeId") int incomeId, Model model) {
+		
+		int caseId = customerService.getCaseIncomeById(incomeId).getLawCase().getCaseId();
+		
+		customerService.deleteCaseIncomeById(incomeId);
+		
+		return "redirect:/dds/list/customerDetails/caseDetails?caseId=" + caseId;
+	}
+	
+	
+//	CustomerCaseCost
+	
+	@GetMapping("list/customerDetails/caseDetails/saveCustomerCaseCostForm")
+	public String saveCustomerCaseCostForm(@RequestParam("caseId") int theId, Model model) {
+		
+		LawCase theLawCase = customerService.getLawCaseById(theId);
+		Customer theCustomer = theLawCase.getCustomer();
+		
+		model.addAttribute("lawCase", theLawCase);
+		model.addAttribute("customer", theCustomer);
+		model.addAttribute("customerCaseCost", new CustomerCaseCost());
+
+		return "save-customerCaseCost-form-by-customer";
+	}
+	
+	@GetMapping("list/customerDetails/caseDetails/updateCustomerCaseCostForm")
+	public String updateCustomerCaseCostForm(@RequestParam("customerCaseCostId") int customerCaseCostId, Model model) {
+		
+		CustomerCaseCost theCustomerCaseCost = customerService.getCustomerCaseCostById(customerCaseCostId);
+		LawCase theLawCase = theCustomerCaseCost.getLawCase();		
+		Customer theCustomer = theLawCase.getCustomer();
+		
+		model.addAttribute("lawCase", theLawCase);
+		model.addAttribute("customer", theCustomer);
+		model.addAttribute("customerCaseCost", theCustomerCaseCost);
+		
+		return "save-customerCaseCost-form-by-customer";
+	}
+	
+	@PostMapping("list/customerDetails/caseDetails/saveCustomerCaseCost")
+	public String saveCustomerCaseCost(@ModelAttribute("lawCase") LawCase theLawCase,
+							@ModelAttribute("customerCaseCost") CustomerCaseCost theCustomerCaseCost, Model model) {
+		
+		customerService.saveCustomerCaseCost(theLawCase, theCustomerCaseCost);
+		
+		int caseId = theLawCase.getCaseId();
+		
+		return "redirect:/dds/list/customerDetails/caseDetails?caseId=" + caseId;
+	}
+	
+	@GetMapping("list/customerDetails/caseDetails/deleteCustomerCaseCost")
+	public String deleteCustomerCaseCost(@RequestParam("customerCaseCostId") int customerCaseCostId, Model model) {
+		
+		int caseId = customerService.getCustomerCaseCostById(customerCaseCostId).getLawCase().getCaseId();
+		
+		customerService.deleteCustomerCaseCostById(customerCaseCostId);
+		
+		return "redirect:/dds/list/customerDetails/caseDetails?caseId=" + caseId;
+	}
+	
+	
+//	CourtHearings
+	
+	@GetMapping("list/customerDetails/caseDetails/saveCourtHearingForm")
+	public String saveCourtHearingForm(@RequestParam("caseId") int theId, Model model) {
+		
+		LawCase theLawCase = customerService.getLawCaseById(theId);
+		Customer theCustomer = theLawCase.getCustomer();
+		
+		model.addAttribute("lawCase", theLawCase);
+		model.addAttribute("customer", theCustomer);
+		model.addAttribute("courtHearing", new CourtHearing());
+
+		return "save-courtHearing-form-by-customer";
+	}
+	
+	@GetMapping("list/customerDetails/caseDetails/updateCourtHearingForm")
+	public String updateCourtHearingForm(@RequestParam("courtHearingId") int courtHearingId, Model model) {
+		
+		CourtHearing theCourtHearing = customerService.getHearingById(courtHearingId);
+		LawCase theLawCase = theCourtHearing.getLawCase();		
+		Customer theCustomer = theLawCase.getCustomer();
+		
+		model.addAttribute("lawCase", theLawCase);
+		model.addAttribute("customer", theCustomer);
+		model.addAttribute("courtHearing", theCourtHearing);
+		
+		return "save-courtHearing-form-by-customer";
+	}
+	
+	@PostMapping("list/customerDetails/caseDetails/saveCourtHearing")
+	public String saveCourtHearing(@ModelAttribute("lawCase") LawCase theLawCase,
+							@ModelAttribute("courtHearing") CourtHearing theCourtHearing, Model model) {
+		
+		customerService.saveCourtHearing(theLawCase, theCourtHearing);
+		
+		int caseId = theLawCase.getCaseId();
+		
+		return "redirect:/dds/list/customerDetails/caseDetails?caseId=" + caseId;
+	}
+	
+	@GetMapping("list/customerDetails/caseDetails/deleteCourtHearing")
+	public String deleteCourtHearing(@RequestParam("courtHearingId") int courtHearingId, Model model) {
+		
+		int caseId = customerService.getHearingById(courtHearingId).getLawCase().getCaseId();
+		
+		customerService.deleteHearingById(courtHearingId);
+		
+		return "redirect:/dds/list/customerDetails/caseDetails?caseId=" + caseId;
+	}
 	
 }

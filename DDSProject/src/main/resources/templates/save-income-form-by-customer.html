@@ -1,0 +1,31 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+      
+	<head>
+		<title>Save case income</title>
+		
+		
+		
+	</head>
+
+	
+	<body>
+		<h2>Save case income</h2>
+		<hr>
+		<p th:text="${customer.firstName} + ' ' + ${customer.lastName}"></p>
+		<p th:text="${lawCase.caseDescription}"></p>
+		<form action="#" th:action="@{saveIncome}" th:object="${income}" method="POST">
+			<input type="hidden" th:value="${lawCase.caseId}" name="caseId"/>
+			<input type="hidden" th:value="${income.id}" name="id"/>
+			<p>Date: <input type="date" th:value="${income.incomeDate}" name="incomeDate"/></p>
+			<p>Value: <input type="number" step="0.01" th:value="${income.incomeValue}" name="incomeValue"/></p>
+			<p>Comment: <input type="text" th:value="${income.incomeComment}" name="incomeComment"/></p>
+			
+			<p><input type="submit" value="Submit"/></p>
+		</form>
+
+	</body>
+
+</html>
