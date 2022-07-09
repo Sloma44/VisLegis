@@ -39,12 +39,6 @@ public class Customer {
 	public Customer() {
 		
 	}
-	
-	public Customer(int id, String firstName, String lastName) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
 
 	public int getId() {
 		return id;
@@ -85,7 +79,4 @@ public class Customer {
 	public void setLawCases(List<LawCase> lawCases) {
 		this.lawCases = lawCases;
 	}
-
-	
-	
 }

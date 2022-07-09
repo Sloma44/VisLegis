@@ -7,6 +7,13 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Immutable;
 
+/* Entity for MySQL VIEW
+ * It combines Tables of: 'customer', 'law_case' and 'court_hearing_agenda'.
+ * It is used to display full table of all court hearings with additional information:
+ * customer first name ('customer'), last name ('customer'),
+ * case signature('law_case') and case description('law_case').
+ */
+
 @Entity
 @Immutable
 @Table(name="customer_case_court_hearing")
@@ -32,7 +39,7 @@ public class CustomerCaseCourtHearingView {
 	
 	@Id
 	@Column(name="hearing_id")
-	private int id;
+	private int hearingId;
 	
 	@Column(name="court_hearing_date")
 	private String hearingDate;
@@ -45,10 +52,6 @@ public class CustomerCaseCourtHearingView {
 	
 	@Column(name="room")
 	private String room;
-	
-	public CustomerCaseCourtHearingView() {
-		
-	}
 
 	public String getCustomerId() {
 		return customerId;
@@ -74,8 +77,8 @@ public class CustomerCaseCourtHearingView {
 		return caseDescription;
 	}
 
-	public int getId() {
-		return id;
+	public int getHearingId() {
+		return hearingId;
 	}
 
 	public String getHearingDate() {
@@ -83,7 +86,6 @@ public class CustomerCaseCourtHearingView {
 	}
 
 	public String getHearingHour() {
-		
 		return hearingHour;
 	}
 

@@ -8,10 +8,9 @@ import com.pioslomiany.DDSProject.entity.views.CustomerCaseJournalView;
 
 public interface CustomerServiceViews {
 	
-	public List<CustomerCaseJournalView> getAll();
+	public List<CustomerCaseJournalView> getAllJournals();
 	
 	public List<CustomerCaseCourtHearingView> getAllCourtHearings();
 	
 	public List<CustomerCaseIncomeView> getAllIncomes();
-
 }

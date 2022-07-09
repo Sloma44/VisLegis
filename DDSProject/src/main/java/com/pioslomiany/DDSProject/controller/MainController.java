@@ -27,16 +27,51 @@ public class MainController {
 	@Autowired
 	private CustomerService customerService;
 	
+	
+	/* List of all customers
+	 * On this page you can:
+	 * 	- read full list of all customer
+	 * 	- add new customer (first name, last name and all other customer info),
+	 * 	- go to the specific customer details
+	 */
 	@GetMapping("/list")
 	public String getCustomersList(Model model) {
 
-		List<Customer> customerList = customerService.getAll();
+		List<Customer> customerList = customerService.getAllCustomers();
 		
 		model.addAttribute("customers", customerList);	
 		
 		return "list-view";
 	}
+
 	
+	
+	/* Specific customer details
+	 * On this page you can:
+	 * 	- read all specified customer informations,
+	 * 	- read all law cases of specified customer
+	 * 	- modify customer (first name, last name)
+	 * 	- modify customer informations
+	 * 	- delete customer
+	 * 	- add new law case,
+	 * 	- go to specific law case details
+	 */
+	@GetMapping("/list/customerDetails")
+	public String customerDetails(@RequestParam("customerId") int theId, Model model) {
+		
+		Customer theCustomer = customerService.getCustomerById(theId);
+		CustomerContactInfo theCustomerContactInfo = customerService.getCustomerInfo(theCustomer);
+		List<LawCase> lawCaseList = customerService.getCustomerLawCases(theCustomer);
+		
+		model.addAttribute("customer", theCustomer);
+		model.addAttribute("customerContactInfo", theCustomerContactInfo);
+		model.addAttribute("lawCases", lawCaseList);
+		
+		return "customer-details";
+	}
+	
+	
+//	Actions (CRUD) on Customer and CustomerContactInfo entities
 	@GetMapping("list/saveCustomerForm")
 	public String saveCustomerForm(Model model) {
 		
@@ -60,27 +95,13 @@ public class MainController {
 	
 	@PostMapping("/list/saveCustomer")
 	public String saveCustomer(@ModelAttribute("customer") Customer theCustomer,
-								@ModelAttribute("customerContactInfo") CustomerContactInfo theCustomerContactInfo,
-								Model model) {
+			@ModelAttribute("customerContactInfo") CustomerContactInfo theCustomerContactInfo,
+			Model model) {
 		
 		customerService.saveCustomer(theCustomer);
 		customerService.saveCustomerContactInfo(theCustomer, theCustomerContactInfo);
 		
 		return "redirect:/dds/list";
-	}
-	
-	@GetMapping("/list/customerDetails")
-	public String customerDetails(@RequestParam("customerId") int theId, Model model) {
-		
-		Customer theCustomer = customerService.getCustomerById(theId);
-		CustomerContactInfo theCustomerContactInfo = customerService.getCustomerInfo(theCustomer);
-		List<LawCase> lawCaseList = customerService.getCustomerLawCases(theCustomer);
-		
-		model.addAttribute("customer", theCustomer);
-		model.addAttribute("customerContactInfo", theCustomerContactInfo);
-		model.addAttribute("lawCases", lawCaseList);
-		
-		return "customer-details";
 	}
 	
 	@GetMapping("/list/customerDetails/deleteCustomer")
@@ -90,6 +111,43 @@ public class MainController {
 		return "redirect:/dds/list";
 	}
 	
+	
+
+	
+	
+	/* Specific law case details
+	 * On this page you can:
+	 * 	- read customer info,
+	 * 	- read law case info (of specified customer)
+	 * 	- read case: all incomes, correspondence (letters), customer costs and hearing
+	 * 	- modify law case
+	 * 	- delete law case
+	 * 	- add new / modify / delete income for case
+	 * 	- add new / modify / delete customer cost for case
+	 * 	- add new / modify / delete court hearing for case
+	 */
+	@GetMapping("list/customerDetails/caseDetails")
+	public String caseDetails(@RequestParam("caseId") int theId, Model model) {
+		
+		LawCase theLawCase = customerService.getLawCaseById(theId);
+		Customer theCustomer = theLawCase.getCustomer();
+		List<CaseIncome> caseIncomeList = customerService.getAllCaseIncomes(theLawCase);
+		List<Letter> theJournal = customerService.getLawCaseLetters(theLawCase);
+		List<CustomerCaseCost> customerCaseCostList = customerService.getAllCustomerCaseCosts(theLawCase);
+		List<CourtHearing> courtHearingList = customerService.getAllCaseCourtHearings(theLawCase);
+		
+		model.addAttribute("lawCase", theLawCase);
+		model.addAttribute("customer", theCustomer);
+		model.addAttribute("caseIncomes", caseIncomeList);
+		model.addAttribute("journals", theJournal);
+		model.addAttribute("customerCaseCosts", customerCaseCostList);
+		model.addAttribute("courtAgenda", courtHearingList);
+		
+		return "lawCase-details";
+	}
+
+	
+//	Actions (CRUD) on LawCase entity
 	@GetMapping("list/customerDetails/saveLawCaseForm")
 	public String saveLawCaseForm(@RequestParam("customerId") int theId, Model model) {
 		
@@ -134,31 +192,11 @@ public class MainController {
 		return "redirect:/dds/list/customerDetails?customerId=" + theCustomerId;
 	}
 	
-	@GetMapping("list/customerDetails/caseDetails")
-	public String caseDetails(@RequestParam("caseId") int theId, Model model) {
-		
-		LawCase theLawCase = customerService.getLawCaseById(theId);
-		Customer theCustomer = theLawCase.getCustomer();
-		List<CaseIncome> caseIncomeList = customerService.getAllCaseIncomes(theLawCase);
-		List<Letter> theJournal = customerService.getLetters(theLawCase);
-		List<CustomerCaseCost> customerCaseCostList = customerService.getAllCustomerCaseCosts(theLawCase);
-		List<CourtHearing> courtHearingList = customerService.getAllCaseCourtHearing(theLawCase);
-		
-		model.addAttribute("lawCase", theLawCase);
-		model.addAttribute("customer", theCustomer);
-		model.addAttribute("caseIncomes", caseIncomeList);
-		model.addAttribute("journals", theJournal);
-		model.addAttribute("customerCaseCosts", customerCaseCostList);
-		model.addAttribute("courtAgenda", courtHearingList);
-		
-		return "lawCase-details";
-	}
-
 	
-//	Operations on Income, CustomerCaseCost, CourtHearings
+	
+//	Actions on Income, CustomerCaseCost, CourtHearings
 	
 //	Income
-	
 	@GetMapping("list/customerDetails/caseDetails/saveIncomeForm")
 	public String saveIncomeForm(@RequestParam("caseId") int theId, Model model) {
 		
@@ -209,7 +247,6 @@ public class MainController {
 	
 	
 //	CustomerCaseCost
-	
 	@GetMapping("list/customerDetails/caseDetails/saveCustomerCaseCostForm")
 	public String saveCustomerCaseCostForm(@RequestParam("caseId") int theId, Model model) {
 		
@@ -260,7 +297,6 @@ public class MainController {
 	
 	
 //	CourtHearings
-	
 	@GetMapping("list/customerDetails/caseDetails/saveCourtHearingForm")
 	public String saveCourtHearingForm(@RequestParam("caseId") int theId, Model model) {
 		

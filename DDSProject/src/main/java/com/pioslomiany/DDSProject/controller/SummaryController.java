@@ -31,15 +31,21 @@ public class SummaryController {
 	@Autowired
 	CustomerServiceViews customerServiceViews;
 	
+	// Letters
+	/*Actions (CRUD) on Letters entity
+		View is generated using MySQL VIEW and it combine Customer, LawCase and Letter entities.
+		To generate view new entity was created - CustomerCaseJournalView.
+		All actions are made only on Letter entity.
+	*/
+	
 	@GetMapping("/letters")
 	public String getLetters(Model model) {
 		
-		List<CustomerCaseJournalView> theCustomerCaseJournalView = customerServiceViews.getAll();
+		List<CustomerCaseJournalView> theCustomerCaseJournalView = customerServiceViews.getAllJournals();
 		
 		model.addAttribute("letters", theCustomerCaseJournalView);
 		
 		return "summary-letters";
-		
 	}
 	
 	@GetMapping("letters/saveLetterForm")
@@ -50,7 +56,6 @@ public class SummaryController {
 		model.addAttribute("lawCases", lawCasesList);
 		model.addAttribute("letter", new Letter());
 		
-		
 		return "save-letter-form";
 	}
 	
@@ -58,8 +63,7 @@ public class SummaryController {
 	public String updateLetterForm(@RequestParam("letterId") int letterId, Model model) {
 		
 		Letter theLetter = customerService.getLetterById(letterId);
-		LawCase theLawCase = theLetter.getLawCase();
-		
+		LawCase theLawCase = theLetter.getLawCase();		
 		List<LawCase> lawCasesList = customerService.getAllLawCases();
 		
 		model.addAttribute("lawCases", lawCasesList);
@@ -85,6 +89,14 @@ public class SummaryController {
 		
 		return "redirect:/dds/summary/letters";
 	}
+	
+	
+	// CourtHearing
+	/*Actions (CRUD) on CourtHearing entity
+		View is generated using MySQL VIEW and it combine Customer, LawCase and CourtHearing.
+		To generate view new entity was created - CustomerCaseCourtHearingView.
+		All actions are made only on CourtHearing entity.
+	*/
 	
 	@GetMapping("/courtHearings")
 	public String getCourtHearings(Model model) {
@@ -112,7 +124,6 @@ public class SummaryController {
 		
 		CourtHearing theCourtHearing = customerService.getHearingById(hearingId);
 		LawCase theLawCase = theCourtHearing.getLawCase();
-		
 		List<LawCase> lawCasesList = customerService.getAllLawCases();
 		
 		model.addAttribute("lawCases", lawCasesList);
@@ -138,6 +149,14 @@ public class SummaryController {
 		
 		return "redirect:/dds/summary/courtHearings";
 	}
+	
+	
+	// CaseIncome
+	/*Actions (CRUD) on CaseIncome entity
+		View is generated using MySQL VIEW and it combine Customer, LawCase and CaseIncome.
+		To generate view new entity was created - CustomerCaseIncomeView.
+		All actions are made only on CaseIncome entity.
+	*/
 	
 	@GetMapping("/incomes")
 	public String getIncomes(Model model) {
@@ -165,7 +184,6 @@ public class SummaryController {
 		
 		CaseIncome theIncome = customerService.getCaseIncomeById(incomeId);
 		LawCase theLawCase = theIncome.getLawCase();
-		
 		List<LawCase> lawCasesList = customerService.getAllLawCases();
 		
 		model.addAttribute("lawCases", lawCasesList);

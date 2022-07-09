@@ -46,18 +46,6 @@ public class Letter {
 		
 	}
 
-	public Letter(int id, Date letterDate, String sort, String internalNumber, String recipient,
-			String content, double cost, LawCase lawCase) {
-		this.id = id;
-		this.letterDate = letterDate;
-		this.sort = sort;
-		this.internalNumber = internalNumber;
-		this.recipient = recipient;
-		this.content = content;
-		this.cost = cost;
-		this.lawCase = lawCase;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -121,7 +109,4 @@ public class Letter {
 	public void setLawCase(LawCase lawCase) {
 		this.lawCase = lawCase;
 	}
-
-	
-	
 }

@@ -18,6 +18,7 @@ public class CourtHearingDAOImpl {
 	@Autowired
 	private EntityManager entityManager;
 	
+//	provide a full list of court hearing for the specific LawCase sorted by date and hour
 	public List<CourtHearing> getAllCaseCourtHearing(LawCase theLawCase) {
 		Session session = entityManager.unwrap(Session.class);
 		
@@ -28,6 +29,14 @@ public class CourtHearingDAOImpl {
 		return query.getResultList();
 	}
 
+	public CourtHearing getHearingById(int hearingId) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		CourtHearing theCourtHearing = session.get(CourtHearing.class, hearingId);
+		
+		return theCourtHearing;
+	}
+	
 	public void saveCourtHearing(LawCase theLawCase, CourtHearing theCourtHearing) {
 		Session session = entityManager.unwrap(Session.class);
 		
@@ -36,13 +45,6 @@ public class CourtHearingDAOImpl {
 		session.saveOrUpdate(theCourtHearing);
 	}
 
-	public CourtHearing getHearingById(int hearingId) {
-		Session session = entityManager.unwrap(Session.class);
-		
-		CourtHearing theCourtHearing = session.get(CourtHearing.class, hearingId);
-		
-		return theCourtHearing;
-	}
 
 	public void deleteHearingById(int hearingId) {
 		Session session = entityManager.unwrap(Session.class);
@@ -51,5 +53,4 @@ public class CourtHearingDAOImpl {
 		
 		session.delete(theCourtHearing);	
 	}
-
 }

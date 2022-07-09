@@ -12,58 +12,70 @@ import com.pioslomiany.DDSProject.entity.Letter;
 
 public interface CustomerService {
 	
-	public List<Customer> getAll();
-
-	public void saveCustomer(Customer theCustomer);
+//	Customer entity
+	public List<Customer> getAllCustomers();
 
 	public Customer getCustomerById(int theId);
+	
+	public void saveCustomer(Customer theCustomer);
 
 	public void deleteCustomerById(int theId);
 
+	
+//	CustomerContactInfo entity
 	public CustomerContactInfo getCustomerInfo(Customer theCustomer);
 
 	public void saveCustomerContactInfo(Customer theCustomer, CustomerContactInfo theCustomerContactInfo);
 	
+	
+//	LawCase entity
 	public List<LawCase> getAllLawCases();
 
 	public List<LawCase> getCustomerLawCases(Customer theCustomer);
+
+	public LawCase getLawCaseById(int theId);
 
 	public void saveLawCase(Customer theCustomer, LawCase theLawCase);
 
 	public void deleteLawCaseById(int theId);
 
-	public LawCase getLawCaseById(int theId);
-
-	public List<Letter> getLetters(LawCase theLawCase);
-
-	public void saveLetter(LawCase theLawCase, Letter theLetter);
+	
+//	Letter entity
+	public List<Letter> getLawCaseLetters(LawCase theLawCase);
 
 	public Letter getLetterById(int letterId);
+	
+	public void saveLetter(LawCase theLawCase, Letter theLetter);
 
 	public void deleteLetterById(int letterId);
 
-	public void saveCourtHearing(LawCase theLawCase, CourtHearing theCourtHearing);
-
+	
+//	CourtHearing entity
+	public List<CourtHearing> getAllCaseCourtHearings(LawCase theLawCase);
+	
 	public CourtHearing getHearingById(int hearingId);
+	
+	public void saveCourtHearing(LawCase theLawCase, CourtHearing theCourtHearing);
 
 	public void deleteHearingById(int hearingId);
 
-	public void saveCaseIncome(LawCase theLawCase, CaseIncome theCaseIncome);
-
+	
+//	CaseIncome entity
+	public List<CaseIncome> getAllCaseIncomes(LawCase theLawCase);
+	
 	public CaseIncome getCaseIncomeById(int incomeId);
+	
+	public void saveCaseIncome(LawCase theLawCase, CaseIncome theCaseIncome);
 
 	public void deleteCaseIncomeById(int incomeId);
 
-	public List<CaseIncome> getAllCaseIncomes(LawCase theLawCase);
 	
+//	CustomerCaseCost entity
 	public List<CustomerCaseCost> getAllCustomerCaseCosts(LawCase theLawCase);
+	
+	public CustomerCaseCost getCustomerCaseCostById(int customerCaseCostId);
 	
 	public void saveCustomerCaseCost(LawCase theLawCase, CustomerCaseCost theCustomerCaseCost);
 
-	public CustomerCaseCost getCustomerCaseCostById(int customerCaseCostId);
-
 	public void deleteCustomerCaseCostById(int customerCaseCostId);
-
-	public List<CourtHearing> getAllCaseCourtHearing(LawCase theLawCase);
-	
 }

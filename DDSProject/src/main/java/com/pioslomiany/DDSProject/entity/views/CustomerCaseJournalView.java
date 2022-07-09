@@ -9,6 +9,13 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Immutable;
 
+/* Entity for MySQL VIEW
+ * It combines Tables of: 'customer', 'law_case' and 'correspondence_journal'.
+ * It is used to display full table of all correspondence with additional information:
+ * customer first name ('customer'), last name ('customer'),
+ * and case description('law_case').
+ */
+
 @Entity
 @Immutable
 @Table(name="customer_case_journal")
@@ -51,10 +58,6 @@ public class CustomerCaseJournalView {
 	
 	@Column(name="cost")
 	private double cost;
-	
-	public CustomerCaseJournalView() {
-		
-	}
 
 	public int getCustomerId() {
 		return customerId;
@@ -103,6 +106,4 @@ public class CustomerCaseJournalView {
 	public double getCost() {
 		return cost;
 	}
-
-	
 }

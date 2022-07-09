@@ -27,8 +27,8 @@ public class CustomerServiceViewsImpl implements CustomerServiceViews {
 	
 	@Override
 	@Transactional
-	public List<CustomerCaseJournalView> getAll() {
-		return customerCaseJournalViewDAO.getAll();
+	public List<CustomerCaseJournalView> getAllJournals() {
+		return customerCaseJournalViewDAO.getAllJournals();
 	}
 
 	@Override

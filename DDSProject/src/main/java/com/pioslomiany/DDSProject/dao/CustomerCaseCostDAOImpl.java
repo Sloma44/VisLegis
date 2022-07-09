@@ -18,6 +18,7 @@ public class CustomerCaseCostDAOImpl {
 	@Autowired
 	EntityManager entityManager;
 	
+//	provide a full list of customers costs for the specific LawCase sorted by date
 	public List<CustomerCaseCost> getAllCustomerCaseCosts(LawCase theLawCase) {
 		Session session = entityManager.unwrap(Session.class);
 		
@@ -25,6 +26,12 @@ public class CustomerCaseCostDAOImpl {
 		query.setParameter("lawCase", theLawCase);
 		
 		return query.getResultList();
+	}
+	
+	public CustomerCaseCost getCustomerCaseCostById(int customerCaseCostId) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		return session.get(CustomerCaseCost.class, customerCaseCostId);
 	}
 	
 	public void saveCustomerCaseCost(LawCase theLawCase, CustomerCaseCost theCustomerCaseCost) {
@@ -35,12 +42,6 @@ public class CustomerCaseCostDAOImpl {
 		session.saveOrUpdate(theCustomerCaseCost);
 	}
 
-	public CustomerCaseCost getCustomerCaseCostById(int customerCaseCostId) {
-		Session session = entityManager.unwrap(Session.class);
-		
-		return session.get(CustomerCaseCost.class, customerCaseCostId);
-	}
-
 	public void deleteCustomerCaseCostById(int customerCaseCostId) {
 		Session session = entityManager.unwrap(Session.class);
 		
@@ -48,5 +49,4 @@ public class CustomerCaseCostDAOImpl {
 		
 		session.delete(theCustomerCaseCost);
 	}
-
 }

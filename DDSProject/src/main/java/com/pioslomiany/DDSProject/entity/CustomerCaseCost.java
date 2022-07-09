@@ -37,14 +37,6 @@ public class CustomerCaseCost {
 		
 	}
 
-	public CustomerCaseCost(int id, Date costDate, double costValue, String costComment, LawCase lawCase) {
-		this.id = id;
-		this.costDate = costDate;
-		this.costValue = costValue;
-		this.costComment = costComment;
-		this.lawCase = lawCase;
-	}
-
 	public int getId() {
 		return id;
 	}

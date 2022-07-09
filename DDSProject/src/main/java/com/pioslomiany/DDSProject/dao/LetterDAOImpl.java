@@ -18,7 +18,8 @@ public class LetterDAOImpl {
 	@Autowired
 	EntityManager entityManager;
 
-	public List<Letter> getLetters(LawCase theLawCase) {
+//	provide a full list of correspondence (letters) for the specific LawCase sorted by date
+	public List<Letter> getLawCaseLetters(LawCase theLawCase) {
 		Session session = entityManager.unwrap(Session.class);
 		
 		Query<Letter> query = session.createQuery("FROM Letter AS c WHERE c.lawCase = :lawCase ORDER BY c.letterDate", Letter.class);
@@ -50,6 +51,4 @@ public class LetterDAOImpl {
 		
 		session.delete(theLetter);
 	}
-	
-
 }

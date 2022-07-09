@@ -30,6 +30,12 @@ public class LawCaseDAOImpl {
 		return theCustomer.getLawCases();
 	}
 	
+	public LawCase getLawCaseById(int theId) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		return session.get(LawCase.class, theId);
+	}
+	
 	public void saveLawCase(Customer theCustomer, LawCase lawCase) {
 		Session session = entityManager.unwrap(Session.class);
 		
@@ -45,11 +51,4 @@ public class LawCaseDAOImpl {
 		
 		session.delete(lawCase);
 	}
-
-	public LawCase getLawCaseById(int theId) {
-		Session session = entityManager.unwrap(Session.class);
-		
-		return session.get(LawCase.class, theId);
-	}
-	
 }

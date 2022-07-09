@@ -35,14 +35,6 @@ public class CaseIncome {
 		
 	}
 
-	public CaseIncome(int id, String incomeDate, double incomeValue, String incomeComment, LawCase lawCase) {
-		this.id = id;
-		this.incomeDate = incomeDate;
-		this.incomeValue = incomeValue;
-		this.incomeComment = incomeComment;
-		this.lawCase = lawCase;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -82,7 +74,4 @@ public class CaseIncome {
 	public void setLawCase(LawCase lawCase) {
 		this.lawCase = lawCase;
 	}
-	
-	
-	
 }

@@ -17,10 +17,11 @@ public class CustomerCaseJournalViewDAOImpl {
 	@Autowired
 	EntityManager entityManger;
 
-	public List<CustomerCaseJournalView> getAll() {
+	public List<CustomerCaseJournalView> getAllJournals() {
 		Session session = entityManger.unwrap(Session.class);
 		
-		Query<CustomerCaseJournalView> query = session.createQuery("FROM CustomerCaseJournalView AS c ORDER BY c.letterDate", CustomerCaseJournalView.class);
+		Query<CustomerCaseJournalView> query = session.createQuery("FROM CustomerCaseJournalView AS c ORDER BY c.letterDate",
+																	CustomerCaseJournalView.class);
 			
 		return query.getResultList();
 	}

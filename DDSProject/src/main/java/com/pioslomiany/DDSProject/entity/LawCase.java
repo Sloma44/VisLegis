@@ -55,13 +55,6 @@ public class LawCase {
 		
 	}
 
-	public LawCase(String signature, String caseDescription, String authority, Customer customer) {
-		this.signature = signature;
-		this.caseDescription = caseDescription;
-		this.authority = authority;
-		this.customer = customer;
-	}
-
 	public int getCaseId() {
 		return caseId;
 	}
@@ -141,7 +134,4 @@ public class LawCase {
 	public void setCourtHearing(List<CourtHearing> courtHearings) {
 		this.courtHearings = courtHearings;
 	}
-	
-	
-	
 }

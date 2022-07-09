@@ -28,27 +28,35 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerDAOImpl customerDAO;
 	
 	@Autowired
-	private CustomerContactInfoDAOImpl customerContactInfoDAOImpl;
+	private CustomerContactInfoDAOImpl customerContactInfoDAO;
 	
 	@Autowired
-	private LawCaseDAOImpl lawCaseDAOImpl;
+	private LawCaseDAOImpl lawCaseDAO;
 	
 	@Autowired
-	private LetterDAOImpl letterDAOImpl;
+	private LetterDAOImpl letterDAO;
 	
 	@Autowired
-	private CourtHearingDAOImpl courtHearingDAOImpl;
+	private CourtHearingDAOImpl courtHearingDAO;
 	
 	@Autowired
-	private CaseIncomeDAOImpl caseIncomeDAOImpl;
+	private CaseIncomeDAOImpl caseIncomeDAO;
 	
 	@Autowired
-	private CustomerCaseCostDAOImpl customerCaseCostDAOImpl;
+	private CustomerCaseCostDAOImpl customerCaseCostDAO;
+	
+	
+//	Customer entity
+	@Override
+	@Transactional
+	public List<Customer> getAllCustomers() {
+		return customerDAO.getAllCustomers();
+	}
 	
 	@Override
 	@Transactional
-	public List<Customer> getAll() {
-		return customerDAO.getAll();
+	public Customer getCustomerById(int theId) {
+		return customerDAO.getCustomerById(theId);
 	}
 	
 	@Override
@@ -59,151 +67,157 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	@Transactional
-	public Customer getCustomerById(int theId) {
-		return customerDAO.getCustomerById(theId);
-	}
-
-	@Override
-	@Transactional
 	public void deleteCustomerById(int theId) {
 		customerDAO.deleteCustomerById(theId);
 	}
 	
+	
+//	CustomerContactInfo entity
 	@Override
 	public CustomerContactInfo getCustomerInfo(Customer theCustomer) {
-		return customerContactInfoDAOImpl.getCustomerInfo(theCustomer);
+		return customerContactInfoDAO.getCustomerInfo(theCustomer);
 	}
 
 	@Override
 	@Transactional
 	public void saveCustomerContactInfo(Customer theCustomer, CustomerContactInfo theCustomerContactInfo) {
-		customerContactInfoDAOImpl.saveCustomerContactInfo(theCustomer, theCustomerContactInfo);
+		customerContactInfoDAO.saveCustomerContactInfo(theCustomer, theCustomerContactInfo);
 	}
 
+	
+//	LawCase entity
 	@Override
 	@Transactional
 	public List<LawCase> getAllLawCases() {
-		return lawCaseDAOImpl.getAllLawCases();
+		return lawCaseDAO.getAllLawCases();
 	}
 
 	@Override
 	@Transactional
 	public List<LawCase> getCustomerLawCases(Customer theCustomer) {
-		return lawCaseDAOImpl.getCustomerLawCases(theCustomer);
-	}
-
-	@Override
-	@Transactional
-	public void saveLawCase(Customer theCustomer, LawCase theLawCase) {
-		lawCaseDAOImpl.saveLawCase(theCustomer, theLawCase);
-	}
-
-	@Override
-	@Transactional
-	public void deleteLawCaseById(int theId) {
-		lawCaseDAOImpl.deleteLawCaseById(theId);
-		
+		return lawCaseDAO.getCustomerLawCases(theCustomer);
 	}
 
 	@Override
 	@Transactional
 	public LawCase getLawCaseById(int theId) {
-		return lawCaseDAOImpl.getLawCaseById(theId);
+		return lawCaseDAO.getLawCaseById(theId);
+	}
+	
+	@Override
+	@Transactional
+	public void saveLawCase(Customer theCustomer, LawCase theLawCase) {
+		lawCaseDAO.saveLawCase(theCustomer, theLawCase);
 	}
 
 	@Override
 	@Transactional
-	public List<Letter> getLetters(LawCase theLawCase) {
-		return letterDAOImpl.getLetters(theLawCase);
+	public void deleteLawCaseById(int theId) {
+		lawCaseDAO.deleteLawCaseById(theId);
+		
 	}
 
+
+//	Letter entity
 	@Override
 	@Transactional
-	public void saveLetter(LawCase theLawCase, Letter theLetter) {
-		letterDAOImpl.saveLetter(theLawCase, theLetter);
+	public List<Letter> getLawCaseLetters(LawCase theLawCase) {
+		return letterDAO.getLawCaseLetters(theLawCase);
 	}
 
 	@Override
 	@Transactional
 	public Letter getLetterById(int letterId) {
-		return letterDAOImpl.getLetterById(letterId);
+		return letterDAO.getLetterById(letterId);
+	}
+	
+	@Override
+	@Transactional
+	public void saveLetter(LawCase theLawCase, Letter theLetter) {
+		letterDAO.saveLetter(theLawCase, theLetter);
 	}
 
 	@Override
 	@Transactional
 	public void deleteLetterById(int letterId) {
-		letterDAOImpl.deleteLetter(letterId);
+		letterDAO.deleteLetter(letterId);
 	}
 
+	
+//	CourtHearing entity
 	@Override
 	@Transactional
-		public void saveCourtHearing(LawCase theLawCase, CourtHearing theCourtHearing) {
-		courtHearingDAOImpl.saveCourtHearing(theLawCase, theCourtHearing);		
+	public List<CourtHearing> getAllCaseCourtHearings(LawCase theLawCase) {
+		return courtHearingDAO.getAllCaseCourtHearing(theLawCase);
 	}
 	
 	@Override
 	@Transactional
-	public List<CourtHearing> getAllCaseCourtHearing(LawCase theLawCase) {
-		return courtHearingDAOImpl.getAllCaseCourtHearing(theLawCase);
+	public CourtHearing getHearingById(int hearingId) {
+		return courtHearingDAO.getHearingById(hearingId);
 	}
-
+	
 	@Override
 	@Transactional
-	public CourtHearing getHearingById(int hearingId) {
-		return courtHearingDAOImpl.getHearingById(hearingId);
+		public void saveCourtHearing(LawCase theLawCase, CourtHearing theCourtHearing) {
+		courtHearingDAO.saveCourtHearing(theLawCase, theCourtHearing);		
 	}
-
+	
 	@Override
 	@Transactional
 	public void deleteHearingById(int hearingId) {
-		courtHearingDAOImpl.deleteHearingById(hearingId);	
+		courtHearingDAO.deleteHearingById(hearingId);	
 	}
 
+	
+//	CaseIncome entity
 	@Override
 	@Transactional
-	public void saveCaseIncome(LawCase theLawCase, CaseIncome theCaseIncome) {
-		caseIncomeDAOImpl.saveCaseIncome(theLawCase, theCaseIncome);
+	public List<CaseIncome> getAllCaseIncomes(LawCase theLawCase) {
+		return caseIncomeDAO.getAllCaseIncomes(theLawCase);
 	}
-
+	
 	@Override
 	@Transactional
 	public CaseIncome getCaseIncomeById(int incomeId) {
-		return caseIncomeDAOImpl.getCaseIncomeById(incomeId);
+		return caseIncomeDAO.getCaseIncomeById(incomeId);
+	}
+	
+	@Override
+	@Transactional
+	public void saveCaseIncome(LawCase theLawCase, CaseIncome theCaseIncome) {
+		caseIncomeDAO.saveCaseIncome(theLawCase, theCaseIncome);
 	}
 
 	@Override
 	@Transactional
 	public void deleteCaseIncomeById(int incomeId) {
-		caseIncomeDAOImpl.deleteCaseIncomeById(incomeId);
+		caseIncomeDAO.deleteCaseIncomeById(incomeId);
 	}
 
-	@Override
-	@Transactional
-	public List<CaseIncome> getAllCaseIncomes(LawCase theLawCase) {
-		return caseIncomeDAOImpl.getAllCaseIncomes(theLawCase);
-	}
 
+//	CustomerCaseCost entity
 	@Override
 	@Transactional
 	public List<CustomerCaseCost> getAllCustomerCaseCosts(LawCase theLawCase) {
-		return customerCaseCostDAOImpl.getAllCustomerCaseCosts(theLawCase);
-	}
-
-	@Override
-	@Transactional
-	public void saveCustomerCaseCost(LawCase theLawCase, CustomerCaseCost theCustomerCaseCost) {
-		customerCaseCostDAOImpl.saveCustomerCaseCost(theLawCase, theCustomerCaseCost);
+		return customerCaseCostDAO.getAllCustomerCaseCosts(theLawCase);
 	}
 
 	@Override
 	@Transactional
 	public CustomerCaseCost getCustomerCaseCostById(int customerCaseCostId) {
-		return customerCaseCostDAOImpl.getCustomerCaseCostById(customerCaseCostId);
+		return customerCaseCostDAO.getCustomerCaseCostById(customerCaseCostId);
+	}
+	
+	@Override
+	@Transactional
+	public void saveCustomerCaseCost(LawCase theLawCase, CustomerCaseCost theCustomerCaseCost) {
+		customerCaseCostDAO.saveCustomerCaseCost(theLawCase, theCustomerCaseCost);
 	}
 
 	@Override
 	@Transactional
 	public void deleteCustomerCaseCostById(int customerCaseCostId) {
-		customerCaseCostDAOImpl.deleteCustomerCaseCostById(customerCaseCostId);
+		customerCaseCostDAO.deleteCustomerCaseCostById(customerCaseCostId);
 	}
 }

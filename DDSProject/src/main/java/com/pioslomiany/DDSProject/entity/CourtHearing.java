@@ -38,16 +38,6 @@ public class CourtHearing {
 		
 	}
 
-	public CourtHearing(int id, String hearingDate, String hearingHour, String place, String room,
-			LawCase lawCase) {
-		this.id = id;
-		this.hearingDate = hearingDate;
-		this.hearingHour = hearingHour;
-		this.place = place;
-		this.room = room;
-		this.lawCase = lawCase;
-	}
-
 	public int getId() {
 		return id;
 	}

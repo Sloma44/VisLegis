@@ -28,7 +28,5 @@ public class CustomerContactInfoDAOImpl {
 		theCustomerContactInfo.setCustomer(theCustomer);
 		
 		session.saveOrUpdate(theCustomerContactInfo);
-		
 	}
-
 }

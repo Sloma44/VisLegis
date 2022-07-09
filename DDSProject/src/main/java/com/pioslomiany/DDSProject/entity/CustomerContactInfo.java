@@ -47,19 +47,6 @@ public class CustomerContactInfo {
 			
 	}
 
-	public CustomerContactInfo(int id, String country, String city, String postalCode, String street,
-			String houseNumber, String telephone, String email, Customer customer) {
-		this.id = id;
-		this.country = country;
-		this.city = city;
-		this.postalCode = postalCode;
-		this.street = street;
-		this.houseNumber = houseNumber;
-		this.telephone = telephone;
-		this.email = email;
-		this.customer = customer;
-	}
-
 	public int getId() {
 		return id;
 	}

@@ -17,12 +17,18 @@ public class CustomerDAOImpl {
 	@Autowired
 	private EntityManager entityManager;
 	
-	public List<Customer> getAll() {
+	public List<Customer> getAllCustomers() {
 		Session session = entityManager.unwrap(Session.class);
 		
 		Query<Customer> query = session.createQuery("FROM Customer", Customer.class);
 		
 		return query.getResultList();
+	}
+	
+	public Customer getCustomerById(int theId) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		return session.get(Customer.class, theId);
 	}
 	
 	public void saveCustomer(Customer theCustomer) {
@@ -31,11 +37,6 @@ public class CustomerDAOImpl {
 		session.saveOrUpdate(theCustomer);
 	}
 
-	public Customer getCustomerById(int theId) {
-		Session session = entityManager.unwrap(Session.class);
-		
-		return session.get(Customer.class, theId);
-	}
 
 	public void deleteCustomerById(int theId) {
 		Session session = entityManager.unwrap(Session.class);
@@ -44,6 +45,4 @@ public class CustomerDAOImpl {
 		
 		session.delete(customer);
 	}
-	
-	
 }

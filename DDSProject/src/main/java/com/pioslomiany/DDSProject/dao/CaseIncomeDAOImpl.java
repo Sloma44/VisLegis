@@ -18,12 +18,12 @@ public class CaseIncomeDAOImpl {
 	@Autowired
 	EntityManager entityManager;
 	
+//	provide a full list of incomes for the specific LawCase sorted by date
 	public List<CaseIncome> getAllCaseIncomes(LawCase theLawCase) {
 		Session session = entityManager.unwrap(Session.class);
 
 		Query<CaseIncome> query = session.createQuery("FROM CaseIncome c WHERE c.lawCase = :lawCase ORDER BY c.incomeDate", CaseIncome.class);
 		query.setParameter("lawCase", theLawCase);
-		
 		
 		return query.getResultList();
 	}
@@ -49,5 +49,4 @@ public class CaseIncomeDAOImpl {
 		
 		session.delete(theCaseIncome);
 	}
-
 }
