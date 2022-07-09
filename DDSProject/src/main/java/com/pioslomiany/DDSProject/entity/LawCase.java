@@ -14,8 +14,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name="law_case")
+@Getter @Setter @NoArgsConstructor
 public class LawCase {
 
 	@Id
@@ -51,87 +56,4 @@ public class LawCase {
 	@OneToMany(mappedBy="lawCase", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<CourtHearing> courtHearings;
 	
-	public LawCase() {
-		
-	}
-
-	public int getCaseId() {
-		return caseId;
-	}
-
-	public void setCaseId(int caseId) {
-		this.caseId = caseId;
-	}
-
-	public String getSignature() {
-		return signature;
-	}
-
-	public void setSignature(String signature) {
-		this.signature = signature;
-	}
-
-	public String getCaseDescription() {
-		return caseDescription;
-	}
-
-	public void setCaseDescription(String caseDescription) {
-		this.caseDescription = caseDescription;
-	}
-
-	public String getAuthority() {
-		return authority;
-	}
-
-	public void setAuthority(String authority) {
-		this.authority = authority;
-	}
-
-	public String getSort() {
-		return sort;
-	}
-
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public List<CaseIncome> getCaseIncoms() {
-		return caseIncoms;
-	}
-
-	public void setCaseIncoms(List<CaseIncome> caseIncoms) {
-		this.caseIncoms = caseIncoms;
-	}
-
-	public List<Letter> getCorrespondanceJournal() {
-		return correspondanceJournal;
-	}
-
-	public void setCorrespondanceJournal(List<Letter> correspondanceJournal) {
-		this.correspondanceJournal = correspondanceJournal;
-	}
-
-	public List<CustomerCaseCost> getCustomerCaseCosts() {
-		return customerCaseCosts;
-	}
-
-	public void setCustomerCaseCosts(List<CustomerCaseCost> customerCaseCosts) {
-		this.customerCaseCosts = customerCaseCosts;
-	}
-
-	public List<CourtHearing> getCourtHearing() {
-		return courtHearings;
-	}
-
-	public void setCourtHearing(List<CourtHearing> courtHearings) {
-		this.courtHearings = courtHearings;
-	}
 }

@@ -9,6 +9,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Immutable;
 
+import lombok.Getter;
+
 /* Entity for MySQL VIEW
  * It combines Tables of: 'customer', 'law_case' and 'correspondence_journal'.
  * It is used to display full table of all correspondence with additional information:
@@ -19,6 +21,7 @@ import org.hibernate.annotations.Immutable;
 @Entity
 @Immutable
 @Table(name="customer_case_journal")
+@Getter
 public class CustomerCaseJournalView {
 
 
@@ -59,51 +62,4 @@ public class CustomerCaseJournalView {
 	@Column(name="cost")
 	private double cost;
 
-	public int getCustomerId() {
-		return customerId;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public int getCaseId() {
-		return caseId;
-	}
-
-	public String getCaseDescription() {
-		return caseDescription;
-	}
-
-	public int getLetterId() {
-		return letterId;
-	}
-
-	public Date getLetterDate() {
-		return letterDate;
-	}
-
-	public String getSort() {
-		return sort;
-	}
-
-	public String getInternalNumber() {
-		return internalNumber;
-	}
-
-	public String getRecipient() {
-		return recipient;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public double getCost() {
-		return cost;
-	}
 }

@@ -9,8 +9,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name="income_for_case")
+@Getter @Setter @NoArgsConstructor
 public class CaseIncome {
 
 	@Id
@@ -31,47 +36,4 @@ public class CaseIncome {
 	@JoinColumn(name="caseId")
 	LawCase lawCase;
 	
-	public CaseIncome() {
-		
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getIncomeDate() {
-		return incomeDate;
-	}
-
-	public void setIncomeDate(String incomeDate) {
-		this.incomeDate = incomeDate;
-	}
-
-	public double getIncomeValue() {
-		return incomeValue;
-	}
-
-	public void setIncomeValue(double incomeValue) {
-		this.incomeValue = incomeValue;
-	}
-
-	public String getIncomeComment() {
-		return incomeComment;
-	}
-
-	public void setIncomeComment(String incomeComment) {
-		this.incomeComment = incomeComment;
-	}
-
-	public LawCase getLawCase() {
-		return lawCase;
-	}
-
-	public void setLawCase(LawCase lawCase) {
-		this.lawCase = lawCase;
-	}
 }

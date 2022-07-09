@@ -7,6 +7,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Immutable;
 
+import lombok.Getter;
+
 /* Entity for MySQL VIEW
  * It combines Tables of: 'customer', 'law_case' and 'court_hearing_agenda'.
  * It is used to display full table of all court hearings with additional information:
@@ -17,6 +19,7 @@ import org.hibernate.annotations.Immutable;
 @Entity
 @Immutable
 @Table(name="customer_case_court_hearing")
+@Getter
 public class CustomerCaseCourtHearingView {
 
 	@Column(name="customer_id")
@@ -53,47 +56,4 @@ public class CustomerCaseCourtHearingView {
 	@Column(name="room")
 	private String room;
 
-	public String getCustomerId() {
-		return customerId;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public int getCaseId() {
-		return caseId;
-	}
-	
-	public String getSignature() {
-		return signature;
-	}
-
-	public String getCaseDescription() {
-		return caseDescription;
-	}
-
-	public int getHearingId() {
-		return hearingId;
-	}
-
-	public String getHearingDate() {
-		return hearingDate;
-	}
-
-	public String getHearingHour() {
-		return hearingHour;
-	}
-
-	public String getPlace() {
-		return place;
-	}
-
-	public String getRoom() {
-		return room;
-	}
 }

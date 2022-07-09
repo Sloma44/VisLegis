@@ -7,6 +7,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Immutable;
 
+import lombok.Getter;
+
 /* Entity for MySQL VIEW
  * It combines Tables of: 'customer', 'law_case' and 'income_for_case'.
  * It is used to display full table of all incomes with additional information:
@@ -17,6 +19,7 @@ import org.hibernate.annotations.Immutable;
 @Entity
 @Immutable
 @Table(name="customer_case_income")
+@Getter
 public class CustomerCaseIncomeView {
 
 	@Column(name="customer_id")
@@ -46,40 +49,5 @@ public class CustomerCaseIncomeView {
 	
 	@Column(name="income_comment")
 	private String incomeComment;
-
-	public int getCustomerId() {
-		return customerId;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public int getCaseId() {
-		return caseId;
-	}
-
-	public String getCaseDescription() {
-		return caseDescription;
-	}
-
-	public int getIncomeId() {
-		return incomeId;
-	}
-
-	public String getIncomeDate() {
-		return incomeDate;
-	}
-
-	public double getIncomeValue() {
-		return incomeValue;
-	}
-
-	public String getIncomeComment() {
-		return incomeComment;
-	}
+	
 }

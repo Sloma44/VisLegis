@@ -11,8 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name="correspondence_journal")
+@Getter @Setter @NoArgsConstructor
 public class Letter {
 
 	@Id
@@ -42,71 +47,4 @@ public class Letter {
 	@JoinColumn(name="caseId")
 	private LawCase lawCase;
 	
-	public Letter() {
-		
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Date getLetterDate() {
-		return letterDate;
-	}
-
-	public void setLetterDate(Date letterDate) {
-		this.letterDate = letterDate;
-	}
-
-	public String getSort() {
-		return sort;
-	}
-
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
-
-	public String getInternalNumber() {
-		return internalNumber;
-	}
-
-	public void setInternalNumber(String internalNumber) {
-		this.internalNumber = internalNumber;
-	}
-
-	public String getRecipient() {
-		return recipient;
-	}
-
-	public void setRecipient(String recipient) {
-		this.recipient = recipient;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public double getCost() {
-		return cost;
-	}
-
-	public void setCost(double cost) {
-		this.cost = cost;
-	}
-
-	public LawCase getLawCase() {
-		return lawCase;
-	}
-
-	public void setLawCase(LawCase lawCase) {
-		this.lawCase = lawCase;
-	}
 }

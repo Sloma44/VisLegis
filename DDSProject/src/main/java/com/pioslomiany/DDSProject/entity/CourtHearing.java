@@ -9,8 +9,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name="court_hearing_agenda")
+@Getter @Setter @NoArgsConstructor
 public class CourtHearing {
 
 	@Id
@@ -34,57 +39,4 @@ public class CourtHearing {
 	@JoinColumn(name="caseId")
 	private LawCase lawCase;
 	
-	public CourtHearing() {
-		
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getHearingDate() {
-		return hearingDate;
-	}
-
-	public void setHearingDate(String hearingDate) {		
-		this.hearingDate = hearingDate;
-	}
-
-	public String getHearingHour() {
-
-		return hearingHour;
-	}
-
-	public void setHearingHour(String hearingHour) {
-		
-		this.hearingHour = hearingHour;
-	}
-
-	public String getPlace() {
-		return place;
-	}
-
-	public void setPlace(String place) {
-		this.place = place;
-	}
-
-	public String getRoom() {
-		return room;
-	}
-
-	public void setRoom(String room) {
-		this.room = room;
-	}
-
-	public LawCase getLawCase() {
-		return lawCase;
-	}
-
-	public void setLawCase(LawCase lawCase) {
-		this.lawCase = lawCase;
-	}
 }

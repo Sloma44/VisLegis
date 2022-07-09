@@ -14,8 +14,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name="customer")
+@Getter @Setter @NoArgsConstructor
 public class Customer {
 	
 	@Id
@@ -35,48 +40,4 @@ public class Customer {
 	 
 	 @OneToMany(mappedBy="customer", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	 private List<LawCase> lawCases;
-
-	public Customer() {
-		
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public CustomerContactInfo getCustomerContactInfo() {
-		return customerContactInfo;
-	}
-
-	public void setCustomerContactInfo(CustomerContactInfo customerContactInfo) {
-		this.customerContactInfo = customerContactInfo;
-	}
-
-	public List<LawCase> getLawCases() {
-		return lawCases;
-	}
-
-	public void setLawCases(List<LawCase> lawCases) {
-		this.lawCases = lawCases;
-	}
 }
