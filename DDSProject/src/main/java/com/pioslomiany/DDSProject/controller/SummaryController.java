@@ -38,7 +38,7 @@ public class SummaryController {
 		All actions are made only on Letter entity.
 	*/
 	
-	@GetMapping("/letters")
+	@GetMapping("letters")
 	public String getLetters(Model model) {
 		
 		List<CustomerCaseJournalView> theCustomerCaseJournalView = customerServiceViews.getAllJournals();
@@ -73,7 +73,7 @@ public class SummaryController {
 		return "update-letter-form";
 	}
 	
-	@PostMapping("/letters/saveLetter")
+	@PostMapping("letters/saveLetter")
 	public String saveLetter(@ModelAttribute("letter") Letter theLetter,
 								@ModelAttribute("lawCase") LawCase theLawCase, Model model) {
 		
@@ -82,7 +82,7 @@ public class SummaryController {
 		return "redirect:/dds/summary/letters";
 	}
 	
-	@GetMapping("/letters/deleteLetter")
+	@GetMapping("letters/deleteLetter")
 	public String deleteLetter(@RequestParam("letterId") int letterId) {
 		
 		customerService.deleteLetterById(letterId);
@@ -98,7 +98,7 @@ public class SummaryController {
 		All actions are made only on CourtHearing entity.
 	*/
 	
-	@GetMapping("/courtHearings")
+	@GetMapping("courtHearings")
 	public String getCourtHearings(Model model) {
 		
 		List<CustomerCaseCourtHearingView> theCourtHearings = customerServiceViews.getAllCourtHearings();
@@ -108,7 +108,7 @@ public class SummaryController {
 		return "summary-courtHearings";
 	}
 	
-	@GetMapping("/courtHearings/saveHearingForm")
+	@GetMapping("courtHearings/saveHearingForm")
 	public String saveCourtHearingForm(Model model) {
 		
 		List<LawCase> lawCasesList = customerService.getAllLawCases();
@@ -119,7 +119,7 @@ public class SummaryController {
 		return "save-hearing-form";
 	}
 	
-	@GetMapping("/courtHearings/updateHearingForm")
+	@GetMapping("courtHearings/updateHearingForm")
 	public String updateHearingForm(@RequestParam("hearingId") int hearingId, Model model) {
 		
 		CourtHearing theCourtHearing = customerService.getHearingById(hearingId);
@@ -133,7 +133,7 @@ public class SummaryController {
 		return "update-hearing-form";
 	}
 	
-	@PostMapping("/courtHearings/saveHearing")
+	@PostMapping("courtHearings/saveHearing")
 	public String saveHearing(@ModelAttribute("hearing") CourtHearing theCourtHearing,
 								@ModelAttribute("lawCase") LawCase theLawCase, Model model) {
 		
@@ -142,7 +142,7 @@ public class SummaryController {
 		return "redirect:/dds/summary/courtHearings";
 	}
 	
-	@GetMapping("/courtHearings/deleteHearing")
+	@GetMapping("courtHearings/deleteHearing")
 	public String deleteHearing(@RequestParam("hearingId") int hearingId) {
 		
 		customerService.deleteHearingById(hearingId);
@@ -158,7 +158,7 @@ public class SummaryController {
 		All actions are made only on CaseIncome entity.
 	*/
 	
-	@GetMapping("/incomes")
+	@GetMapping("incomes")
 	public String getIncomes(Model model) {
 		
 		List<CustomerCaseIncomeView> customerCaseIncomeView = customerServiceViews.getAllIncomes();
@@ -193,7 +193,7 @@ public class SummaryController {
 		return "update-income-form";
 	}
 	
-	@PostMapping("/incomes/saveIncome")
+	@PostMapping("incomes/saveIncome")
 	public String saveIncome(@ModelAttribute("income") CaseIncome theCaseIncome,
 								@ModelAttribute("lawCase") LawCase theLawCase, Model model) {
 		
@@ -202,7 +202,7 @@ public class SummaryController {
 		return "redirect:/dds/summary/incomes";
 	}
 	
-	@GetMapping("/incomes/deleteIncome")
+	@GetMapping("incomes/deleteIncome")
 	public String deleteIncome(@RequestParam("incomeId") int incomeId) {
 		
 		customerService.deleteCaseIncomeById(incomeId);

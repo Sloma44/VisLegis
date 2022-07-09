@@ -10,8 +10,8 @@
 	
 	<body>
 		<h2>Customer's details</h2>
-		<a th:href="@{/dds/list/updateCustomerForm(customerId=${customer.id})}"><input type="button" value="Modify"></a>
-		<a th:href="@{/dds/list/customerDetails/deleteCustomer(customerId=${customer.id})}"><input type="button" value="Delete"></a>
+		<a th:href="@{/dds/customerList/updateCustomerForm(customerId=${customer.id})}"><input type="button" value="Modify"></a>
+		<a th:href="@{/dds/customerList/customerDetails/deleteCustomer(customerId=${customer.id})}"><input type="button" value="Delete"></a>
 		<hr>
 		<h3>Basic info</h3>
 		<p th:text="${customer.id}"></p>
@@ -28,7 +28,7 @@
 		<p th:text="${customerContactInfo.email}"></p>
 		<hr>
 		<h3>Customer cases</h3>
-		<a th:href="@{/dds/list/customerDetails/saveLawCaseForm(customerId=${customer.id})}"><input type="button" value="Add case"></a>
+		<a th:href="@{/dds/customerList/customerDetails/saveLawCaseForm(customerId=${customer.id})}"><input type="button" value="Add case"></a>
 		<table>
 			<thead>
 				<tr>
@@ -46,7 +46,7 @@
 					<td><span th:text="${lawCase.caseDescription}"> DESCRIPTION</span></td>
 					<td><span th:text="${lawCase.authority}"> AUTHORITY</span></td>
 					<td><span th:text="${lawCase.sort}"> SORT </span></td>
-					<td><a th:href="@{/dds/list/customerDetails/caseDetails(caseId=${lawCase.caseId})}"><input type="button" value="Details"></a>				
+					<td><a th:href="@{/dds/customerList/customerDetails/caseDetails(caseId=${lawCase.caseId})}"><input type="button" value="Details"></a>				
 				</tr>
 			</tbody>
 		</table>

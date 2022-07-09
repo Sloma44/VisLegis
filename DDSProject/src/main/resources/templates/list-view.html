@@ -10,7 +10,7 @@
 	
 	<body>
 		<h2>List of customers</h2>
-		<a th:href="@{/dds/list/saveCustomerForm}"><input type="button" value="Add customer"></a>
+		<a th:href="@{/dds/customerList/saveCustomerForm}"><input type="button" value="Add customer"></a>
 		<hr>
 		
 		<table>
@@ -29,7 +29,7 @@
 		            <td><span th:text="${customer.id}"> ID </span></td>
 		            <td><span th:text="${customer.firstName}"> FIRST NAME </span></td>
 		            <td><span th:text="${customer.lastName}"> LAST NAME </span></td>
-		            <td><a th:href="@{/dds/list/customerDetails(customerId=${customer.id})}"><input type="button" value="Details"></a></td>
+		            <td><a th:href="@{/dds/customerList/customerDetails(customerId=${customer.id})}"><input type="button" value="Details"></a></td>
 		        </tr>
 	    	</tbody>
 		</table>
