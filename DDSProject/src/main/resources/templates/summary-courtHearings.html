@@ -4,45 +4,59 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Court hearing agenda</title>
+		<title>Terminarz rozpraw</title>
+		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+		<link th:href="@{/styles/header.css}" rel="stylesheet" />
+		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+	
 	</head>
 
 	
 	<body>
-		<h3>Court hearing agenda</h3>
-		<a th:href="@{/dds/summary/courtHearings/saveHearingForm}"> <input type="button" value="Add"></a>
-		<table>
-			<thead>
-				<tr>
-					<th>Customer first name</th>
-					<th>Customer last name</th>
-					<th>Signature</th>
-					<th>Case description</th>
-					<th>Date</th>
-					<th>Hour</th>
-					<th>Place</th>
-					<th>Room</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<tr th:each="hearing : ${hearings}">
-					<td th:text="${hearing.firstName}"></td>
-					<td th:text="${hearing.lastName}"></td>
-					<td th:text="${hearing.signature}"></td>
-					<td th:text="${hearing.caseDescription}"></td>
-					<td th:text="${hearing.hearingDate}"></td>	
-					<td th:text="${hearing.hearingHour}"></td>	
-					<td th:text="${hearing.place}"></td>	
-					<td th:text="${hearing.room}"></td>	
-					<td><a th:href="@{/dds/summary/courtHearings/updateHearingForm(hearingId=${hearing.hearingId})}"><input type="button" value="Modify"></a>
-						<a th:href="@{/dds/summary/courtHearings/deleteHearing(hearingId=${hearing.hearingId})}"><input type="button" value="Delete"></a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<hr>
+		<div th:replace="fragments/menu :: menu"></div>
+		<div th:replace="fragments/header :: header"></div>
+			<div class="container">
+				<div class="page-title">
+					<div class="page-title-text">
+						<h2>Terminarz rozpraw</h2>
+					</div>
+					<div class="btns-options">
+						<a th:href="@{/dds/summary/courtHearings/saveHearingForm}"> <input class="btn btn-add" type="button" value="Dodaj termin"></a>
+					</div>
+				</div>
+			<br>
+
+			<table>
+				<thead>
+					<tr>
+						<th>Klient</th>
+						<th>Sygnatura</th>
+						<th>Opis sprawy</th>
+						<th>Data</th>
+						<th>Godzina</th>
+						<th>Miejsce</th>
+						<th>Pokój</th>
+						<th>Akcje</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="hearing : ${hearings}">
+						<td th:text="${hearing.firstName} + ' ' + ${hearing.lastName}"></td>
+						<td th:text="${hearing.signature}"></td>
+						<td th:text="${hearing.caseDescription}"></td>
+						<td th:text="${hearing.hearingDate}"></td>	
+						<td th:text="${hearing.hearingHour}"></td>	
+						<td th:text="${hearing.place}"></td>	
+						<td th:text="${hearing.room}"></td>	
+						<td><a th:href="@{/dds/summary/courtHearings/updateHearingForm(hearingId=${hearing.hearingId})}"><input class="btn" type="button" value="Modyfikuj"></a>
+							<a th:href="@{/dds/summary/courtHearings/deleteHearing(hearingId=${hearing.hearingId})}"><input class="btn btn-del" type="button" value="Usuń"></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</body>
 
 </html>

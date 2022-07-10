@@ -4,174 +4,59 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Summary lists main</title>
+		<title>Korespondencja</title>
+		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+		<link th:href="@{/styles/header.css}" rel="stylesheet" />
+		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	</head>
 
 	
 	<body>
-		<!-- <h3>Case incomes</h3>
-		<table>
-			<thead>
-				<tr>
-					<th>Date</th>
-					<th>Value</th>
-					<th>Comment</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<tr th:each="caseIncome : ${caseIncomes}">
-					<td><span th:text="${caseIncome.incomeDate}"> DATE</span></td>
-					<td><span th:text="${caseIncome.incomeValue}"> VALUE</span></td>
-					<td><span th:text="${caseIncome.incomeComment}"> COMMENT</span></td>			
-				</tr>
-			</tbody>
-		</table>
-		<hr>-->
-		
-		<h3>Case correspondence journal</h3>
-		<a th:href="@{/dds/summary/letters/saveLetterForm}"> <input type="button" value="Add"></a>
-		<table>
-			<thead>
-				<tr>
-					<th>Customer first name</th>
-					<th>Customer last name</th>
-					<th>Case description</th>
-					<th>letter date</th>
-					<th>Sort</th>
-					<th>Internal number</th>
-					<th>Recipient</th>
-					<th>Content</th>
-					<th>Cost</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<tr th:each="letter : ${letters}">
-					<td th:text="${letter.firstName}"></td>
-					<td th:text="${letter.lastName}"></td>
-					<td th:text="${letter.caseDescription}"></td>
-					<td th:text="${letter.letterDate}"></td>	
-					<td th:text="${letter.sort}"></td>	
-					<td th:text="${letter.internalNumber}"></td>	
-					<td th:text="${letter.recipient}"></td>	
-					<td th:text="${letter.content}"> </td>	
-					<td th:text="${letter.cost}"></td>
-					<td><a th:href="@{/dds/summary/letters/updateLetterForm(letterId=${letter.letterId})}"><input type="button" value="Modify"></a>
-						<a th:href="@{/dds/summary/letters/deleteLetter(letterId=${letter.letterId})}"><input type="button" value="Delete"></a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<hr>
-		
-		<!--
-		<h3>Case correspondence journal</h3>
-		<a th:href="@{/dds/summary/journal/saveLetterForm}"> <input type="button" value="Add"></a>
-		<table>
-			<thead>
-				<tr>
-					<th>Customer first name</th>
-					<th>Customer last name</th>
-					<th>Case description</th>
-					<th>letter date</th>
-					<th>Sort</th>
-					<th>Internal number</th>
-					<th>Recipient</th>
-					<th>Content</th>
-					<th>Cost</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<tr th:each="journalen : ${journalsMix}">
-					<td><span th:text="${journalen.firstName}"> FIRST NAME</span></td>
-					<td><span th:text="${journalen.lastName}"> LAST NAME</span></td>
-					<td><span th:text="${journalen.caseDescription}"> DESCRIPTION</span></td>
-					<td><span th:text="${journalen.letterDate}"> LETTER DATE</span></td>	
-					<td><span th:text="${journalen.sort}"> SORT</span></td>	
-					<td><span th:text="${journalen.internalNumber}"> INTERNAL NUMBER</span></td>	
-					<td><span th:text="${journalen.recipient}"> RECIPIENT</span></td>	
-					<td><span th:text="${journalen.content}"> CONTENT</span></td>	
-					<td><span th:text="${journalen.cost}"> COST</span></td>	
-				</tr>
-			</tbody>
-		</table>
-		<hr>
-		
-		
-		
-		
-		
-		<h3>Case correspondence journal</h3>
-		<a th:href="@{/dds/summary/journal/saveLetterForm}"> <input type="button" value="Add"></a>
-		<table>
-			<thead>
-				<tr>
-					<th>Date</th>
-					<th>Sort</th>
-					<th>Internal number</th>
-					<th>Recipient</th>
-					<th>Content</th>
-					<th>Cost</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<tr th:each="journal : ${journals}">
-					<td><span th:text="${journal.letterDate}"> DATE</span></td>
-					<td><span th:text="${journal.sort}"> SORT</span></td>
-					<td><span th:text="${journal.internalNumber}"> NUMBER</span></td>
-					<td><span th:text="${journal.recipient}"> RECIPIENT</span></td>			
-					<td><span th:text="${journal.content}"> CONTENT</span></td>			
-					<td><span th:text="${journal.cost}"> COST</span></td>			
-				</tr>
-			</tbody>
-		</table>
-		<hr>
-		
-		<h3>Customer Case Costs</h3>
-		<table>
-			<thead>
-				<tr>
-					<th>Date</th>
-					<th>Value</th>
-					<th>Comment</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<tr th:each="customerCost : ${customerCaseCosts}">
-					<td><span th:text="${customerCost.costDate}"> DATE</span></td>
-					<td><span th:text="${customerCost.costValue}"> VALUE</span></td>
-					<td><span th:text="${customerCost.costComment}"> COMMENT</span></td>			
-				</tr>
-			</tbody>
-		</table>
-		<hr>-->
-		
-		<!--<h3>Customer Case court Hearing Agenda</h3>
-		<table>
-			<thead>
-				<tr>
-					<th>Date</th>
-					<th>Hour</th>
-					<th>Place</th>
-					<th>room</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<tr th:each="courtHearing : ${courtAgenda}">
-					<td><span th:text="${courtHearing.courtHearingDate}"> DATE</span></td>
-					<td><span th:text="${courtHearing.courtHearingHour}"> HOUR</span></td>
-					<td><span th:text="${courtHearing.place}"> PLACE</span></td>			
-					<td><span th:text="${courtHearing.room}"> ROOM</span></td>			
-				</tr>
-			</tbody>
-		</table>-->
-	
+		<div th:replace="fragments/menu :: menu"></div>
+		<div th:replace="fragments/header :: header"></div>
+		<div class="container">
+			<div class="page-title">
+				<div class="page-title-text">
+					<h2>Korespondencja</h2>
+				</div>
+				<div class="btns-options">
+					<a th:href="@{/dds/summary/letters/saveLetterForm}"> <input class="btn btn-add" type="button" value="Dodaj list"></a>
+				</div>
+			</div>
+			<br>
+			<table>
+				<thead>
+					<tr>
+						<th>Klient</th>
+						<th>Opis sprawy</th>
+						<th>Data</th>
+						<th>Rodzaj</th>
+						<th>Numer</th>
+						<th>Odbiorca/Nadawca</th>
+						<th>Zawartość</th>
+						<th>Koszt</th>
+						<th>Akcje</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="letter : ${letters}">
+						<td th:text="${letter.firstName} + ' ' + ${letter.lastName}"></td>
+						<td th:text="${letter.caseDescription}"></td>
+						<td th:text="${letter.letterDate}"></td>	
+						<td th:text="${letter.sort}"></td>	
+						<td th:text="${letter.internalNumber}"></td>	
+						<td th:text="${letter.recipient}"></td>	
+						<td th:text="${letter.content}"> </td>	
+						<td th:text="${letter.cost}"></td>
+						<td><a th:href="@{/dds/summary/letters/updateLetterForm(letterId=${letter.letterId})}"><input class="btn" type="button" value="Modyfikuj"></a>
+							<a th:href="@{/dds/summary/letters/deleteLetter(letterId=${letter.letterId})}"><input class="btn btn-del" type="button" value="Usuń"></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</body>
 
 </html>

@@ -1,0 +1,16 @@
+body {
+	background-color: #fff;
+	font-family: 'Ubuntu'
+}
+
+.header {
+	margin-left: 12%;
+	background-color: #212529;
+	color: #fff;
+	width: 88%;
+	font-size: 54px;
+	text-align: left;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	font-weight: bold;
+}

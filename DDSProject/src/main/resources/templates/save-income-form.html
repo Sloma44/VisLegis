@@ -4,29 +4,54 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Save income</title>
+		<title>Zapisz wpływ</title>
+		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+		<link th:href="@{/styles/header.css}" rel="stylesheet" />
+		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	</head>
 
 	
 	<body>
-		<h2>Save income</h2>
-		<hr>
-		<form action="#" th:action="@{saveIncome}" th:object="${income}" method="POST">
-			<input type="hidden" th:field="*{id}" name="id"/>
-			
-			<select th:value="${lawCase}" name="caseId">
-				<option th:each="lawCase : ${lawCases}"
-			    		th:value="${lawCase.caseId}"
-			    		th:text="${lawCase.getCustomer.getLastName} + ' - ' + ${lawCase.caseDescription}">
-			    </option>
-			</select>
-			
-			<p>Date: <input type="date" th:field="*{incomeDate}"/></p>
-			<p>Value: <input type="number" step="0.01" th:field="*{incomeValue}"/></p>
-			<p>Comment: <input type="text" th:field="*{incomeComment}"/></p>
-			<p><input type="submit" value="Submit"/></p>
-		</form>
-		<hr>
+		<div th:replace="fragments/menu :: menu"></div>
+		<div th:replace="fragments/header :: header"></div>
+		<div class="container">
+			<div class="page-title">
+				<div class="page-title-text">
+					<h2>Zapisz wpływ</h2>
+				</div>
+			</div>
+			<br>
+			<div class="form">
+				<form action="#" th:action="@{saveIncome}" th:object="${income}" method="POST">
+					<input type="hidden" th:field="*{id}" name="id"/>
+					<div class="form-square">
+						<select class="form-select" th:value="${lawCase}" name="caseId">
+							<option th:each="lawCase : ${lawCases}"
+						    		th:value="${lawCase.caseId}"
+						    		th:text="${lawCase.getCustomer.getLastName} + ' - ' + ${lawCase.caseDescription}">
+						    </option>
+						</select>
+					</div>
+					<div class="form-square"><br><br></div>
+					<div class="form-square">
+						Data
+						<input type="date" th:field="*{incomeDate}"/>
+					</div>
+					<div class="form-square">
+						Wartość
+						<input type="number" step="0.01" th:field="*{incomeValue}"/>
+					</div>
+					<div class="form-square description">
+						Komentarz
+						<input type="text" th:field="*{incomeComment}"/>
+					</div>
+					<div class="btn-submit">
+						<input type="submit" value="Zatwierdź"/>
+					</div>
+				</form>
+			</div>
+		</div>
 	</body>
 
 </html>

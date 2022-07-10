@@ -4,30 +4,58 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Save court hearing</title>
+		<title>Zapisz termin rozprawy</title>
+		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+		<link th:href="@{/styles/header.css}" rel="stylesheet" />
+		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	</head>
 
 	
 	<body>
-		<h2>Save court hearing</h2>
-		<hr>
-		<form action="#" th:action="@{saveHearing}" th:object="${hearing}" method="POST">
-			<input type="hidden" th:field="*{id}" name="id"/>
-			
-			<select th:value="${lawCase}" name="caseId">
-				<option th:each="lawCase : ${lawCases}"
-			    		th:value="${lawCase.caseId}"
-			    		th:text="${lawCase.getCustomer.getLastName} + ' - ' + ${lawCase.caseDescription}">
-			    </option>
-			</select>
-			
-			<p>Date: <input type="date" th:field="*{hearingDate}"/></p>
-			<p>Hour: <input type="time" th:field="*{hearingHour}"/></p>
-			<p>Place: <input type="text" th:field="*{place}"/></p>
-			<p>Room: <input type="text" th:field="*{room}"/></p>
-			<p><input type="submit" value="Submit"/></p>
-		</form>
-		<hr>
+		<div th:replace="fragments/menu :: menu"></div>
+		<div th:replace="fragments/header :: header"></div>
+		<div class="container">
+			<div class="page-title">
+				<div class="page-title-text">
+					<h2>Zapisz termin rozprawy</h2>
+				</div>
+			</div>
+			<br>
+			<div class="form">
+				<form action="#" th:action="@{saveHearing}" th:object="${hearing}" method="POST">
+					<input type="hidden" th:field="*{id}" name="id"/>
+					<div class="form-square">
+						<select class="form-select" th:value="${lawCase}" name="caseId">
+							<option th:each="lawCase : ${lawCases}"
+						    		th:value="${lawCase.caseId}"
+						    		th:text="${lawCase.getCustomer.getLastName} + ' - ' + ${lawCase.caseDescription}">
+						    </option>
+						</select>
+					</div>
+					<div class="form-square"><br><br></div>
+					<div class="form-square">
+						Data
+						<input type="date" th:field="*{hearingDate}"/>
+					</div>
+					<div class="form-square">
+						Godzina
+						<input type="time" th:field="*{hearingHour}"/>
+					</div>
+					<div class="form-square">
+						Miejsce
+						<input type="text" th:field="*{place}"/>
+					</div>
+					<div class="form-square">
+						Pokój
+						<input type="text" th:field="*{room}"/>
+					</div>
+					<div class="btn-submit">
+						<input type="submit" value="Zatwierdź"/>
+					</div>
+				</form>
+			</div>
+		</div>
 	</body>
 
 </html>

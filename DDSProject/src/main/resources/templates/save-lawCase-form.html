@@ -4,33 +4,63 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Save law case</title>
-		
-		
-		
+		<title>Zapisz sprawę</title>
+		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+		<link th:href="@{/styles/header.css}" rel="stylesheet" />
+		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	</head>
 
 	
 	<body>
-		<h2>Save law case</h2>
-		<hr>
-		<form action="#" th:action="@{saveLawCase}" th:object="${lawCase}" method="POST">
-			<input type="hidden" th:value="${customer.id}" name="id"/>
-			<input type="hidden" th:value="${lawCase.caseId}" name="caseId"/>
-			<p>Signature: <input type="text" th:value="${lawCase.signature}" name="signature"/></p>
-			<p>Case description: <input type="text" th:value="${lawCase.caseDescription}" name="caseDescription"/></p>
-			<p>Authority: <input type="text" th:value="${lawCase.authority}" name="authority"/></p>
-			<input type="radio" value="Z urzedu" name="sort" th:field="*{sort}">
-			<label>Z urzędu</label>
-			<input type="radio" id="radioChecked" value="Z wyboru" name="sort" th:field="*{sort}">
-			<label>Z wyboru</label>
-			<script>
-				document.getElementById("radioChecked").setAttribute("checked","checked")
-			</script>
+		<div th:replace="fragments/menu :: menu"></div>
+		<div th:replace="fragments/header :: header"></div>
+		<div class="container">
+			<div class="page-title">
+				<div class="page-title-text">
+					<h2>Zapisz sprawę</h2>
+				</div>
+			</div>
+			<br>
+			<h3 th:text="${customer.firstName} + ' ' + ${customer.lastName} + ' - ' + ${lawCase.caseDescription}"></h3>
 			
-			<p><input type="submit" value="Submit"/></p>
-		</form>
+			<div class="form">
+				<form action="#" th:action="@{saveLawCase}" th:object="${lawCase}" method="POST">
+					<input type="hidden" th:value="${customer.id}" name="id"/>
+					<input type="hidden" th:value="${lawCase.caseId}" name="caseId"/>
+					
+					<div class="form-square">
+						Sygnatura
+						<input type="text" th:value="${lawCase.signature}" name="signature"/>
+					</div>
+					<div class="form-square"><br><br></div>
+					<div class="form-square description">
+						Opis sprawy
+						<input type="text" th:value="${lawCase.caseDescription}" name="caseDescription"/>
+					</div>
+					<div class="form-square">
+						Organ
+						<input type="text" th:value="${lawCase.authority}" name="authority"/>
+					</div>
+					<div class="form-square">
+						<div class = "radio-square">
+							<input type="radio" value="Z urzedu" name="sort" th:field="*{sort}">
+							<label>Z urzędu</label>
+						</div>
+						<div class = "radio-square">
+							<input type="radio" id="radioChecked" value="Z wyboru" name="sort" th:field="*{sort}">
+							<label>Z wyboru</label>
+						</div>
+						<script>
+							document.getElementById("radioChecked").setAttribute("checked","checked")
+						</script>
+					</div>
+					<div class="btn-submit">
+						<input type="submit" value="Zatwierdź"/>
+					</div>	
+				</form>
+			</div>
+		</div>
 
 	</body>
-
 </html>

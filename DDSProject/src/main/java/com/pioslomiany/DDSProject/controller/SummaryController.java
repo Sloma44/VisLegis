@@ -31,6 +31,11 @@ public class SummaryController {
 	@Autowired
 	CustomerServiceViews customerServiceViews;
 	
+	@GetMapping("")
+	public String getSummary() {
+		return "summary-main";
+	}
+	
 	// Letters
 	/*Actions (CRUD) on Letters entity
 		View is generated using MySQL VIEW and it combine Customer, LawCase and Letter entities.

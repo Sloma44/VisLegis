@@ -4,41 +4,54 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Summary incomes</title>
+		<title>Wpływy</title>
+		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+		<link th:href="@{/styles/header.css}" rel="stylesheet" />
+		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	</head>
 
 	
 	<body>
-		<h3>Incomes</h3>
-		<a th:href="@{/dds/summary/incomes/saveIncomeForm}"> <input type="button" value="Add"></a>
-		<table>
-			<thead>
-				<tr>
-					<th>Customer first name</th>
-					<th>Customer last name</th>
-					<th>Case description</th>
-					<th>Income date</th>
-					<th>Income value</th>
-					<th>Comment</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<tr th:each="income : ${incomes}">
-					<td th:text="${income.firstName}"></td>
-					<td th:text="${income.lastName}"></td>
-					<td th:text="${income.caseDescription}"></td>
-					<td th:text="${income.incomeDate}"></td>	
-					<td th:text="${income.incomeValue}"></td>	
-					<td th:text="${income.incomeComment}"></td>	
-					<td><a th:href="@{/dds/summary/incomes/updateIncomeForm(incomeId=${income.incomeId})}"><input type="button" value="Modify"></a>
-						<a th:href="@{/dds/summary/incomes/deleteIncome(incomeId=${income.incomeId})}"><input type="button" value="Delete"></a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<hr>
+	<div th:replace="fragments/menu :: menu"></div>
+		<div th:replace="fragments/header :: header"></div>
+			<div class="container">
+				<div class="page-title">
+					<div class="page-title-text">
+						<h2>Wpływy</h2>
+					</div>
+					<div class="btns-options">
+						<a th:href="@{/dds/summary/incomes/saveIncomeForm}"> <input class="btn btn-add" type="button" value="Dodaj wpływ"></a>
+					</div>
+				</div>
+			<br>
+
+			<table>
+				<thead>
+					<tr>
+						<th>Klient</th>
+						<th>Opis sprawy</th>
+						<th>Data</th>
+						<th>Wartość</th>
+						<th>Komentarz</th>
+						<th>Akcje</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="income : ${incomes}">
+						<td th:text="${income.firstName} + ' ' + ${income.lastName}"></td>
+						<td th:text="${income.caseDescription}"></td>
+						<td th:text="${income.incomeDate}"></td>	
+						<td th:text="${income.incomeValue}"></td>	
+						<td th:text="${income.incomeComment}"></td>	
+						<td><a th:href="@{/dds/summary/incomes/updateIncomeForm(incomeId=${income.incomeId})}"><input class="btn" type="button" value="Modyfikuj"></a>
+							<a th:href="@{/dds/summary/incomes/deleteIncome(incomeId=${income.incomeId})}"><input class="btn btn-del" type="button" value="Usuń"></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</body>
 
 </html>

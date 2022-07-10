@@ -22,7 +22,7 @@ import com.pioslomiany.DDSProject.service.CustomerService;
 
 @Controller
 @RequestMapping("/dds/customerList")
-public class MainController {
+public class CustomersListController {
 
 	@Autowired
 	private CustomerService customerService;

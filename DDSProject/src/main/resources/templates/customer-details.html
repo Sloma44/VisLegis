@@ -4,52 +4,68 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Customer's details</title>
+		<title>Informacje o kliencie</title>
+		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+		<link th:href="@{/styles/header.css}" rel="stylesheet" />
+		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	</head>
 
 	
 	<body>
-		<h2>Customer's details</h2>
-		<a th:href="@{/dds/customerList/updateCustomerForm(customerId=${customer.id})}"><input type="button" value="Modify"></a>
-		<a th:href="@{/dds/customerList/customerDetails/deleteCustomer(customerId=${customer.id})}"><input type="button" value="Delete"></a>
-		<hr>
-		<h3>Basic info</h3>
-		<p th:text="${customer.id}"></p>
-		<p th:text="${customer.firstName}"></p>
-		<p th:text="${customer.lastName}"></p>
-		<hr>
-		<h3>Contact info</h3>
-		<p th:text="${customerContactInfo.country}"></p>
-		<p th:text="${customerContactInfo.city}"></p>
-		<p th:text="${customerContactInfo.postalCode}"></p>
-		<p th:text="${customerContactInfo.street}"></p>
-		<p th:text="${customerContactInfo.houseNumber}"></p>
-		<p th:text="${customerContactInfo.telephone}"></p>
-		<p th:text="${customerContactInfo.email}"></p>
-		<hr>
-		<h3>Customer cases</h3>
-		<a th:href="@{/dds/customerList/customerDetails/saveLawCaseForm(customerId=${customer.id})}"><input type="button" value="Add case"></a>
-		<table>
-			<thead>
+		<div th:replace="fragments/menu :: menu"></div>
+		<div th:replace="fragments/header :: header"></div>
+		<div class="container">
+			<div class="page-title">
+				<div class="page-title-text">
+					<h2>Klient</h2>
+				</div>
+				<div class="btns-options">
+					<a th:href="@{/dds/customerList/updateCustomerForm(customerId=${customer.id})}"><input class="btn btn-add" type="button" value="Modyfikuj"></a>
+					<a th:href="@{/dds/customerList/customerDetails/deleteCustomer(customerId=${customer.id})}"><input class="btn btn-del" type="button" value="Usuń"></a>
+				</div>
+			</div>
+			<br>
+			<h3 th:text="${customer.firstName} + ' ' + ${customer.lastName}"></h3>
+			<table>
 				<tr>
-					<th>Signature</th>
-					<th>Case description</th>
-					<th>Authority</th>
-					<th>Sort</th>
-					<th>Action</th>
+					<td th:text="'ul. ' + ${customerContactInfo.street} + ' ' + ${customerContactInfo.houseNumber}"/>
+					<td th:text="${customerContactInfo.postalCode} + ' ' + ${customerContactInfo.city} + ' ' + ${customerContactInfo.country}"/>
+					<td th:text="${customerContactInfo.telephone}"/>
+					<td th:text="${customerContactInfo.email}"/>
 				</tr>
-			</thead>
+			</table>
+			<div class="page-title page-title-no-border">
+				<div class="page-title-text">
+					<h3>Sprawy klienta</h3>
+				</div>
+				<div class="btns-options">
+					<a th:href="@{/dds/customerList/customerDetails/saveLawCaseForm(customerId=${customer.id})}"><input class="btn btn-add" type="button" value="Dodaj sprawę"></a>
+				</div>
+			</div>
 			
-			<tbody>
-				<tr th:each="lawCase : ${lawCases}">
-					<td><span th:text="${lawCase.signature}"> SIGNATURE</span></td>
-					<td><span th:text="${lawCase.caseDescription}"> DESCRIPTION</span></td>
-					<td><span th:text="${lawCase.authority}"> AUTHORITY</span></td>
-					<td><span th:text="${lawCase.sort}"> SORT </span></td>
-					<td><a th:href="@{/dds/customerList/customerDetails/caseDetails(caseId=${lawCase.caseId})}"><input type="button" value="Details"></a>				
-				</tr>
-			</tbody>
-		</table>
+			<table>
+				<thead>
+					<tr>
+						<th>Sygnatura</th>
+						<th>Opis sprawy</th>
+						<th>Organ</th>
+						<th>Rodzaj</th>
+						<th>Szczegóły</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="lawCase : ${lawCases}">
+						<td th:text="${lawCase.signature}"></td>
+						<td th:text="${lawCase.caseDescription}"></td>
+						<td th:text="${lawCase.authority}"></td>
+						<td th:text="${lawCase.sort}"></td>
+						<td><a th:href="@{/dds/customerList/customerDetails/caseDetails(caseId=${lawCase.caseId})}"><input class="btn" type="button" value="Szczegóły"></a>				
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	
 	
 	</body>
