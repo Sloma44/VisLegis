@@ -20,7 +20,7 @@ public class CustomerCaseIncomeViewDAOImpl {
 	public List<CustomerCaseIncomeView> getAllIncomes() {
 		Session session = entityManager.unwrap(Session.class);
 		
-		Query<CustomerCaseIncomeView> query = session.createQuery("FROM CustomerCaseIncomeView c ORDER BY c.incomeDate",
+		Query<CustomerCaseIncomeView> query = session.createQuery("FROM CustomerCaseIncomeView c ORDER BY c.incomeDate DESC",
 																	CustomerCaseIncomeView.class);
 		
 		return query.getResultList();

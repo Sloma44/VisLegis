@@ -22,7 +22,7 @@ public class CourtHearingDAOImpl {
 	public List<CourtHearing> getAllCaseCourtHearing(LawCase theLawCase) {
 		Session session = entityManager.unwrap(Session.class);
 		
-		Query<CourtHearing> query = session.createQuery("FROM CourtHearing c WHERE c.lawCase = :lawCase ORDER BY c.hearingDate, c.hearingHour",
+		Query<CourtHearing> query = session.createQuery("FROM CourtHearing c WHERE c.lawCase = :lawCase ORDER BY c.hearingDate DESC, c.hearingHour DESC",
 																		CourtHearing.class);
 		query.setParameter("lawCase", theLawCase);
 		

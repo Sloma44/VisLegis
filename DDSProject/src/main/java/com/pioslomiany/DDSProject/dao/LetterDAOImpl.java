@@ -22,7 +22,7 @@ public class LetterDAOImpl {
 	public List<Letter> getLawCaseLetters(LawCase theLawCase) {
 		Session session = entityManager.unwrap(Session.class);
 		
-		Query<Letter> query = session.createQuery("FROM Letter AS c WHERE c.lawCase = :lawCase ORDER BY c.letterDate", Letter.class);
+		Query<Letter> query = session.createQuery("FROM Letter AS c WHERE c.lawCase = :lawCase ORDER BY c.letterDate DESC", Letter.class);
 		query.setParameter("lawCase", theLawCase);
 		
 		return query.getResultList();

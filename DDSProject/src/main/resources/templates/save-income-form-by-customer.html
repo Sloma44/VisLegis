@@ -20,6 +20,9 @@
 				<div class="page-title-text">
 					<h2>Zapisz wpływ</h2>
 				</div>
+				<div class="btns-options">
+					<a th:href="@{'/dds/customerList/customerDetails/caseDetails?caseId=' + ${lawCase.caseId}}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
+				</div>
 			</div>
 			<br>
 			<h3 th:text="${customer.firstName} + ' ' + ${customer.lastName} + ' - ' + ${lawCase.caseDescription}"></h3>

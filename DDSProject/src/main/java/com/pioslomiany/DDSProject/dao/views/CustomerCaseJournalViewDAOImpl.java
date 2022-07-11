@@ -20,7 +20,7 @@ public class CustomerCaseJournalViewDAOImpl {
 	public List<CustomerCaseJournalView> getAllJournals() {
 		Session session = entityManger.unwrap(Session.class);
 		
-		Query<CustomerCaseJournalView> query = session.createQuery("FROM CustomerCaseJournalView AS c ORDER BY c.letterDate",
+		Query<CustomerCaseJournalView> query = session.createQuery("FROM CustomerCaseJournalView AS c ORDER BY c.letterDate DESC",
 																	CustomerCaseJournalView.class);
 			
 		return query.getResultList();

@@ -20,6 +20,10 @@
 				<div class="page-title-text">
 					<h2>Zapisz sprawę</h2>
 				</div>
+				<div class="btns-options">
+					<a th:href="${lawCase.caseId} == 0 ? @{'/dds/customerList/customerDetails?customerId=' + ${customer.id}} : @{'/dds/customerList/customerDetails/caseDetails?caseId=' + ${lawCase.caseId}}">
+						<input class="btn btn-back" type="button" value="<< Powrót"></a>
+				</div>
 			</div>
 			<br>
 			<h3 th:text="${customer.firstName} + ' ' + ${customer.lastName} + ' - ' + ${lawCase.caseDescription}"></h3>

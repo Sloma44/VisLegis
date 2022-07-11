@@ -22,7 +22,7 @@ public class CaseIncomeDAOImpl {
 	public List<CaseIncome> getAllCaseIncomes(LawCase theLawCase) {
 		Session session = entityManager.unwrap(Session.class);
 
-		Query<CaseIncome> query = session.createQuery("FROM CaseIncome c WHERE c.lawCase = :lawCase ORDER BY c.incomeDate", CaseIncome.class);
+		Query<CaseIncome> query = session.createQuery("FROM CaseIncome c WHERE c.lawCase = :lawCase ORDER BY c.incomeDate DESC", CaseIncome.class);
 		query.setParameter("lawCase", theLawCase);
 		
 		return query.getResultList();

@@ -9,6 +9,13 @@
 		<link th:href="@{/styles/header.css}" rel="stylesheet" />
 		<link th:href="@{/styles/container.css}" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.jqueryui.min.css"/>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+		
+		<script th:src="@{/js/big-table.js}"></script>
 	</head>
 
 	
@@ -21,6 +28,7 @@
 						<h2>Sprawa</h2>
 					</div>
 					<div class="btns-options">
+						<a th:href="@{'/dds/customerList/customerDetails?customerId=' + ${customer.id}}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
 						<a th:href="@{/dds/customerList/customerDetails/updateLawCaseForm(caseId=${lawCase.caseId})}"><input class="btn btn-add" type="button" value="Modyfikuj"></a>
 						<a th:href="@{/dds/customerList/customerDetails/caseDetails/deleteLawCase(caseId=${lawCase.caseId})}"><input class="btn btn-del" type="button" value="Usuń"></a>
 					</div>
@@ -28,7 +36,7 @@
 			<br>
 			<h3 th:text="${customer.firstName} + ' ' + ${customer.lastName}"></h3>
 			
-			<table>
+			<table class="customer-info">
 				<tr>
 					<td th:text="${lawCase.signature}"/>
 					<td th:text="${lawCase.caseDescription}"/>
@@ -45,7 +53,7 @@
 				</div>
 			</div>
 			
-			<table>
+			<table class="dtBasicTable display">
 				<thead>
 					<tr>
 						<th>Data</th>
@@ -66,10 +74,11 @@
 					</tr>
 				</tbody>
 			</table>
-			<hr>
+
 			
+			<div class="separator"></div>
 			<h3>Korespondencja</h3>
-			<table>
+			<table class="dtBasicTable display">
 				<thead>
 					<tr>
 						<th>Data</th>
@@ -92,8 +101,8 @@
 					</tr>
 				</tbody>
 			</table>
-			<hr>
-			
+
+			<div class="separator"></div>			
 			<div class="page-title page-title-no-border">
 				<div class="page-title-text">
 					<h3>Koszty klienta</h3>
@@ -103,7 +112,7 @@
 				</div>
 			</div>
 			
-			<table>
+			<table class="dtBasicTable display">
 				<thead>
 					<tr>
 						<th>Data</th>
@@ -124,8 +133,8 @@
 					</tr>
 				</tbody>
 			</table>
-			<hr>
-			
+
+			<div class="separator"></div>			
 			<div class="page-title page-title-no-border">
 				<div class="page-title-text">
 					<h3>Terminarz rozpraw</h3>
@@ -136,7 +145,7 @@
 			</div>
 			
 			
-			<table>
+			<table class="dtBasicTable display">
 				<thead>
 					<tr>
 						<th>Data</th>

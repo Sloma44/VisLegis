@@ -22,7 +22,7 @@ public class CustomerCaseCostDAOImpl {
 	public List<CustomerCaseCost> getAllCustomerCaseCosts(LawCase theLawCase) {
 		Session session = entityManager.unwrap(Session.class);
 		
-		Query<CustomerCaseCost> query = session.createQuery("FROM CustomerCaseCost c WHERE c.lawCase = :lawCase ORDER BY c.costDate", CustomerCaseCost.class);
+		Query<CustomerCaseCost> query = session.createQuery("FROM CustomerCaseCost c WHERE c.lawCase = :lawCase ORDER BY c.costDate DESC", CustomerCaseCost.class);
 		query.setParameter("lawCase", theLawCase);
 		
 		return query.getResultList();

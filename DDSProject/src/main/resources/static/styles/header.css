@@ -1,16 +1,23 @@
 body {
-	background-color: #fff;
-	font-family: 'Ubuntu'
+	font-family: 'Ubuntu';
+	margin-top: 0;
 }
 
 .header {
-	margin-left: 12%;
+	margin-left: 178px;
 	background-color: #212529;
 	color: #fff;
-	width: 88%;
+	
+	position: relative;
+	z-index: 1;
+	
+	width: 87vw;
 	font-size: 54px;
 	text-align: left;
 	padding-top: 15px;
 	padding-bottom: 15px;
 	font-weight: bold;
+	margin-top: 0;
+	
+	overflow: hidden;
 }

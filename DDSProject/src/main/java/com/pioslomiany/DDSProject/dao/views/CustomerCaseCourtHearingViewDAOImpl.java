@@ -20,7 +20,7 @@ public class CustomerCaseCourtHearingViewDAOImpl {
 	public List<CustomerCaseCourtHearingView> getAllCourtHearings() {
 		Session session = entityManager.unwrap(Session.class);
 		
-		Query<CustomerCaseCourtHearingView> query = session.createQuery("FROM CustomerCaseCourtHearingView c ORDER BY c.hearingDate, c.hearingHour",
+		Query<CustomerCaseCourtHearingView> query = session.createQuery("FROM CustomerCaseCourtHearingView c ORDER BY c.hearingDate DESC, c.hearingHour DESC",
 																		CustomerCaseCourtHearingView.class);
 		
 		return query.getResultList();
