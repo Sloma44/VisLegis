@@ -1,0 +1,75 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+      
+	<head>
+		<title>Kalkulator spraw karnych</title>
+		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+		<link th:href="@{/styles/header.css}" rel="stylesheet" />
+		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+		
+		<style>
+			table,th,td {
+				border: 1px solid;
+				border-collapse: collapse;
+			}
+		</style>
+	</head>
+
+	
+	<body>
+		<div th:replace="fragments/menu :: menu"></div>
+		<div th:replace="fragments/header :: header"></div>
+		<div class="container">
+			<div class="page-title">
+				<div class="page-title-text">
+					<h2>Wyliczenie kosztów roboczy</h2>
+				</div>
+				<div class="btns-options">
+					<a th:href="@{/dds/calculator/criminalCalculatorFormPart1}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
+				</div>
+			</div>
+			<br>
+			
+			<table>
+				<tr>
+					<td th:text="${prepProc.name}"></td>
+					<td th:text="${prepProc.baseValue} + ' zł'"></td>
+					<td th:text="${prepProc.vatValue} + ' zł'"></td>
+					<td th:text="${prepProc.sum} + ' zł'"></td>
+			</table>
+			
+			
+			<table>
+				<tbody th:each="result : ${results}">
+					<tr>
+						<tr>
+							<td colspan="4" th:text="${result.name}"></td>
+						</tr>
+						<tr>
+							<td th:text="${result.baseValueNet} + ' zł'"></td>
+							<td th:text="${result.baseVatValue} + ' zł'"></td>
+							<td colspan="2" th:text="${result.baseGross} + ' zł'"></td>
+						</tr>
+						<tr>
+							<td th:text="${result.numberOfHearings}"></td>
+							<td th:text="${result.hearingValueNet} + ' zł'"></td>
+							<td th:text="${result.hearingVatValue} + ' zł'"></td>
+							<td th:text="${result.allHearingsGross} + ' zł'"></td>
+						</tr>
+						<tr>
+							<td th:text="${result.sumNet} + ' zł'"></td>
+							<td th:text="${result.sumVat} + ' zł'"></td>
+							<td colspan="2" th:text="${result.sumGross} + ' zł'"></td>
+						</tr>
+						<tr>
+							<td colspan="4"></td>
+						</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+
+</html>
