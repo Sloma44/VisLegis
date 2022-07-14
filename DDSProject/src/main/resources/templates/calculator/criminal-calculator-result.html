@@ -28,17 +28,20 @@
 					<h2>Wyliczenie kosztów roboczy</h2>
 				</div>
 				<div class="btns-options">
-					<a th:href="@{/dds/calculator/criminalCalculatorFormPart1}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
+					<a th:href="@{/dds/calculator/criminalCalculatorForm}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
 				</div>
 			</div>
 			<br>
 			
 			<table>
 				<tr>
-					<td th:text="${prepProc.name}"></td>
+					<td colspan="3" th:text="${prepProc.name}"></td>
+				</tr>
+				<tr>
 					<td th:text="${prepProc.baseValue} + ' zł'"></td>
 					<td th:text="${prepProc.vatValue} + ' zł'"></td>
 					<td th:text="${prepProc.sum} + ' zł'"></td>
+				</tr>
 			</table>
 			
 			

@@ -1,10 +1,10 @@
-package com.pioslomiany.DDSProject.calculator;
+package com.pioslomiany.DDSProject.calculator.entity;
 
 import lombok.ToString;
 
 
 @ToString
-public class CriminalCalculator {
+public class CriminalCourtCostForm {
 
 	//false = "Z urzędu" / true = "Z wyboru"
 	private boolean byChoice;
@@ -72,9 +72,4 @@ public class CriminalCalculator {
 	public void setSecondInstance(String secondInstance) {
 		this.secondInstance = secondInstance;
 	}
-
-	
-	
-	
-	
 }
