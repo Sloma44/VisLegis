@@ -55,11 +55,19 @@ public class CalculatorController {
 		criminalCourtCostService = new CriminalCourtCostService(criminalCourtCostForm);
 		criminalCourtCostService.buildCriminalCalculation();
 	
-		CriminalCourtPreparatoryProceedingCost thePreparatoryProceeding = criminalCourtCostService.getPp();
+		CriminalCourtPreparatoryProceedingCost thePreparatoryProceeding = criminalCourtCostService.getPreparatoryProceeding();
 		List<CriminalCourtCost> resultList = criminalCourtCostService.getResultsList();
-
+		List<Double> allCostsSums = criminalCourtCostService.getAllCostsSums();
+		List<Double> allFirstInstanceCostsSums = criminalCourtCostService.getAllFirstInstancCostsSums();
+		List<Double> allSecondInstanceCostsSums = criminalCourtCostService.getAllSecondInstancCostsSums();
+		
+		
 		model.addAttribute("prepProc", thePreparatoryProceeding);
 		model.addAttribute("results", resultList);
+		
+		model.addAttribute("sums", allCostsSums);
+		model.addAttribute("firstInstanceSums", allFirstInstanceCostsSums);
+		model.addAttribute("secondInstanceSums", allSecondInstanceCostsSums);
 		
 		
 		System.out.println("TUTAJ JEST DOBRE MIEJSE DO TESTÓW");	

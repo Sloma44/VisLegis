@@ -72,6 +72,38 @@
 						</tr>
 				</tbody>
 			</table>
+			<br>
+	
+			<br>
+			<h3>Suma kosztów pierwszej instancji</h3>
+			<table>
+				<tr>
+					<td th:text="${firstInstanceSums.get(0)}"></td>
+					<td th:text="${firstInstanceSums.get(1)}"></td>
+					<td th:text="${firstInstanceSums.get(2)}"></td>
+					<td th:text="${firstInstanceSums.get(3)}"></td>
+				</tr>
+			</table>
+			<br>
+			<h3>Suma kosztów drugiej instancji</h3>
+			<table>
+				<tr>
+					<td th:text="${secondInstanceSums.get(0)}"></td>
+					<td th:text="${secondInstanceSums.get(1)}"></td>
+					<td th:text="${secondInstanceSums.get(2)}"></td>
+					<td th:text="${secondInstanceSums.get(3)}"></td>
+				</tr>
+			</table>
+			<br>
+			<h3>Suma kosztów za pierwszą i drugą instancję</h3>
+			<table>
+				<tr>
+					<td th:text="${sums.get(0)}"></td>
+					<td th:text="${sums.get(1)}"></td>
+					<td th:text="${sums.get(2)}"></td>
+					<td th:text="${sums.get(3)}"></td>
+				</tr>
+			</table>
 		</div>
 	</body>
 
