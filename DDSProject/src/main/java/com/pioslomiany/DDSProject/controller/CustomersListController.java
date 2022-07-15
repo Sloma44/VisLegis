@@ -101,8 +101,6 @@ public class CustomersListController {
 			@ModelAttribute("customerContactInfo") CustomerContactInfo theCustomerContactInfo,
 			Model model) {
 		
-		System.out.println("Verifing bindingResult: " + bindingResult.hasErrors());
-		
 		if (bindingResult.hasErrors()) {
 			return "save-customer-form";
 		}
