@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,9 +30,11 @@ public class Customer {
 	private int id;
 	
 	@Column(name="first_name")
+	@NotEmpty(message="Pole nie może być puste")
 	private String firstName;
 	
 	@Column(name="last_name")
+	@NotEmpty(message="Pole nie może być puste")
 	private String lastName;
 	
 	 @OneToOne(mappedBy = "customer", cascade=CascadeType.ALL, fetch=FetchType.LAZY)

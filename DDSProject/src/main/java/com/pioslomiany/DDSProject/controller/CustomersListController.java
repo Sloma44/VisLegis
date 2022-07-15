@@ -2,9 +2,12 @@ package com.pioslomiany.DDSProject.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pioslomiany.DDSProject.entity.CaseIncome;
-import com.pioslomiany.DDSProject.entity.Letter;
 import com.pioslomiany.DDSProject.entity.CourtHearing;
 import com.pioslomiany.DDSProject.entity.Customer;
 import com.pioslomiany.DDSProject.entity.CustomerCaseCost;
 import com.pioslomiany.DDSProject.entity.CustomerContactInfo;
 import com.pioslomiany.DDSProject.entity.LawCase;
+import com.pioslomiany.DDSProject.entity.Letter;
 import com.pioslomiany.DDSProject.service.CustomerService;
 
 @Controller
@@ -94,10 +97,15 @@ public class CustomersListController {
 	}
 	
 	@PostMapping("saveCustomer")
-	public String saveCustomer(@ModelAttribute("customer") Customer theCustomer,
+	public String saveCustomer(@Valid @ModelAttribute("customer") Customer theCustomer, BindingResult bindingResult,
 			@ModelAttribute("customerContactInfo") CustomerContactInfo theCustomerContactInfo,
 			Model model) {
 		
+		System.out.println("Verifing bindingResult: " + bindingResult.hasErrors());
+		
+		if (bindingResult.hasErrors()) {
+			return "save-customer-form";
+		}
 		
 		customerService.saveCustomer(theCustomer);
 		customerService.saveCustomerContactInfo(theCustomer, theCustomerContactInfo);

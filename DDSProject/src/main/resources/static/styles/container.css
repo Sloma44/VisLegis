@@ -190,3 +190,8 @@ a.tilelink:hover {
 	font-size: 14px;
 	background-color: #fff;
 }
+
+.error {
+	color: #ff0000;
+	font-size: 8px;
+}

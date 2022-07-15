@@ -26,15 +26,16 @@
 				</div>
 			<br>
 			<div class="form">
-				<form action="#" th:action="@{saveCustomer}" method="POST">
+				<form action="#" th:action="@{saveCustomer}" th:object="${customer}" method="POST">
 					<input type="hidden" th:value="${customer.id}" name="id"/>
 					<div class="form-square">
-						Imię<br>
-						<input type="text" th:value="${customer.firstName}" name="firstName"/>
+						Imię *<div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:class="${#fields.hasErrors('firstName')}? error"></div>
+						<input type="text" th:field="*{firstName}" name="firstName"/>
+						
 					</div>
 					<div class="form-square">
-						Nazwisko<br>
-						<input type="text" th:value="${customer.lastName}" name="lastName"/>
+						Nazwisko *<div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:class="${#fields.hasErrors('lastName')}? error"></div>
+						<input type="text" th:field="*{lastName}" name="lastName"/>
 					</div>
 					<div class="form-square">
 						Ulica<br>
