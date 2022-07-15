@@ -9,112 +9,105 @@ import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCostForm;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtPreparatoryProceedingCost;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor
 public class CriminalCourtCostService {
 	
-	private final double SLEDZTWO = 300.0;
-	private final double DOCHODZENIE = 180.0;
-	private final double REJ_I_INST = 420;
-	private final double OKR_II_INST = 600;
-	private final double OKR_I_INST = 600;
-	private final double APEL_II_INST = 800;
-	private final double SLEDZTWO_WYB = 50.0;
-	private final double DOCHODZENIE_WYB = 60.0;
-	private final double REJ_I_INST_WYB = 70;
-	private final double OKR_II_INST_WYB = 80;
-	private final double OKR_I_INST_WYB = 90;
-	private final double APEL_II_INST_WYB = 100;
-	private final double VAT = 23;
-	private final double NEXT_COURT_HEARING_PERCENTAGE = 20;
-	private final double PREMIA = 50;
-	
+	CalculatorService calculatorService;
+
+	//tax stake
+	private double vat;
+
 	private CriminalCourtCostForm criminalCourtCostForm;
 	
+	// references that are required in the templates to generate the tables
+	@Getter
 	private CriminalCourtPreparatoryProceedingCost preparatoryProceeding;
+	@Getter
 	private List<CriminalCourtCost> resultsList;
-	
+	@Getter
 	private List<Double> allCostsSums;
+	@Getter
 	private List<Double> allFirstInstancCostsSums;
+	@Getter
 	private List<Double> allSecondInstancCostsSums;
 	
-	
+	// list of court hearings for first and second court instance
 	private List<Integer> firstInstanceOccurence;
 	private List<Integer> secondInstanceOccurence;
 	
-	public CriminalCourtCostService(CriminalCourtCostForm criminalCourtCostForm) {
+	public CriminalCourtCostService(CriminalCourtCostForm criminalCourtCostForm, CalculatorService calculatorService) {
 		this.criminalCourtCostForm = criminalCourtCostForm;
+		this.calculatorService = calculatorService;
 		resultsList = new ArrayList<>();
 		allCostsSums = new ArrayList<>();
 		allFirstInstancCostsSums = new ArrayList<>();
 		allSecondInstancCostsSums = new ArrayList<>();
+		
+		vat = calculatorService.getEntityValueById(15);
 	}
-	
+
+//	This one method runs all method in this class in the right order to generate the calculation
 	public void buildCriminalCalculation() {
 		buildPreparatoryProceeding();
 		buildResultList();
 	}
 	
+	
+//	Based on User response in the form this method generate cost for different Courts with different stakes
+//	Load the stakes from DB
+//	There are 4 kinds of stakes in DB identified by id: 3, 4, 5, 6, 9, 10, 11, 12
+// 	In the end it summarize tree kinds of costs: 2 sort of courts and general sum 
 	private void buildResultList() {
+		
+		double firstInstanceBaseValue;
+		double secondInstanceBaseValue;
+		double courtHearingPercentage = calculatorService.getEntityValueById(13);
 
 		firstInstanceOccurence = convertStringToIntegerList(criminalCourtCostForm.getFirstInstance());
 		secondInstanceOccurence = convertStringToIntegerList(criminalCourtCostForm.getSecondInstance());
-
 		
 		if(!criminalCourtCostForm.getByChoice()) {
-			if(!criminalCourtCostForm.getHigherCourt()) {		
-				for (int i = 0; i < secondInstanceOccurence.size(); i++) {
-					resultsList.add(new CriminalCourtCost(true, REJ_I_INST, VAT, firstInstanceOccurence.get(i), NEXT_COURT_HEARING_PERCENTAGE));
-					resultsList.add(new CriminalCourtCost(false, OKR_II_INST, VAT, secondInstanceOccurence.get(i), NEXT_COURT_HEARING_PERCENTAGE));
-				}
-				if (firstInstanceOccurence.size() > secondInstanceOccurence.size()) {
-					int lastIndex = firstInstanceOccurence.get(firstInstanceOccurence.size()-1);
-					resultsList.add(new CriminalCourtCost(true, REJ_I_INST, VAT, lastIndex, NEXT_COURT_HEARING_PERCENTAGE));
-				}
+			if(!criminalCourtCostForm.getHigherCourt()) {
+				firstInstanceBaseValue = calculatorService.getEntityValueById(3);
+				secondInstanceBaseValue = calculatorService.getEntityValueById(4);				
 			} else {
-				for (int i = 0; i < secondInstanceOccurence.size(); i++) {
-					resultsList.add(new CriminalCourtCost(true, OKR_I_INST, VAT, firstInstanceOccurence.get(i), NEXT_COURT_HEARING_PERCENTAGE));
-					resultsList.add(new CriminalCourtCost(false, APEL_II_INST, VAT, secondInstanceOccurence.get(i), NEXT_COURT_HEARING_PERCENTAGE));
-				}
-				if (firstInstanceOccurence.size() > secondInstanceOccurence.size()) {
-					int lastIndex = firstInstanceOccurence.get(firstInstanceOccurence.size()-1);
-					resultsList.add(new CriminalCourtCost(true, OKR_I_INST, VAT, lastIndex, NEXT_COURT_HEARING_PERCENTAGE));
-				}
+				firstInstanceBaseValue = calculatorService.getEntityValueById(5);
+				secondInstanceBaseValue = calculatorService.getEntityValueById(6);	
 			}
 		} else {
-			if(!criminalCourtCostForm.getHigherCourt()) {		
-				for (int i = 0; i < secondInstanceOccurence.size(); i++) {
-					resultsList.add(new CriminalCourtCost(true, REJ_I_INST_WYB, VAT, firstInstanceOccurence.get(i), NEXT_COURT_HEARING_PERCENTAGE));
-					resultsList.add(new CriminalCourtCost(false, OKR_II_INST_WYB, VAT, secondInstanceOccurence.get(i), NEXT_COURT_HEARING_PERCENTAGE));
-				}
-				if (firstInstanceOccurence.size() > secondInstanceOccurence.size()) {
-					int lastIndex = firstInstanceOccurence.get(firstInstanceOccurence.size()-1);
-					resultsList.add(new CriminalCourtCost(true, REJ_I_INST_WYB, VAT, lastIndex, NEXT_COURT_HEARING_PERCENTAGE));
-				}
+			if(!criminalCourtCostForm.getHigherCourt()) {
+				firstInstanceBaseValue = calculatorService.getEntityValueById(9);
+				secondInstanceBaseValue = calculatorService.getEntityValueById(10);				
 			} else {
-				for (int i = 0; i < secondInstanceOccurence.size(); i++) {
-					resultsList.add(new CriminalCourtCost(true, OKR_I_INST_WYB, VAT, firstInstanceOccurence.get(i), NEXT_COURT_HEARING_PERCENTAGE));
-					resultsList.add(new CriminalCourtCost(false, APEL_II_INST_WYB, VAT, secondInstanceOccurence.get(i), NEXT_COURT_HEARING_PERCENTAGE));
-				}
-				if (firstInstanceOccurence.size() > secondInstanceOccurence.size()) {
-					int lastIndex = firstInstanceOccurence.get(firstInstanceOccurence.size()-1);
-					resultsList.add(new CriminalCourtCost(true, OKR_I_INST_WYB, VAT, lastIndex, NEXT_COURT_HEARING_PERCENTAGE));
-				}
+				firstInstanceBaseValue = calculatorService.getEntityValueById(11);
+				secondInstanceBaseValue = calculatorService.getEntityValueById(12);	
 			}
 		}
 		
-
+		for (int i = 0; i < secondInstanceOccurence.size(); i++) {
+			resultsList.add(new CriminalCourtCost(true, firstInstanceBaseValue, vat, firstInstanceOccurence.get(i), courtHearingPercentage));
+			if (secondInstanceOccurence.get(i) != 0) {
+				resultsList.add(new CriminalCourtCost(false, secondInstanceBaseValue, vat, secondInstanceOccurence.get(i), courtHearingPercentage));				
+			}
+		}
+		if (firstInstanceOccurence.size() > secondInstanceOccurence.size()) {
+			int lastIndex = firstInstanceOccurence.get(firstInstanceOccurence.size()-1);
+			resultsList.add(new CriminalCourtCost(true, firstInstanceBaseValue, vat, lastIndex, courtHearingPercentage));
+		}
+		
+		//generate summation of costs
 		allCostsSums = generateCostSums(null);
 		allFirstInstancCostsSums = generateCostSums(CriminalCalculatorConstances.FIRST_INSTANCE_NAME);
 		allSecondInstancCostsSums = generateCostSums(CriminalCalculatorConstances.SECOND_INSTANCE_NAME);			
-		
 	}
 	
+	
+// 	Generate summation of all cost based by the Court Name (courtName is defined as final in class CriminalCalculatorConstance)
+// if String id null it summarize all cost 
 	private List<Double> generateCostSums(String instance) {
-		List<Double> list = new ArrayList<>();
+		double bonus = calculatorService.getEntityValueById(14);
 		
+		List<Double> list = new ArrayList<>();
 		double sumNet = 0;
 		double sumVat = 0;
 		double sumGross = 0;
@@ -136,34 +129,37 @@ public class CriminalCourtCostService {
 		list.add(CriminalCalculatorConstances.roundUp(sumNet));
 		list.add(CriminalCalculatorConstances.roundUp(sumVat));
 		list.add(CriminalCalculatorConstances.roundUp(sumGross));
-		list.add(CriminalCalculatorConstances.roundUp(sumGross + (sumGross * (PREMIA / 100))));
+		list.add(CriminalCalculatorConstances.roundUp(sumGross + (sumGross * (bonus / 100))));
 		
 		return list;
-		
 	}
 	
 	
+//	Based on User response in the form this method generate PreparatoryProceeding costs
+//	Load the stakes from DB
+//	There are 4 kinds of stakes in DB identified by id: 1, 2, 7, 8
+// 	If User do not chose preparatory proceeding the values is 0
 	private void buildPreparatoryProceeding() {
+		double valueInvestigationLower;
+		double valueInvestigationHigher;
+		
+		
 		if (!criminalCourtCostForm.getByChoice()) {
-			if(criminalCourtCostForm.getPreparatoryProceeding()) {
-				if (criminalCourtCostForm.getInvestigation() == true) {
-					preparatoryProceeding = new CriminalCourtPreparatoryProceedingCost(DOCHODZENIE, VAT);
-				} else {
-					preparatoryProceeding = new CriminalCourtPreparatoryProceedingCost(SLEDZTWO, VAT);
-				}
+			valueInvestigationLower = calculatorService.getEntityValueById(1);
+			valueInvestigationHigher = calculatorService.getEntityValueById(2);
+		} else {
+			valueInvestigationLower = calculatorService.getEntityValueById(7);
+			valueInvestigationHigher = calculatorService.getEntityValueById(8);
+		}	
+		
+		if(criminalCourtCostForm.getPreparatoryProceeding()) {
+			if (criminalCourtCostForm.getInvestigation()) {
+				preparatoryProceeding = new CriminalCourtPreparatoryProceedingCost(valueInvestigationLower, vat);
 			} else {
-				preparatoryProceeding = new CriminalCourtPreparatoryProceedingCost(0, 0);
+				preparatoryProceeding = new CriminalCourtPreparatoryProceedingCost(valueInvestigationHigher, vat);
 			}
 		} else {
-			if(criminalCourtCostForm.getPreparatoryProceeding()) {
-				if (criminalCourtCostForm.getInvestigation() == true) {
-					preparatoryProceeding = new CriminalCourtPreparatoryProceedingCost(DOCHODZENIE_WYB, VAT);
-				} else {
-					preparatoryProceeding = new CriminalCourtPreparatoryProceedingCost(SLEDZTWO_WYB, VAT);
-				}
-			} else {
-				preparatoryProceeding = new CriminalCourtPreparatoryProceedingCost(0, 0);
-			}
+			preparatoryProceeding = new CriminalCourtPreparatoryProceedingCost(0, 0);
 		}
 	}
 	
@@ -176,14 +172,19 @@ public class CriminalCourtCostService {
 		str.replaceAll(" ", "");
 		
 		String[] strTable = str.split(",");
-		
 		for (int i = 0; i < strTable.length; i++) {
 			list.add(Integer.valueOf(strTable[i]));
-		}
+		}	
+		
+//		if(str.matches("[0-9]+(,[0-9]+)*")) {
+//			String[] strTable = str.split(",");
+//			for (int i = 0; i < strTable.length; i++) {
+//				list.add(Integer.valueOf(strTable[i]));
+//			}			
+//		} else {
+//			list.add(0);
+//		}
 		
 		return list;
 	}
-	
-	
-
 }

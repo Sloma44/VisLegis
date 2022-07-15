@@ -1,9 +1,5 @@
 package com.pioslomiany.DDSProject.calculator.entity;
 
-import lombok.ToString;
-
-
-@ToString
 public class CriminalCourtCostForm {
 
 	//false = "Z urzędu" / true = "Z wyboru"

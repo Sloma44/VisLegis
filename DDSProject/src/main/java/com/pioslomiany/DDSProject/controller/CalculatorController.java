@@ -2,6 +2,7 @@ package com.pioslomiany.DDSProject.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCost;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCostForm;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtPreparatoryProceedingCost;
+import com.pioslomiany.DDSProject.calculator.service.CalculatorService;
 import com.pioslomiany.DDSProject.calculator.service.CriminalCourtCostService;
 
 @Controller
 @RequestMapping("/dds/calculator")
 public class CalculatorController {
+	
+	@Autowired
+	CalculatorService calculatorService;
 	
 	private CriminalCourtCostForm criminalCourtCostForm;
 	
@@ -50,9 +55,7 @@ public class CalculatorController {
 	@GetMapping("criminalCalculatorResult")
 	public String getCriminalCalculatorFormPart2(Model model) {
 		
-		System.out.println(criminalCourtCostForm.toString());
-		
-		criminalCourtCostService = new CriminalCourtCostService(criminalCourtCostForm);
+		criminalCourtCostService = new CriminalCourtCostService(criminalCourtCostForm, calculatorService);
 		criminalCourtCostService.buildCriminalCalculation();
 	
 		CriminalCourtPreparatoryProceedingCost thePreparatoryProceeding = criminalCourtCostService.getPreparatoryProceeding();
