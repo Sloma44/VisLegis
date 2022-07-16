@@ -15,9 +15,6 @@ public class CriminalCourtCostService {
 	
 	CalculatorService calculatorService;
 
-	//tax stake
-	private double vat;
-
 	private CriminalCourtCostForm criminalCourtCostForm;
 	
 	// references that are required in the templates to generate the tables
@@ -45,8 +42,6 @@ public class CriminalCourtCostService {
 		allCostsSums = new ArrayList<>();
 		allFirstInstancCostsSums = new ArrayList<>();
 		allSecondInstancCostsSums = new ArrayList<>();
-		
-		vat = calculatorService.getEntityValueById(15);
 	}
 
 //	This one method runs all method in this class in the right order to generate the calculation
@@ -64,12 +59,14 @@ public class CriminalCourtCostService {
 		
 		double firstInstanceBaseValue;
 		double secondInstanceBaseValue;
+		double vat;
 		double courtHearingPercentage = calculatorService.getEntityValueById(13);
 
 		firstInstanceOccurence = convertStringToIntegerList(criminalCourtCostForm.getFirstInstance());
 		secondInstanceOccurence = convertStringToIntegerList(criminalCourtCostForm.getSecondInstance());
 		
 		if(!criminalCourtCostForm.getByChoice()) {
+			vat = calculatorService.getEntityValueById(15);
 			if(!criminalCourtCostForm.getHigherCourt()) {
 				firstInstanceBaseValue = calculatorService.getEntityValueById(3);
 				secondInstanceBaseValue = calculatorService.getEntityValueById(4);				
@@ -78,6 +75,7 @@ public class CriminalCourtCostService {
 				secondInstanceBaseValue = calculatorService.getEntityValueById(6);	
 			}
 		} else {
+			vat = 0;
 			if(!criminalCourtCostForm.getHigherCourt()) {
 				firstInstanceBaseValue = calculatorService.getEntityValueById(9);
 				secondInstanceBaseValue = calculatorService.getEntityValueById(10);				
@@ -163,12 +161,15 @@ public class CriminalCourtCostService {
 	private void buildPreparatoryProceeding() {
 		double valueInvestigationLower;
 		double valueInvestigationHigher;
+		double vat;
 		
 		
 		if (!criminalCourtCostForm.getByChoice()) {
+			vat = calculatorService.getEntityValueById(15);
 			valueInvestigationLower = calculatorService.getEntityValueById(1);
 			valueInvestigationHigher = calculatorService.getEntityValueById(2);
 		} else {
+			vat = 0;
 			valueInvestigationLower = calculatorService.getEntityValueById(7);
 			valueInvestigationHigher = calculatorService.getEntityValueById(8);
 		}	
