@@ -1,5 +1,7 @@
 package com.pioslomiany.DDSProject.calculator.entity;
 
+import javax.validation.constraints.Pattern;
+
 public class CriminalCourtCostForm {
 
 	//false = "Z urzędu" / true = "Z wyboru"
@@ -16,9 +18,11 @@ public class CriminalCourtCostForm {
 	private boolean higherCourt;
 
 	//number of times the case was in first instance
+	@Pattern(regexp="[0-9]+(,[0-9]+)*", message="Błędne dane")
 	private String firstInstance;
 	
 	//number of times the case was in second instance
+	@Pattern(regexp="[0-9]+(,[0-9]+)*", message="Błędne dane")
 	private String secondInstance;
 
 	public boolean getByChoice() {

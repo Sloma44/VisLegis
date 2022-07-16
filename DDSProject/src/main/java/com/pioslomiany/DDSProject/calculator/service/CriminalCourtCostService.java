@@ -1,6 +1,7 @@
 package com.pioslomiany.DDSProject.calculator.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCalculatorConstances;
@@ -38,6 +39,8 @@ public class CriminalCourtCostService {
 	public CriminalCourtCostService(CriminalCourtCostForm criminalCourtCostForm, CalculatorService calculatorService) {
 		this.criminalCourtCostForm = criminalCourtCostForm;
 		this.calculatorService = calculatorService;
+		
+		preparatoryProceeding = new CriminalCourtPreparatoryProceedingCost(0, 0);
 		resultsList = new ArrayList<>();
 		allCostsSums = new ArrayList<>();
 		allFirstInstancCostsSums = new ArrayList<>();
@@ -84,16 +87,27 @@ public class CriminalCourtCostService {
 			}
 		}
 		
-		for (int i = 0; i < secondInstanceOccurence.size(); i++) {
-			resultsList.add(new CriminalCourtCost(true, firstInstanceBaseValue, vat, firstInstanceOccurence.get(i), courtHearingPercentage));
-			if (secondInstanceOccurence.get(i) != 0) {
-				resultsList.add(new CriminalCourtCost(false, secondInstanceBaseValue, vat, secondInstanceOccurence.get(i), courtHearingPercentage));				
-			}
-		}
-		if (firstInstanceOccurence.size() > secondInstanceOccurence.size()) {
-			int lastIndex = firstInstanceOccurence.get(firstInstanceOccurence.size()-1);
-			resultsList.add(new CriminalCourtCost(true, firstInstanceBaseValue, vat, lastIndex, courtHearingPercentage));
-		}
+
+//		Merging both criminalCourtCost alternately	
+		Iterator<Integer> itA = firstInstanceOccurence.iterator();
+	    Iterator<Integer> itB = secondInstanceOccurence.iterator();
+	    
+	    while (itA.hasNext() || itB.hasNext()) {
+	        if (itA.hasNext()) {
+	        	resultsList.add(new CriminalCourtCost(true, firstInstanceBaseValue, vat, itA.next(), courtHearingPercentage));
+	        }
+	        if (itB.hasNext()) {
+	        	resultsList.add(new CriminalCourtCost(false, secondInstanceBaseValue, vat, itB.next(), courtHearingPercentage));
+	        }
+	    }
+	    
+//		If number of court hearing is 0 it is removed from the list
+	   for (int i = 0; i < resultsList.size(); i++) {
+		   if (resultsList.get(i).getNumberOfHearings() == 0) {
+			   resultsList.remove(i);
+			   i--;
+		   }
+	   }
 		
 		//generate summation of costs
 		allCostsSums = generateCostSums(null);
@@ -124,6 +138,13 @@ public class CriminalCourtCostService {
 				sumVat += result.getSumVat();
 				sumGross += result.getSumGross();	
 			}
+		}
+		
+//		Adding to general sum cost of preparatory proceeding
+		if (instance == null) {
+			sumNet += preparatoryProceeding.getBaseValue();
+			sumVat += preparatoryProceeding.getVatValue();
+			sumGross += preparatoryProceeding.getSum();
 		}
 		
 		list.add(CriminalCalculatorConstances.roundUp(sumNet));
@@ -174,16 +195,7 @@ public class CriminalCourtCostService {
 		String[] strTable = str.split(",");
 		for (int i = 0; i < strTable.length; i++) {
 			list.add(Integer.valueOf(strTable[i]));
-		}	
-		
-//		if(str.matches("[0-9]+(,[0-9]+)*")) {
-//			String[] strTable = str.split(",");
-//			for (int i = 0; i < strTable.length; i++) {
-//				list.add(Integer.valueOf(strTable[i]));
-//			}			
-//		} else {
-//			list.add(0);
-//		}
+		}
 		
 		return list;
 	}

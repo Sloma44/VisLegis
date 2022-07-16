@@ -8,14 +8,9 @@
 		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
 		<link th:href="@{/styles/header.css}" rel="stylesheet" />
 		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link th:href="@{/styles/calculator.css}" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 		
-		<style>
-			table,th,td {
-				border: 1px solid;
-				border-collapse: collapse;
-			}
-		</style>
 	</head>
 
 	
@@ -35,7 +30,12 @@
 			
 			<table>
 				<tr>
-					<td colspan="3" th:text="${prepProc.name}"></td>
+					<td colspan="3" th:class="title-head" th:text="${prepProc.name}"/>
+				</tr>
+				<tr>
+					<td class="title">Netto</td>
+					<td class="title">Vat</td>
+					<td class="title">Brutto</td>
 				</tr>
 				<tr>
 					<td th:text="${prepProc.baseValue} + ' zł'"></td>
@@ -49,12 +49,23 @@
 				<tbody th:each="result : ${results}">
 					<tr>
 						<tr>
-							<td colspan="4" th:text="${result.name}"></td>
+							<td th:class="title-head" colspan="4" th:text="${result.name}"></td>
+						</tr>
+						<tr>
+							<td class="title">Kwota bazowa netto</td>
+							<td class="title">Kwota bazowa VAT</td>
+							<td colspan="2" class="title">Kwota bazowa brutto</td>
 						</tr>
 						<tr>
 							<td th:text="${result.baseValueNet} + ' zł'"></td>
 							<td th:text="${result.baseVatValue} + ' zł'"></td>
 							<td colspan="2" th:text="${result.baseGross} + ' zł'"></td>
+						</tr>
+						<tr>
+							<td class="title">Liczba rozpraw</td>
+							<td class="title">Koszt rozprawy netto</td>
+							<td class="title">Koszt rozprawy VAT</td>
+							<td class="title">Suma rozpraw brutto</td>
 						</tr>
 						<tr>
 							<td th:text="${result.numberOfHearings}"></td>
@@ -63,20 +74,28 @@
 							<td th:text="${result.allHearingsGross} + ' zł'"></td>
 						</tr>
 						<tr>
+							<td class="title">Suma netto</td>
+							<td class="title">Suma VAT</td>
+							<td colspan="2" class="title">Suma bruto</td>
+						</tr>
+						<tr>
 							<td th:text="${result.sumNet} + ' zł'"></td>
 							<td th:text="${result.sumVat} + ' zł'"></td>
 							<td colspan="2" th:text="${result.sumGross} + ' zł'"></td>
 						</tr>
-						<tr>
-							<td colspan="4"></td>
-						</tr>
 				</tbody>
 			</table>
-			<br>
-	
-			<br>
-			<h3>Suma kosztów pierwszej instancji</h3>
+
 			<table>
+				<tr>
+					<td colspan="4" class="title-head">Suma kosztów za I instancję</td>
+				</tr>
+				<tr>
+					<td class="title">Suma netto</td>
+					<td class="title">Suma VAT</td>
+					<td class="title">Suma brutto</td>
+					<td th:class="title" th:text="'Suma brutto z premią ' + ${bonus} + ' ' + '%'"></td>
+				</tr>
 				<tr>
 					<td th:text="${firstInstanceSums.get(0)}"></td>
 					<td th:text="${firstInstanceSums.get(1)}"></td>
@@ -84,9 +103,17 @@
 					<td th:text="${firstInstanceSums.get(3)}"></td>
 				</tr>
 			</table>
-			<br>
-			<h3>Suma kosztów drugiej instancji</h3>
+
 			<table>
+				<tr>
+					<td colspan="4" class="title-head">Suma kosztów za II instancję</td>
+				</tr>
+				<tr>
+					<td class="title">Suma netto</td>
+					<td class="title">Suma VAT</td>
+					<td class="title">Suma brutto</td>
+					<td th:class="title" th:text="'Suma brutto z premią ' + ${bonus} + ' ' + '%'"></td>
+				</tr>
 				<tr>
 					<td th:text="${secondInstanceSums.get(0)}"></td>
 					<td th:text="${secondInstanceSums.get(1)}"></td>
@@ -94,9 +121,17 @@
 					<td th:text="${secondInstanceSums.get(3)}"></td>
 				</tr>
 			</table>
-			<br>
-			<h3>Suma kosztów za pierwszą i drugą instancję</h3>
+
 			<table>
+				<tr>
+					<td colspan="4" class="title-head">Suma wszystkich kosztów wraz z kosztem postpępowania przygotowawczego</td>
+				</tr>
+				<tr>
+					<td class="title">Suma netto</td>
+					<td class="title">Suma VAT</td>
+					<td class="title">Suma brutto</td>
+					<td th:class="title" th:text="'Suma brutto z premią ' + ${bonus} + ' ' + '%'"></td>
+				</tr>
 				<tr>
 					<td th:text="${sums.get(0)}"></td>
 					<td th:text="${sums.get(1)}"></td>

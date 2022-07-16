@@ -18,7 +18,7 @@
 		<div class="container">
 			<div class="page-title">
 				<div class="page-title-text">
-					<h2>Przygotuj wyliczenie kosztów (1/2)</h2>
+					<h2>Przygotuj wyliczenie kosztów</h2>
 				</div>
 				<div class="btns-options">
 					<a th:href="@{/dds/calculator}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
@@ -77,11 +77,11 @@
 					</div>
 					
 					<div class="form-square">
-						Ilość wystąpień w I instancji
+						Ilość wystąpień w I instancji<div th:if="${#fields.hasErrors('firstInstance')}" th:errorclass="error" th:errors="*{firstInstance}"></div>
 						<input type="text" th:field="*{firstInstance}" placeholder="2,3,1,4"/>
 					</div>
 					<div class="form-square">
-						Ilość wystąpień w II instancji
+						Ilość wystąpień w II instancji <div th:if="${#fields.hasErrors('secondInstance')}" th:errorclass="error" th:errors="*{secondInstance}"></div>
 						<input type="text" th:field="*{secondInstance}" placeholder="2,3,1,4"/>
 					</div>
 					<div class="btn-submit">

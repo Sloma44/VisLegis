@@ -2,9 +2,12 @@ package com.pioslomiany.DDSProject.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,15 +46,17 @@ public class CalculatorController {
 	}
 	
 	@PostMapping("saveCriminalCalculatorForm")
-	public String saveCriminalCalculatorFormPart1(@ModelAttribute("criminal") CriminalCourtCostForm criminalCourtCostForm, Model model) {
+	public String saveCriminalCalculatorFormPart1(@Valid @ModelAttribute("criminal") CriminalCourtCostForm criminalCourtCostForm, BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			return "calculator/criminal-calculator-form";
+		}
 		
 		this.criminalCourtCostForm = criminalCourtCostForm;
-		
 		
 		return "redirect:/dds/calculator/criminalCalculatorResult";
 	}
 
-//miesjce zmiany jest tutaj
 	@GetMapping("criminalCalculatorResult")
 	public String getCriminalCalculatorFormPart2(Model model) {
 		
@@ -64,16 +69,15 @@ public class CalculatorController {
 		List<Double> allFirstInstanceCostsSums = criminalCourtCostService.getAllFirstInstancCostsSums();
 		List<Double> allSecondInstanceCostsSums = criminalCourtCostService.getAllSecondInstancCostsSums();
 		
+		double bonus = calculatorService.getEntityValueById(14);
 		
+		model.addAttribute("bonus", bonus);
 		model.addAttribute("prepProc", thePreparatoryProceeding);
 		model.addAttribute("results", resultList);
 		
 		model.addAttribute("sums", allCostsSums);
 		model.addAttribute("firstInstanceSums", allFirstInstanceCostsSums);
-		model.addAttribute("secondInstanceSums", allSecondInstanceCostsSums);
-		
-		
-		System.out.println("TUTAJ JEST DOBRE MIEJSE DO TESTÓW");	
+		model.addAttribute("secondInstanceSums", allSecondInstanceCostsSums);	
 		
 		return "calculator/criminal-calculator-result";
 	}
