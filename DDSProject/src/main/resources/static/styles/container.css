@@ -36,23 +36,24 @@ body {
 	float: left;
 	background-color: #212529;
 	width: 230px;
-	height: 142px;
+	height: 57px;
+	padding-top: 50px;
+	padding-bottom: 35px;
 	margin-right: 15px;
 	text-align: center;
-	line-height: 142px;
-	color: #fff;
 }
 
 .square:hover {
 	opacity: 0.85;
+	cursor:pointer;
 }
+
 
 a.tilelink:link, a.tilelink:visited {
 	width: 230px;
 	height: 142px;
-	display: block;
 	text-decoration: none;
-	color: inherit;
+	color: #fff;
 }
 
 a.tilelink:hover {
@@ -60,7 +61,6 @@ a.tilelink:hover {
 	height: 142px;
 	display: block;
 	text-decoration: none;
-	color: inherit;
 }
 
 
@@ -146,10 +146,23 @@ a.tilelink:hover {
 	border: 1px solid #ccc;
 	border-radius: 8px;
 	box-sizing: border-box;
-	width: 100%;
 	height: 30px;
 	width: 90%;
 	font-size: 14px;
+}
+
+.btn-submitEurRate {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	box-sizing: border-box;
+	height: 30px;
+	width: 90%;
+	font-size: 14px;
+	background-color: #4d9dd6;
+}
+
+.btn-submitEurRate:hover {
+	background-color: #4dafd6
 }
 
 .description {

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCost;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCostForm;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtPreparatoryProceedingCost;
+import com.pioslomiany.DDSProject.calculator.entity.NBPExchangeRate.Rate;
 import com.pioslomiany.DDSProject.calculator.service.CalculatorService;
 import com.pioslomiany.DDSProject.calculator.service.CriminalCourtCostService;
 
@@ -29,6 +30,10 @@ public class CalculatorController {
 	private CriminalCourtCostForm criminalCourtCostForm;
 	
 	private CriminalCourtCostService criminalCourtCostService;
+	
+	private String startDate;
+	private String endDate;
+	
 
 	@GetMapping("")
 	public String getMainCalculator() {
@@ -36,7 +41,7 @@ public class CalculatorController {
 	}
 	
 	@GetMapping("criminalCalculatorForm")
-	public String getCriminalCalculatorFormPart1(Model model) {
+	public String getCriminalCalculatorForm(Model model) {
 		
 		criminalCourtCostForm = new CriminalCourtCostForm();
 		
@@ -46,7 +51,7 @@ public class CalculatorController {
 	}
 	
 	@PostMapping("saveCriminalCalculatorForm")
-	public String saveCriminalCalculatorFormPart1(@Valid @ModelAttribute("criminal") CriminalCourtCostForm criminalCourtCostForm, BindingResult bindingResult, Model model) {
+	public String saveCriminalCalculatorForm(@Valid @ModelAttribute("criminal") CriminalCourtCostForm criminalCourtCostForm, BindingResult bindingResult, Model model) {
 		
 		if (bindingResult.hasErrors()) {
 			return "calculator/criminal-calculator-form";
@@ -58,7 +63,7 @@ public class CalculatorController {
 	}
 
 	@GetMapping("criminalCalculatorResult")
-	public String getCriminalCalculatorFormPart2(Model model) {
+	public String getCriminalCalculatorFormResult(Model model) {
 		
 		criminalCourtCostService = new CriminalCourtCostService(criminalCourtCostForm, calculatorService);
 		criminalCourtCostService.buildCriminalCalculation();
@@ -80,6 +85,47 @@ public class CalculatorController {
 		model.addAttribute("secondInstanceSums", allSecondInstanceCostsSums);	
 		
 		return "calculator/criminal-calculator-result";
+	}
+	
+	
+// -------------------------------------------------------------------------
+	
+	
+	@GetMapping("eurExchangeRateForm")
+	public String getEurExchangeRateForm(Model model) {
+		
+		model.addAttribute("startDate", new String());
+		model.addAttribute("endDate", new String());
+		
+		return "calculator/eur-exchange-rate-form";
+	}
+	
+	@PostMapping("saveEurExchangeRateForm")
+	public String saveEurExchangeRateForm(@ModelAttribute("startDate") String startDate,
+										@ModelAttribute("endDate") String endDate, Model model) {
+		
+		this.startDate = startDate;
+		this.endDate = endDate;
+		
+		return "redirect:/dds/calculator/eurExchangeRateResult";
+	}
+	
+	@GetMapping("eurExchangeRateResult")
+	public String eurExchangeRateResult(Model model) {
+		
+		List<Rate> lastDaysList = calculatorService.getLastDaysNBPExchangeRates(startDate, endDate);
+		
+		model.addAttribute("rates", lastDaysList);
+		
+		return "calculator/eur-exchange-rate-result";
+	}
+	
+//	----------------------------------------------------------------
+	
+	@GetMapping("eurExchangeRateDay")
+	public String getEurExchangeRateDay() {
+		
+		return "calculator/eur-exchange-rate-day";
 	}
 	
 }
