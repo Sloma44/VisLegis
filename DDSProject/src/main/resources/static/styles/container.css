@@ -48,6 +48,10 @@ body {
 	cursor:pointer;
 }
 
+a.tilelink {
+	width: 230px;
+	height: 142px;
+}
 
 a.tilelink:link, a.tilelink:visited {
 	width: 230px;
@@ -62,8 +66,6 @@ a.tilelink:hover {
 	display: block;
 	text-decoration: none;
 }
-
-
 
 .btn {
 	background-color: #4d9dd6;

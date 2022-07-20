@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pioslomiany.DDSProject.calculator.entity.ChargeRatesEur;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCost;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCostForm;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtPreparatoryProceedingCost;
@@ -120,7 +122,7 @@ public class CalculatorController {
 		return "calculator/eur-exchange-rate-result";
 	}
 	
-//	----------------------------------------------------------------
+//	-------------------------------------------------------------------------
 	
 	@GetMapping("eurExchangeRateDay")
 	public String getEurExchangeRateDay() {
@@ -128,4 +130,52 @@ public class CalculatorController {
 		return "calculator/eur-exchange-rate-day";
 	}
 	
+//	-------------------------------------------------------------------------
+	
+	@GetMapping("/chargeRatesEurForm")
+	public String getChargeRatesEurForm(Model model) {
+		
+		model.addAttribute("chargeRatesEur", new ChargeRatesEur());
+		
+		return "calculator/charge-rates-calculator-form";
+	}
+	
+	@PostMapping("/saveChargeRatesEurForm")
+	public String saveChargeRatesEurForm(@ModelAttribute("chargeRatesEur") ChargeRatesEur chargeRatesEur) {
+		
+		String invoice = chargeRatesEur.getInvoice();
+		String invoiceDate = chargeRatesEur.getInvoiceDate();
+		String dateOfPayement = chargeRatesEur.getDateOfPayement();
+		double valueGross = chargeRatesEur.getValueGross();
+
+		calculatorService.saveChargeRatesEur(new ChargeRatesEur(invoice, invoiceDate, dateOfPayement, valueGross));
+		
+		return "redirect:/dds/calculator/chargeRatesEurResult";
+	}
+	
+	@GetMapping("/chargeRatesEurResult")
+	public String chargeRatesEurResult(Model model) {
+		
+		List<ChargeRatesEur> chargeRatesEurList = calculatorService.getListOfChargeRatesEur();
+		
+		model.addAttribute("chargeRatesList", chargeRatesEurList);
+		
+		return "calculator/charge-rates-calculator-result";
+	}
+	
+	@GetMapping("/chargeRatesEurReset")
+	public String chargeRatesEurReset() {
+		
+		calculatorService.resetChargeRateList();
+		
+		return "redirect:/dds/calculator/chargeRatesEurForm";
+	}
+	
+	@GetMapping("/deleteOneRecord")
+	public String deleteOneRecord(@RequestParam("chargeRates") Integer theHashCode, Model model) {
+
+		calculatorService.deleteRecordByHashCode(theHashCode);
+		
+		return "redirect:/dds/calculator/chargeRatesEurResult";
+	}
 }
