@@ -17,10 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.pioslomiany.DDSProject.calculator.entity.ChargeRatesEur;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCost;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCostForm;
-import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtPreparatoryProceedingCost;
 import com.pioslomiany.DDSProject.calculator.entity.NBPExchangeRate.Rate;
+import com.pioslomiany.DDSProject.calculator.entity.PreparatoryProceeding;
 import com.pioslomiany.DDSProject.calculator.service.CalculatorService;
-import com.pioslomiany.DDSProject.calculator.service.CriminalCourtCostService;
 
 @Controller
 @RequestMapping("/dds/calculator")
@@ -28,10 +27,6 @@ public class CalculatorController {
 	
 	@Autowired
 	CalculatorService calculatorService;
-	
-	private CriminalCourtCostForm criminalCourtCostForm;
-	
-	private CriminalCourtCostService criminalCourtCostService;
 	
 	private String startDate;
 	private String endDate;
@@ -45,9 +40,7 @@ public class CalculatorController {
 	@GetMapping("criminalCalculatorForm")
 	public String getCriminalCalculatorForm(Model model) {
 		
-		criminalCourtCostForm = new CriminalCourtCostForm();
-		
-		model.addAttribute("criminal", criminalCourtCostForm);
+		model.addAttribute("criminal", new CriminalCourtCostForm());
 		
 		return "calculator/criminal-calculator-form";
 	}
@@ -59,25 +52,25 @@ public class CalculatorController {
 			return "calculator/criminal-calculator-form";
 		}
 		
-		this.criminalCourtCostForm = criminalCourtCostForm;
+		calculatorService.setCriminalCourtCostForm(criminalCourtCostForm);
 		
 		return "redirect:/dds/calculator/criminalCalculatorResult";
 	}
 
 	@GetMapping("criminalCalculatorResult")
 	public String getCriminalCalculatorFormResult(Model model) {
-		
-		criminalCourtCostService = new CriminalCourtCostService(criminalCourtCostForm, calculatorService);
-		criminalCourtCostService.buildCriminalCalculation();
 	
-		CriminalCourtPreparatoryProceedingCost thePreparatoryProceeding = criminalCourtCostService.getPreparatoryProceeding();
-		List<CriminalCourtCost> resultList = criminalCourtCostService.getResultsList();
-		List<Double> allCostsSums = criminalCourtCostService.getAllCostsSums();
-		List<Double> allFirstInstanceCostsSums = criminalCourtCostService.getAllFirstInstancCostsSums();
-		List<Double> allSecondInstanceCostsSums = criminalCourtCostService.getAllSecondInstancCostsSums();
+		//need to pass calculatorService to the DAO to have access to DB
+		calculatorService.passCalculatorService(calculatorService);
+		
+		PreparatoryProceeding thePreparatoryProceeding = calculatorService.getPreparatoryProceeding();
+		List<CriminalCourtCost> resultList = calculatorService.getResultsList();
+		List<Double> allCostsSums = calculatorService.getAllCostsSums();
+		List<Double> allFirstInstanceCostsSums = calculatorService.getAllFirstInstancCostsSums();
+		List<Double> allSecondInstanceCostsSums = calculatorService.getAllSecondInstancCostsSums();
 		
 		double bonus = calculatorService.getEntityValueById(14);
-		
+//		
 		model.addAttribute("bonus", bonus);
 		model.addAttribute("prepProc", thePreparatoryProceeding);
 		model.addAttribute("results", resultList);

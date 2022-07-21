@@ -1,69 +1,68 @@
-package com.pioslomiany.DDSProject.calculator.service;
+package com.pioslomiany.DDSProject.calculator.dao;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCalculatorConstances;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCost;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCostForm;
-import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtPreparatoryProceedingCost;
+import com.pioslomiany.DDSProject.calculator.entity.PreparatoryProceeding;
+import com.pioslomiany.DDSProject.calculator.service.CalculatorService;
 
-import lombok.Getter;
+import lombok.Setter;
 
-public class CriminalCourtCostService {
+@Repository
+public class CriminalCourtCostDAO {
 	
+	@Setter
 	CalculatorService calculatorService;
-
+	
+	@Setter
 	private CriminalCourtCostForm criminalCourtCostForm;
 	
-	// references that are required in the templates to generate the tables
-	@Getter
-	private CriminalCourtPreparatoryProceedingCost preparatoryProceeding;
-	@Getter
+	private PreparatoryProceeding preparatoryProceeding;
+	
 	private List<CriminalCourtCost> resultsList;
-	@Getter
+
 	private List<Double> allCostsSums;
-	@Getter
+
 	private List<Double> allFirstInstancCostsSums;
-	@Getter
+
 	private List<Double> allSecondInstancCostsSums;
 	
-	// list of court hearings for first and second court instance
-	private List<Integer> firstInstanceOccurence;
-	private List<Integer> secondInstanceOccurence;
-	
-	public CriminalCourtCostService(CriminalCourtCostForm criminalCourtCostForm, CalculatorService calculatorService) {
-		this.criminalCourtCostForm = criminalCourtCostForm;
-		this.calculatorService = calculatorService;
-		
-		preparatoryProceeding = new CriminalCourtPreparatoryProceedingCost(0, 0);
+	public CriminalCourtCostDAO() {
 		resultsList = new ArrayList<>();
 		allCostsSums = new ArrayList<>();
 		allFirstInstancCostsSums = new ArrayList<>();
 		allSecondInstancCostsSums = new ArrayList<>();
 	}
-
-//	This one method runs all method in this class in the right order to generate the calculation
-	public void buildCriminalCalculation() {
-		buildPreparatoryProceeding();
-		buildResultList();
+	
+//	Based on User response in the form this method generate PreparatoryProceeding costs
+//	Load the stakes from DB
+//	There are 4 kinds of stakes in DB identified by id: 1, 2, 7, 8
+// 	If User do not chose preparatory proceeding the values is 0
+	public PreparatoryProceeding getPreparatoryProceeding() {
+		preparatoryProceeding = new PreparatoryProceeding(criminalCourtCostForm, calculatorService);
+		return preparatoryProceeding;
 	}
 	
-	
+
 //	Based on User response in the form this method generate cost for different Courts with different stakes
 //	Load the stakes from DB
 //	There are 4 kinds of stakes in DB identified by id: 3, 4, 5, 6, 9, 10, 11, 12
 // 	In the end it summarize tree kinds of costs: 2 sort of courts and general sum 
-	private void buildResultList() {
+	public List<CriminalCourtCost> getResultsList() {
 		
 		double firstInstanceBaseValue;
 		double secondInstanceBaseValue;
 		double vat;
 		double courtHearingPercentage = calculatorService.getEntityValueById(13);
 
-		firstInstanceOccurence = convertStringToIntegerList(criminalCourtCostForm.getFirstInstance());
-		secondInstanceOccurence = convertStringToIntegerList(criminalCourtCostForm.getSecondInstance());
+		List<Integer> firstInstanceOccurence = convertStringToIntegerList(criminalCourtCostForm.getFirstInstance());
+		List<Integer> secondInstanceOccurence = convertStringToIntegerList(criminalCourtCostForm.getSecondInstance());
 		
 		if(!criminalCourtCostForm.getByChoice()) {
 			vat = calculatorService.getEntityValueById(15);
@@ -108,9 +107,26 @@ public class CriminalCourtCostService {
 	   }
 		
 		//generate summation of costs
+//		allCostsSums = generateCostSums(null);
+//		allFirstInstancCostsSums = generateCostSums(CriminalCalculatorConstances.FIRST_INSTANCE_NAME);
+//		allSecondInstancCostsSums = generateCostSums(CriminalCalculatorConstances.SECOND_INSTANCE_NAME);	
+		
+		return resultsList;
+	}
+	
+	public List<Double> getAllCostsSums() {
 		allCostsSums = generateCostSums(null);
+		return allCostsSums;
+	}
+
+	public List<Double> getAllFirstInstancCostsSums() {
 		allFirstInstancCostsSums = generateCostSums(CriminalCalculatorConstances.FIRST_INSTANCE_NAME);
-		allSecondInstancCostsSums = generateCostSums(CriminalCalculatorConstances.SECOND_INSTANCE_NAME);			
+		return allFirstInstancCostsSums;
+	}
+
+	public List<Double> getAllSecondInstancCostsSums() {
+		allSecondInstancCostsSums = generateCostSums(CriminalCalculatorConstances.SECOND_INSTANCE_NAME);
+		return allSecondInstancCostsSums;
 	}
 	
 	
@@ -151,38 +167,6 @@ public class CriminalCourtCostService {
 		list.add(CriminalCalculatorConstances.roundUp(sumGross + (sumGross * (bonus / 100))));
 		
 		return list;
-	}
-	
-	
-//	Based on User response in the form this method generate PreparatoryProceeding costs
-//	Load the stakes from DB
-//	There are 4 kinds of stakes in DB identified by id: 1, 2, 7, 8
-// 	If User do not chose preparatory proceeding the values is 0
-	private void buildPreparatoryProceeding() {
-		double valueInvestigationLower;
-		double valueInvestigationHigher;
-		double vat;
-		
-		
-		if (!criminalCourtCostForm.getByChoice()) {
-			vat = calculatorService.getEntityValueById(15);
-			valueInvestigationLower = calculatorService.getEntityValueById(1);
-			valueInvestigationHigher = calculatorService.getEntityValueById(2);
-		} else {
-			vat = 0;
-			valueInvestigationLower = calculatorService.getEntityValueById(7);
-			valueInvestigationHigher = calculatorService.getEntityValueById(8);
-		}	
-		
-		if(criminalCourtCostForm.getPreparatoryProceeding()) {
-			if (criminalCourtCostForm.getInvestigation()) {
-				preparatoryProceeding = new CriminalCourtPreparatoryProceedingCost(valueInvestigationLower, vat);
-			} else {
-				preparatoryProceeding = new CriminalCourtPreparatoryProceedingCost(valueInvestigationHigher, vat);
-			}
-		} else {
-			preparatoryProceeding = new CriminalCourtPreparatoryProceedingCost(0, 0);
-		}
 	}
 	
 	
