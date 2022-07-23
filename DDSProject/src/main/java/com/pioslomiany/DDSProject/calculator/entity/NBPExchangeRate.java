@@ -1,6 +1,9 @@
 package com.pioslomiany.DDSProject.calculator.entity;
 
+import java.time.LocalDate;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +17,8 @@ public class NBPExchangeRate {
 	
 	@Getter @Setter @NoArgsConstructor
 	public static class Rate {
-		private String effectiveDate;
+		@JsonFormat(pattern="yyyy-MM-dd")
+		private LocalDate effectiveDate;
 		private String mid;
 	}
 	

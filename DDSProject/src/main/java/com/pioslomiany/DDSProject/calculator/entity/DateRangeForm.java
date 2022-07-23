@@ -1,7 +1,9 @@
 package com.pioslomiany.DDSProject.calculator.entity;
 
 
-import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.pioslomiany.DDSProject.calculator.validators.CurrentDateConstraint;
 
@@ -13,11 +15,13 @@ import lombok.Setter;
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class DateRangeForm {
 	
-	@NotEmpty(message="Błędna data")
-	private String startDate;
+	@CurrentDateConstraint
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate startDate;
 	
 	@CurrentDateConstraint
-	private String endDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate endDate;
 	
 	
 }

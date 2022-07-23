@@ -1,9 +1,8 @@
 package com.pioslomiany.DDSProject.calculator.dao;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -33,7 +32,7 @@ public class LastDayOfTheMonthsNBPEuroRateDAO {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
-		String url = "http://api.nbp.pl/api/exchangerates/rates/a/eur/" + dateRange.getStartDate() + "/" + dateRange.getEndDate();
+		String url = "http://api.nbp.pl/api/exchangerates/rates/a/eur/" + dateRange.getStartDate().toString() + "/" + dateRange.getEndDate().toString();
 		
 		nbpExchangeRate = restTemplate.getForObject(url, NBPExchangeRate.class);
 		
@@ -49,38 +48,33 @@ public class LastDayOfTheMonthsNBPEuroRateDAO {
 	private void checkDateRange() {
 		long diff = 0;
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	    try {
-	    	Date firstDate = sdf.parse(dateRange.getStartDate());
-	    	Date secondDate = sdf.parse(dateRange.getEndDate());	    	
-	    	long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
-	    	diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-	    } catch (ParseException pe) {
-	    	pe.printStackTrace();
-	    }
+	    Date firstDate = Date.from(dateRange.getStartDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date secondDate = Date.from(dateRange.getEndDate().atStartOfDay(ZoneId.systemDefault()).toInstant());	    	
+		long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+		diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
 		if (diff > 367) {
-			LocalDate startDate = LocalDate.parse(dateRange.getEndDate()).minusDays(364);
-			dateRange.setStartDate(startDate.toString());
+			LocalDate newStartDate = dateRange.getEndDate().minusDays(364);
+			dateRange.setStartDate(newStartDate);
 		}
 	}
 	
 	
 //	This method return the List of Strings with the dates of last days of each month from specific range
-	private List<String> buildLastDaysOfTheMonthsList(List<Rate> nbpExchangeRate) {
-		List<String> lastDaysOfTheMonthsList = new ArrayList<>();
+	private List<LocalDate> buildLastDaysOfTheMonthsList(List<Rate> nbpExchangeRate) {
+		List<LocalDate> lastDaysOfTheMonthsList = new ArrayList<>();
 		
 		//this are the steps to for the last months
-		LocalDate localDate = LocalDate.parse(nbpExchangeRate.get(nbpExchangeRate.size()-1).getEffectiveDate());
+		LocalDate localDate = nbpExchangeRate.get(nbpExchangeRate.size()-1).getEffectiveDate();
 		
 		localDate = setDateForTheLastDayOfTheMonth(localDate);
 		
-		lastDaysOfTheMonthsList.add(localDate.toString());
+		lastDaysOfTheMonthsList.add(localDate);
 		
 		
 		// this fragment is needed to establish number of months for the iteration (for loop)
-		LocalDate startDate = LocalDate.parse(nbpExchangeRate.get(0).getEffectiveDate());
-		LocalDate endDate = LocalDate.parse(nbpExchangeRate.get(nbpExchangeRate.size()-1).getEffectiveDate());
+		LocalDate startDate = nbpExchangeRate.get(0).getEffectiveDate();
+		LocalDate endDate = nbpExchangeRate.get(nbpExchangeRate.size()-1).getEffectiveDate();
 		
 		Period age = Period.between(startDate, endDate);
 		int months = age.getMonths();
@@ -90,7 +84,7 @@ public class LastDayOfTheMonthsNBPEuroRateDAO {
 			
 			localDate = setDateForTheLastDayOfTheMonth(localDate);
 			
-			lastDaysOfTheMonthsList.add(localDate.toString());
+			lastDaysOfTheMonthsList.add(localDate);
 		}
 		
 		Collections.reverse(lastDaysOfTheMonthsList);
@@ -115,7 +109,7 @@ public class LastDayOfTheMonthsNBPEuroRateDAO {
 		
 		List<Rate> lastDaysNBPExchangeRates = new ArrayList<>();
 		
-		List<String> lastDaysOfTheMonthsList = buildLastDaysOfTheMonthsList(nbpExchangeRate);
+		List<LocalDate> lastDaysOfTheMonthsList = buildLastDaysOfTheMonthsList(nbpExchangeRate);
 		
 		int flag = 3;
 		LocalDate localDate;
@@ -123,7 +117,7 @@ public class LastDayOfTheMonthsNBPEuroRateDAO {
 		for (int i = 0; i < lastDaysOfTheMonthsList.size(); i++) {
 			for (int j = 0; j < nbpExchangeRate.size(); j++) {
 				//if the last day of the month is the same as the last from api it is added to the list
-				if (lastDaysOfTheMonthsList.get(i).equals(nbpExchangeRate.get(j).getEffectiveDate())) {
+				if (lastDaysOfTheMonthsList.get(i).isEqual(nbpExchangeRate.get(j).getEffectiveDate())) {
 					lastDaysNBPExchangeRates.add(nbpExchangeRate.get(j));
 					flag = 1;
 					break;
@@ -135,9 +129,9 @@ public class LastDayOfTheMonthsNBPEuroRateDAO {
 				 * until it is the same as the date from api
 				 * if is the same the flag == 1 and this fragment is skipped
 				*/
-				localDate = LocalDate.parse(lastDaysOfTheMonthsList.get(i));
+				localDate = lastDaysOfTheMonthsList.get(i);
 				localDate = localDate.minusDays(1);
-				lastDaysOfTheMonthsList.set(i, localDate.toString());
+				lastDaysOfTheMonthsList.set(i, localDate);
 				i--;
 			}
 			flag = 0;

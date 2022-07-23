@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 public class CurrentDateValidator implements 
-									ConstraintValidator<CurrentDateConstraint, String> {
+									ConstraintValidator<CurrentDateConstraint, LocalDate> {
 
 	@Override
 	public void initialize(CurrentDateConstraint constraintAnnotation) {
@@ -15,15 +15,14 @@ public class CurrentDateValidator implements
 	}
 
 	@Override
-	public boolean isValid(String date, ConstraintValidatorContext context) {
+	public boolean isValid(LocalDate date, ConstraintValidatorContext context) {
 		
-		if(date.equals("")) {
+		if(date == null) {
 			return false;
 		}
 		
 		LocalDate currentDay = LocalDate.now();
-		LocalDate dateLD = LocalDate.parse(date);
-		if (dateLD.isEqual(currentDay) || dateLD.isBefore(currentDay)) {
+		if (date.isEqual(currentDay) || date.isBefore(currentDay)) {
 			return true;
 		}
 		

@@ -1,5 +1,6 @@
 package com.pioslomiany.DDSProject.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -162,8 +163,8 @@ public class CalculatorController {
 		}
 		
 		String invoice = recompanseRate.getInvoice();
-		String invoiceDate = recompanseRate.getInvoiceDate();
-		String dateOfPayement = recompanseRate.getDateOfPayement();
+		LocalDate invoiceDate = recompanseRate.getInvoiceDate();
+		LocalDate dateOfPayement = recompanseRate.getDateOfPayement();
 		double valueGross = recompanseRate.getValueGross();
 
 		calculatorService.saveRecompenseRate(new RecompenseRate(invoice, invoiceDate, dateOfPayement, valueGross));
@@ -198,7 +199,7 @@ public class CalculatorController {
 	}
 	
 	
-	/* Values Conttoller
+	/* Values Controller
 	 * In this section user can check and modify the values from DB that are used in the calculators such as
 	 *  for example VAT value. User can only modify them, cannot delete or add.
 	 *  The values are used in other calculators and searched by ID so it cannot be changed and adding is also pointless
