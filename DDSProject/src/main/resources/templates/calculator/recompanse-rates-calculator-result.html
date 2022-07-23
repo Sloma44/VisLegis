@@ -22,10 +22,10 @@
 					<h2>Zryczałtowane odszkodowanie za opóźnienie w płatności</h2>
 				</div>
 				<div class="btns-options">
-					<a th:href="@{/dds/calculator/chargeRatesEurForm}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
+					<a th:href="@{/dds/calculator/recompanseRateForm}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
 				</div>
 				<div class="btns-options">
-					<a th:href="@{/dds/calculator/chargeRatesEurReset}"><input class="btn btn-del" type="button" value="Reset"></a>
+					<a th:href="@{/dds/calculator/recompanseRatesListReset}"><input class="btn btn-del" type="button" value="Reset"></a>
 				</div>
 			</div>
 			<br>
@@ -46,25 +46,25 @@
 						<td>Rekompensata #.##</td>
 						<td>Akcje</td>
 					</tr>
-					<tr th:each=" chargeRates : ${chargeRatesList}">
-						<td th:text="${chargeRates.invoice}">
-						<td th:text="${chargeRates.invoiceDate}">
-						<td th:text="${chargeRates.dateOfPayement}">
-						<td th:text="${chargeRates.valueGross}">
-						<td th:text="${chargeRates.payementClaimDate}">
-						<td th:text="${chargeRates.lastDayEurRateDate}">
-						<td th:text="${chargeRates.fineValue}">
-						<td th:text="${chargeRates.nbpEuroRate}">
-						<td th:text="${chargeRates.recompense}">
-						<td th:text="${chargeRates.recompenseRounded}">
+					<tr th:each=" recompanseRate : ${recompanseRates}">
+						<td th:text="${recompanseRate.invoice}">
+						<td th:text="${recompanseRate.invoiceDate}">
+						<td th:text="${recompanseRate.dateOfPayement}">
+						<td th:text="${recompanseRate.valueGross}">
+						<td th:text="${recompanseRate.payementClaimDate}">
+						<td th:text="${recompanseRate.lastDayEurRateDate}">
+						<td th:text="${recompanseRate.fineValue}">
+						<td th:text="${recompanseRate.nbpEuroRate}">
+						<td th:text="${recompanseRate.recompense}">
+						<td th:text="${recompanseRate.recompenseRounded}">
 						<td>
-							<a th:href="@{/dds/calculator/deleteOneRecord(chargeRates=${chargeRates.hashCode()})}"><input class="btn btn-del" type="button" value="Usuń"></a>
+							<a th:href="@{/dds/calculator/deleteRecompanseRate(recompanseRate=${recompanseRate.hashCode()})}"><input class="btn btn-del" type="button" value="Usuń"></a>
 						</td>
 					</tr>
 				</table>
 				
 				
-				<a th:href="@{/dds/calculator/chargeRatesEurForm}"><input class="btn btn-submitEur" style="width: 400px;" type="submit" value="+"></a>
+				<a th:href="@{/dds/calculator/recompanseRateForm}"><input class="btn btn-submitEur" style="width: 400px;" type="submit" value="+"></a>
 				
 
 			</div>

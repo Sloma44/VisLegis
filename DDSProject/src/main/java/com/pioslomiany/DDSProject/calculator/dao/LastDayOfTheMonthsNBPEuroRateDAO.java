@@ -1,31 +1,68 @@
 package com.pioslomiany.DDSProject.calculator.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
+import com.pioslomiany.DDSProject.calculator.entity.DateRangeForm;
 import com.pioslomiany.DDSProject.calculator.entity.NBPExchangeRate;
 import com.pioslomiany.DDSProject.calculator.entity.NBPExchangeRate.Rate;
 
 @Repository
-public class NBPExchangeRateDAO {
+public class LastDayOfTheMonthsNBPEuroRateDAO {
 	
 	NBPExchangeRate nbpExchangeRate;
+	
+	private DateRangeForm dateRange;
+	
+	public void setStartEndDate(DateRangeForm dateRange) {
+		this.dateRange = dateRange;
+	}
 
-	public List<Rate> getLastDaysNBPExchangeRates(String startDate, String endDate) {
+	public List<Rate> getLastDaysNBPExchangeRates() {
+		checkDateRange();
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
-		String url = "http://api.nbp.pl/api/exchangerates/rates/a/eur/" + startDate + "/" + endDate;
+		String url = "http://api.nbp.pl/api/exchangerates/rates/a/eur/" + dateRange.getStartDate() + "/" + dateRange.getEndDate();
 		
 		nbpExchangeRate = restTemplate.getForObject(url, NBPExchangeRate.class);
 		
 		return buildLastDaysNBPExchangeRates(nbpExchangeRate.getRates());
+	}
+	
+	
+	/* NBP api maximal period to be checked with one request is the range of 367 days
+	 * This method check if the dates and if the days difference is grater then 367 it changes the start date
+	 * Here is potential of future development. It could send a series of request to API to get the desired date range,
+	 * instead of just limiting the date
+	*/
+	private void checkDateRange() {
+		long diff = 0;
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    try {
+	    	Date firstDate = sdf.parse(dateRange.getStartDate());
+	    	Date secondDate = sdf.parse(dateRange.getEndDate());	    	
+	    	long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+	    	diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+	    } catch (ParseException pe) {
+	    	pe.printStackTrace();
+	    }
+
+		if (diff > 367) {
+			LocalDate startDate = LocalDate.parse(dateRange.getEndDate()).minusDays(364);
+			dateRange.setStartDate(startDate.toString());
+		}
 	}
 	
 	

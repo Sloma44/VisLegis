@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.pioslomiany.DDSProject.calculator.entity.ChargeRatesEur;
+import com.pioslomiany.DDSProject.calculator.entity.RecompenseRate;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCost;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCostForm;
+import com.pioslomiany.DDSProject.calculator.entity.DateRangeForm;
 import com.pioslomiany.DDSProject.calculator.entity.NBPExchangeRate.Rate;
 import com.pioslomiany.DDSProject.calculator.entity.PreparatoryProceeding;
+import com.pioslomiany.DDSProject.calculator.entity.Values;
 import com.pioslomiany.DDSProject.calculator.service.CalculatorService;
 
 @Controller
@@ -28,15 +30,17 @@ public class CalculatorController {
 	@Autowired
 	CalculatorService calculatorService;
 	
-	private String startDate;
-	private String endDate;
-	
-
 	@GetMapping("")
 	public String getMainCalculator() {
 		return "calculator/main-calculator";
 	}
 	
+	
+	/* CriminalCourt Controller
+	 * In this section user fills up a simple form (CriminalCourtCostForm) and as the results controller returns a list
+	 * of first and second instance court costs in the form of a table.
+	 * It is used to calculate the lawyer salary for the whole criminal case.
+	 */
 	@GetMapping("criminalCalculatorForm")
 	public String getCriminalCalculatorForm(Model model) {
 		
@@ -60,7 +64,7 @@ public class CalculatorController {
 	@GetMapping("criminalCalculatorResult")
 	public String getCriminalCalculatorFormResult(Model model) {
 	
-		//need to pass calculatorService to the DAO to have access to DB
+		//need to pass calculatorService to the DAO to have access to DB (table "constant_values")
 		calculatorService.passCalculatorService(calculatorService);
 		
 		PreparatoryProceeding thePreparatoryProceeding = calculatorService.getPreparatoryProceeding();
@@ -70,7 +74,7 @@ public class CalculatorController {
 		List<Double> allSecondInstanceCostsSums = calculatorService.getAllSecondInstancCostsSums();
 		
 		double bonus = calculatorService.getEntityValueById(14);
-//		
+		
 		model.addAttribute("bonus", bonus);
 		model.addAttribute("prepProc", thePreparatoryProceeding);
 		model.addAttribute("results", resultList);
@@ -83,24 +87,32 @@ public class CalculatorController {
 	}
 	
 	
-// -------------------------------------------------------------------------
-	
+
+	/* LastDayOfTheMonthsNBPEuroRate Controller
+	 * In this section user put two dates "startDate" and "endDate". The controller connects to NBP api and returns
+	 * NBP euro rates for the last days of each month from the date range.
+	 * NBP limits the request to maximum date range of 367 days. If the difference between startDate and endDate
+	 * is greater then 367 days it narrows the startDate to the limit.
+	 * This is a place for potential application development.
+	 */
 	
 	@GetMapping("eurExchangeRateForm")
 	public String getEurExchangeRateForm(Model model) {
 		
-		model.addAttribute("startDate", new String());
-		model.addAttribute("endDate", new String());
+		model.addAttribute("dateRange", new DateRangeForm());
 		
 		return "calculator/eur-exchange-rate-form";
 	}
 	
 	@PostMapping("saveEurExchangeRateForm")
-	public String saveEurExchangeRateForm(@ModelAttribute("startDate") String startDate,
-										@ModelAttribute("endDate") String endDate, Model model) {
+	public String saveEurExchangeRateForm(@Valid @ModelAttribute("dateRange") DateRangeForm dateRangeForm, BindingResult bindingResult,
+										Model model) {
 		
-		this.startDate = startDate;
-		this.endDate = endDate;
+		if (bindingResult.hasErrors()) {
+			return "redirect:/dds/calculator/eurExchangeRateForm";
+		}
+		
+		calculatorService.setStartEndDate(dateRangeForm);
 		
 		return "redirect:/dds/calculator/eurExchangeRateResult";
 	}
@@ -108,14 +120,17 @@ public class CalculatorController {
 	@GetMapping("eurExchangeRateResult")
 	public String eurExchangeRateResult(Model model) {
 		
-		List<Rate> lastDaysList = calculatorService.getLastDaysNBPExchangeRates(startDate, endDate);
+		List<Rate> lastDaysList = calculatorService.getLastDaysNBPExchangeRates();
 		
 		model.addAttribute("rates", lastDaysList);
 		
 		return "calculator/eur-exchange-rate-result";
 	}
 	
-//	-------------------------------------------------------------------------
+
+	/* One page section using JavaScript
+	 * User put date and the application connect to NBP api to get the euro exchange date for specified date
+	 */
 	
 	@GetMapping("eurExchangeRateDay")
 	public String getEurExchangeRateDay() {
@@ -123,52 +138,101 @@ public class CalculatorController {
 		return "calculator/eur-exchange-rate-day";
 	}
 	
-//	-------------------------------------------------------------------------
 	
-	@GetMapping("/chargeRatesEurForm")
-	public String getChargeRatesEurForm(Model model) {
+	/*RecompanseRate Controller
+	 * In this section user put incoice name, date, date of payement and value one by one to build
+	 * a list of compensation for the delays in payement.
+	 * It takes a date of payement add one day and takes the last day of previous months to connecto to NBP api
+	 * and load the euro rate. Depending on the input value it counts the recompense for the client.
+	 */
+	
+	@GetMapping("/recompanseRateForm")
+	public String recompanseRateForm(Model model) {
 		
-		model.addAttribute("chargeRatesEur", new ChargeRatesEur());
+		model.addAttribute("recompanseRate", new RecompenseRate());
 		
-		return "calculator/charge-rates-calculator-form";
+		return "calculator/recompanse-rates-calculator-form";
 	}
 	
-	@PostMapping("/saveChargeRatesEurForm")
-	public String saveChargeRatesEurForm(@ModelAttribute("chargeRatesEur") ChargeRatesEur chargeRatesEur) {
+	@PostMapping("/saveRecompanseRateForm")
+	public String saveRecompanseRateForm(@Valid @ModelAttribute("recompanseRate") RecompenseRate recompanseRate, BindingResult bindingResult) {
 		
-		String invoice = chargeRatesEur.getInvoice();
-		String invoiceDate = chargeRatesEur.getInvoiceDate();
-		String dateOfPayement = chargeRatesEur.getDateOfPayement();
-		double valueGross = chargeRatesEur.getValueGross();
+		if(bindingResult.hasErrors()) {
+			return "redirect:/dds/calculator/recompanseRateForm";
+		}
+		
+		String invoice = recompanseRate.getInvoice();
+		String invoiceDate = recompanseRate.getInvoiceDate();
+		String dateOfPayement = recompanseRate.getDateOfPayement();
+		double valueGross = recompanseRate.getValueGross();
 
-		calculatorService.saveChargeRatesEur(new ChargeRatesEur(invoice, invoiceDate, dateOfPayement, valueGross));
+		calculatorService.saveRecompenseRate(new RecompenseRate(invoice, invoiceDate, dateOfPayement, valueGross));
 		
-		return "redirect:/dds/calculator/chargeRatesEurResult";
+		return "redirect:/dds/calculator/recompanseRateResult";
 	}
 	
-	@GetMapping("/chargeRatesEurResult")
-	public String chargeRatesEurResult(Model model) {
+	@GetMapping("/recompanseRateResult")
+	public String recompanseRateResult(Model model) {
 		
-		List<ChargeRatesEur> chargeRatesEurList = calculatorService.getListOfChargeRatesEur();
+		List<RecompenseRate> recompanseRatesList = calculatorService.getRecompenseRatesList();
 		
-		model.addAttribute("chargeRatesList", chargeRatesEurList);
+		model.addAttribute("recompanseRates", recompanseRatesList);
 		
-		return "calculator/charge-rates-calculator-result";
+		return "calculator/recompanse-rates-calculator-result";
 	}
 	
-	@GetMapping("/chargeRatesEurReset")
-	public String chargeRatesEurReset() {
+	@GetMapping("/recompanseRatesListReset")
+	public String recompanseRatesListReset() {
 		
-		calculatorService.resetChargeRateList();
+		calculatorService.resetRecompenseRatesList();
 		
-		return "redirect:/dds/calculator/chargeRatesEurForm";
+		return "redirect:/dds/calculator/recompanseRateForm";
 	}
 	
-	@GetMapping("/deleteOneRecord")
-	public String deleteOneRecord(@RequestParam("chargeRates") Integer theHashCode, Model model) {
+	@GetMapping("/deleteRecompanseRate")
+	public String deleteRecompanseRate(@RequestParam("recompanseRate") Integer theHashCode, Model model) {
 
-		calculatorService.deleteRecordByHashCode(theHashCode);
+		calculatorService.deleteRecompenseRateByHashCode(theHashCode);
 		
-		return "redirect:/dds/calculator/chargeRatesEurResult";
+		return "redirect:/dds/calculator/recompanseRateResult";
+	}
+	
+	
+	/* Values Conttoller
+	 * In this section user can check and modify the values from DB that are used in the calculators such as
+	 *  for example VAT value. User can only modify them, cannot delete or add.
+	 *  The values are used in other calculators and searched by ID so it cannot be changed and adding is also pointless
+	 */
+	
+	@GetMapping("/values")
+	public String getValues(Model model) {
+		
+		List<Values> values = calculatorService.getAllValues();
+		
+		model.addAttribute("values", values);
+		
+		return "calculator/values-calculator";
+	}
+	
+	@GetMapping("/values/updateValueForm")
+	public String updateValueForm(@RequestParam("valueId") int valueId, Model model) {
+		
+		Values value = calculatorService.getValueById(valueId);
+		
+		model.addAttribute("value", value);
+		
+		return "calculator/update-value-form";
+	}
+	
+	@PostMapping("/values/updateValue")
+	public String updateValue(@Valid @ModelAttribute("value") Values value, BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			return "calculator/update-value-form";
+		}
+		
+		calculatorService.modifyValue(value);
+		
+		return "redirect:/dds/calculator/values";
 	}
 }

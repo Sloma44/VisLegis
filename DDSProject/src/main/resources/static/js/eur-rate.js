@@ -1,5 +1,5 @@
 const input = document.querySelector("input");
-const button = document.querySelector(".btn-submitEur");
+const button = document.querySelector(".btn-submitEurRate");
 const eurRate = document.querySelector(".eurRate");
 
 const API_LINK = "http://api.nbp.pl/api/exchangerates/rates/a/eur/";

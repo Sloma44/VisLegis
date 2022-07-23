@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Kurs euro</title>
+		<title>Zmodyfikuj wartość</title>
 		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
 		<link th:href="@{/styles/header.css}" rel="stylesheet" />
 		<link th:href="@{/styles/container.css}" rel="stylesheet" />
@@ -18,26 +18,28 @@
 		<div class="container">
 			<div class="page-title">
 				<div class="page-title-text">
-					<h2>Kurs euro NBP dla ostatniego dnia miesiąca</h2>
+					<h2>Zmodyfikuj wartość</h2>
 				</div>
 				<div class="btns-options">
-					<a th:href="@{/dds/calculator}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
+					<a th:href="@{/dds/calculator/values}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
 				</div>
 			</div>
 			<br>
 			<div class="form">
-				<form action="#" th:action="@{saveEurExchangeRateForm}" th:object="${dateRange}" method="POST">
-					<div class="form-square">
-						Data początkowa<div th:if="${#fields.hasErrors('startDate')}" th:errorclass="error" th:errors="*{startDate}"></div>
-						<input type="date" th:field="*{startDate}"/>
+				<form action="#" th:action="@{updateValue}" th:object="${value}" method="POST">
+					<input type="hidden" th:field="*{id}" name="id"/>
+					
+					<div class="form-square description">
+						Opis
+						<input type="text" th:field="*{name}"/>
 					</div>
 					<div class="form-square">
-						Data końcowa<div th:if="${#fields.hasErrors('endDate')}" th:errorclass="error" th:errors="*{endDate}"></div>
-						<input type="date" th:value="*{endDate}" name="endDate"/>
+						Wartość<div th:if="${#fields.hasErrors('value')}" th:errorclass="error" th:errors="*{value}"></div>
+						<input type="number" step="0.01" th:field="*{value}"/>
 					</div>
 					<div class="btn-submit">
-						<input type="submit" value="Dalej >>"/>
-					</div>	
+						<input type="submit" value="Zatwierdź"/>
+					</div>
 				</form>
 			</div>
 		</div>

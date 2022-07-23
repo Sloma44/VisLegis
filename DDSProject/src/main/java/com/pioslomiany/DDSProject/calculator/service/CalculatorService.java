@@ -6,14 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pioslomiany.DDSProject.calculator.dao.ChargeRatesEurDAO;
+import com.pioslomiany.DDSProject.calculator.dao.RecompenseRateDAO;
 import com.pioslomiany.DDSProject.calculator.dao.CriminalCourtCostDAO;
-import com.pioslomiany.DDSProject.calculator.dao.NBPExchangeRateDAO;
+import com.pioslomiany.DDSProject.calculator.dao.LastDayOfTheMonthsNBPEuroRateDAO;
 import com.pioslomiany.DDSProject.calculator.dao.ValuesDAO;
-import com.pioslomiany.DDSProject.calculator.entity.ChargeRatesEur;
+import com.pioslomiany.DDSProject.calculator.entity.RecompenseRate;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCost;
 import com.pioslomiany.DDSProject.calculator.entity.CriminalCourtCostForm;
+import com.pioslomiany.DDSProject.calculator.entity.DateRangeForm;
 import com.pioslomiany.DDSProject.calculator.entity.PreparatoryProceeding;
+import com.pioslomiany.DDSProject.calculator.entity.Values;
 import com.pioslomiany.DDSProject.calculator.entity.NBPExchangeRate.Rate;
 
 @Service
@@ -26,38 +28,63 @@ public class CalculatorService {
 	CriminalCourtCostDAO criminalCourtCostDAO;
 	
 	@Autowired
-	NBPExchangeRateDAO nbpExchangeRateDAO;
+	LastDayOfTheMonthsNBPEuroRateDAO lastDayOfTheMonthsNBPEuroRateDAO;
 	
 	@Autowired
-	ChargeRatesEurDAO chargesRatesEurDAO;
+	RecompenseRateDAO recompenseRateDAO;
+	
+
+//	Values entity
+	
+	@Transactional
+	public List<Values> getAllValues() {
+		return valuesDAO.getAllValues();
+	}
 	
 	@Transactional
 	public double getEntityValueById(int theId) {
 		return valuesDAO.getEntityValueById(theId);
 	}
+	
+	@Transactional
+	public void modifyValue(Values value) {
+		valuesDAO.modifyValue(value);
+	}
+	
+	@Transactional
+	public Values getValueById(int theId) {
+		return valuesDAO.getValueById(theId);
+	}
 
-//	----------------------------------------------------------------
-	public List<Rate> getLastDaysNBPExchangeRates(String startDate, String endDate) {
-		return nbpExchangeRateDAO.getLastDaysNBPExchangeRates(startDate, endDate);
+	
+//	LastDayOfTheMonthsNBPEuroRate - euroExchangeValues for the last days of the months from specified range
+	
+	public void setStartEndDate(DateRangeForm dateRange) {
+		lastDayOfTheMonthsNBPEuroRateDAO.setStartEndDate(dateRange);
+	}
+	
+	public List<Rate> getLastDaysNBPExchangeRates() {
+		return lastDayOfTheMonthsNBPEuroRateDAO.getLastDaysNBPExchangeRates();
 	}
 	
 	
 	
-//	----------------------------------------------------------------
-	public List<ChargeRatesEur> getListOfChargeRatesEur(){
-		return chargesRatesEurDAO.getListOfChargeRatesEur();
+//	RecompanseRate Controller (the list of recompense for the customer for delays in payment) 
+	
+	public List<RecompenseRate> getRecompenseRatesList(){
+		return recompenseRateDAO.getRecompenseRatesList();
 	}
 	
-	public void saveChargeRatesEur(ChargeRatesEur theChargeRatesEur) {
-		chargesRatesEurDAO.saveChargeRatesEur(theChargeRatesEur);
+	public void saveRecompenseRate(RecompenseRate theRecompenseRate) {
+		recompenseRateDAO.saveRecompenseRate(theRecompenseRate);
 	}
 	
-	public void resetChargeRateList() {
-		chargesRatesEurDAO.resetChargeRateList();
+	public void resetRecompenseRatesList() {
+		recompenseRateDAO.resetRecompenseRatesList();
 	}
 	
-	public void deleteRecordByHashCode(int theHashCode) {
-		chargesRatesEurDAO.deleteRecordByHashCode(theHashCode);
+	public void deleteRecompenseRateByHashCode(int theHashCode) {
+		recompenseRateDAO.deleteRecompenseRateByHashCode(theHashCode);
 	}
 	
 //	----------------------------------------------------------------

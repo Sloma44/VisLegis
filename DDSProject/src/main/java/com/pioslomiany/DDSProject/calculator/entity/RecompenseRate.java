@@ -2,6 +2,8 @@ package com.pioslomiany.DDSProject.calculator.entity;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.Min;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -10,17 +12,21 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pioslomiany.DDSProject.calculator.validators.CurrentDateConstraint;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor
-public class ChargeRatesEur {
+public class RecompenseRate {
 	
 	private String invoice;
+	@CurrentDateConstraint
 	private String invoiceDate;
+	@CurrentDateConstraint
 	private String dateOfPayement;
+	@Min(0)
 	private double valueGross;
 	
 	private String payementClaimDate;
@@ -30,7 +36,15 @@ public class ChargeRatesEur {
 	private double recompense;
 	private double recompenseRounded;
 	
-	public ChargeRatesEur(String invoice, String invoiceDate, String dateOfPayement, double valueGross) {
+	
+	/* Constructor takes four parameters from the user (from the form)
+	 * Based on that it:
+	 * calculate fineValue - depending on valueGross there are tree stakes of fineValue
+	 * calculate payemenyClaimDay - date of payment plus one day
+	 * get the euro exchange rate from NBP api for the last day of the previous moths from paymentClaimDate 
+	 * calculate the recompense and recompense rounded to the two decimal places
+	 */
+	public RecompenseRate(String invoice, String invoiceDate, String dateOfPayement, double valueGross) {
 		this.invoice = invoice;
 		this.invoiceDate = invoiceDate;
 		this.dateOfPayement = dateOfPayement;

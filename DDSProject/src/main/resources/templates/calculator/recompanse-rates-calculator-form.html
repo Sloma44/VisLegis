@@ -24,26 +24,26 @@
 					<a th:href="@{/dds/calculator}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
 				</div>
 				<div class="btns-options">
-					<a th:href="@{/dds/calculator/chargeRatesEurResult}"><input class="btn btn-back" type="button" value="Dalej >>"></a>
+					<a th:href="@{/dds/calculator/recompanseRateResult}"><input class="btn btn-back" type="button" value="Dalej >>"></a>
 				</div>
 			</div>
 			<br>
 			<div class="form">
-				<form action="#" th:action="@{saveChargeRatesEurForm}" th:object="${chargeRatesEur}" method="POST">
+				<form action="#" th:action="@{saveRecompanseRateForm}" th:object="${recompanseRate}" method="POST">
 					<div class="form-square">
 						Numer faktury
 						<input type="text" th:field="*{invoice}"/>
 					</div>
 					<div class="form-square">
-						Data faktury
+						Data faktury<div th:if="${#fields.hasErrors('invoiceDate')}" th:errorclass="error" th:errors="*{invoiceDate}"></div>
 						<input type="date" step="0.01" th:field="*{invoiceDate}"/>
 					</div>
 					<div class="form-square">
-						Data płatności
+						Data płatności<div th:if="${#fields.hasErrors('dateOfPayement')}" th:errorclass="error" th:errors="*{dateOfPayement}"></div>
 						<input type="date" th:field="*{dateOfPayement}"/>
 					</div>
 					<div class="form-square">
-						Kwota brutto
+						Kwota brutto<div th:if="${#fields.hasErrors('valueGross')}" th:errorclass="error" th:errors="*{valueGross}"></div>
 						<input type="number" step="0.01" th:field="*{valueGross}"/>
 					</div>
 					<div class="btn-submit">

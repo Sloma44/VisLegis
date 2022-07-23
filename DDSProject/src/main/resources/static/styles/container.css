@@ -161,10 +161,13 @@ a.tilelink:hover {
 	width: 90%;
 	font-size: 14px;
 	background-color: #4d9dd6;
+	color: #fff;
 }
 
 .btn-submitEurRate:hover {
-	background-color: #4dafd6
+	background-color: #4dafd6;
+	color: #000;
+	cursor: pointer;
 }
 
 .description {
