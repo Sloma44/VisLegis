@@ -28,9 +28,10 @@
 			<div class="form">
 				<form action="#" th:action="@{saveEurExchangeRateForm}" th:object="${dateRange}" method="POST">
 					<div class="form-square">
-						Data początkowa<div th:if="${#fields.hasErrors('startDate')}" th:errorclass="error" th:errors="*{startDate}"></div>
+						Data początkowa<div th:if="${#fields.hasErrors('startDate')}" th:errorclass="error" th:errors="*{startDate}" ></div>
 						<input type="date" th:field="*{startDate}"/>
 					</div>
+					
 					<div class="form-square">
 						Data końcowa<div th:if="${#fields.hasErrors('endDate')}" th:errorclass="error" th:errors="*{endDate}"></div>
 						<input type="date" th:value="*{endDate}" name="endDate"/>

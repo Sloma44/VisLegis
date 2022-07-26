@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Strona główna</title>
+		<title>Generator dokumentów</title>
 		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
 		<link th:href="@{/styles/header.css}" rel="stylesheet" />
 		<link th:href="@{/styles/container.css}" rel="stylesheet" />
@@ -17,34 +17,17 @@
 		<div th:replace="fragments/header :: header"></div>
 		<div class="container">
 			<div class="page-title">
-				<h2>Strona główna</h2>
+				<h2>Generator dokumentów</h2>
 			</div>
 			
 			<div class="nav-blocks">
 			<br>
 				<div class="square">
-					<a th:href="@{/dds/customerList}" class="tilelink">
-					 	Klienci
+					<a th:href="@{/dds/docGenerator/createProsecutorAccessionDocxForm}" class="tilelink">
+					 	Prokuratura wstąpienie
 					 </a>
 				</div>
 				
-				<div class="square">
-					<a th:href="@{/dds/summary}" class="tilelink">
-					 	Podsumowanie
-					 </a>
-				</div>
-				
-				<div class="square">
-					<a th:href="@{/dds/calculator}" class="tilelink">
-					 	Kalkulator
-					 </a>
-				</div>
-				
-				<div class="square">
-					<a th:href="@{/dds/docGenerator}" class="tilelink">
-					 	Generator dokumentów
-					 </a>
-				</div>
 			</div>
 						
 		</div>
