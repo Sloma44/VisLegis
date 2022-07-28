@@ -1,44 +1,58 @@
 package com.pioslomiany.DDSProject.doc.service;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+import java.util.List;
 
-import org.docx4j.model.datastorage.migration.VariablePrepare;
-import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.pioslomiany.DDSProject.doc.dao.ClauseRequestDAOImpl;
+import com.pioslomiany.DDSProject.doc.dao.CourtDAOImpl;
+import com.pioslomiany.DDSProject.doc.dao.ProsecutorAccesionDAOImpl;
+import com.pioslomiany.DDSProject.doc.entity.ClauseRequestForm;
+import com.pioslomiany.DDSProject.doc.entity.Court;
 import com.pioslomiany.DDSProject.doc.entity.ProsecutorAccessionForm;
 
 @Service
 public class DocGeneratorService {
 	
+	@Autowired
+	ProsecutorAccesionDAOImpl prosecutorAccesionDAOImpl;
+	
+	@Autowired
+	ClauseRequestDAOImpl clauseRequestDAOImpl;
+	
+	@Autowired
+	CourtDAOImpl courtDAOImpl;
+	
 	public ByteArrayOutputStream generateProsecutorAccesionFile(ProsecutorAccessionForm prosecutorAccessionForm) throws Throwable {
-		
-		String dateInNewFormat = prosecutorAccessionForm.getActDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")).toString();
-		
-		File file = new File("src/main/resources/static/docTemplates/prokuratura-wstapienie.docx");
-		
-	    WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(file);
-	 
-	    MainDocumentPart documentPart = wordMLPackage.getMainDocumentPart();
-	 
-	    VariablePrepare.prepare(wordMLPackage);
-	 
-	    HashMap<String, String> variables = new HashMap<>();
-	    variables.put("actDate", dateInNewFormat);
-	    variables.put("destination", prosecutorAccessionForm.getDestination());
-	    variables.put("firstName", prosecutorAccessionForm.getFirstName());
-	    variables.put("lastName", prosecutorAccessionForm.getLastName());
-	    variables.put("caseSignature", prosecutorAccessionForm.getCaseSignature());
-		
-	    documentPart.variableReplace(variables);
-	    
-	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-	    wordMLPackage.save(outputStream);
-	    return outputStream;
+	    return prosecutorAccesionDAOImpl.generateProsecutorAccesionFile(prosecutorAccessionForm);
 	}
+	
+	public ByteArrayOutputStream generateClauseRequestFormFile(ClauseRequestForm clauseRequestForm) throws Throwable {
+		return clauseRequestDAOImpl.generateClauseRequestFormFile(clauseRequestForm);
+	}
+	
+	@Transactional
+	public List<Court> getAllCourts() {
+		return courtDAOImpl.getAllCourts();
+	}
+	
+	@Transactional
+	public Court getCourtById (int theId) {
+		return courtDAOImpl.getCourtById(theId);
+	}
+	
+	@Transactional
+	public void saveCourt (Court theCourt) {
+		courtDAOImpl.saveCourt(theCourt);
+	}
+	
+	@Transactional
+	public void deleteCourtById (int theId) {
+		courtDAOImpl.deleteCourtById(theId);
+	}
+
 	
 }

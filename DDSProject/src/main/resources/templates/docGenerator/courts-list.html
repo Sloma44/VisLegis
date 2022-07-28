@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Wpływy</title>
+		<title>Organy</title>
 		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
 		<link th:href="@{/styles/header.css}" rel="stylesheet" />
 		<link th:href="@{/styles/container.css}" rel="stylesheet" />
@@ -25,40 +25,38 @@
 		<div class="container">
 			<div class="page-title">
 				<div class="page-title-text">
-					<h2>Wpływy</h2>
+					<h2>Organy</h2>			
 				</div>
 				<div class="btns-options">
-					<a th:href="@{/dds/summary/incomes/saveIncomeForm}"> <input class="btn btn-add" type="button" value="Dodaj wpływ"></a>
+					<a th:href="@{/dds/docGenerator/courtsList/saveCourtForm}"><input class="btn btn-add" type="button" value="Dodaj organ"></a>
 				</div>
 			</div>
 			<br>
-
+			
 			<table class="dtBasicTable display">
 				<thead>
-					<tr>
-						<th>Klient</th>
-						<th>Opis sprawy</th>
-						<th>Data</th>
-						<th>Wartość</th>
-						<th>Komentarz</th>
-						<th>Akcje</th>
-					</tr>
-				</thead>
-				
-				<tbody>
-					<tr th:each="income : ${incomes}">
-						<td th:text="${income.firstName} + ' ' + ${income.lastName}"></td>
-						<td th:text="${income.caseDescription}"></td>
-						<td th:text="${income.incomeDate}"></td>	
-						<td th:text="${income.incomeValue}"></td>	
-						<td th:text="${income.incomeComment}"></td>	
-						<td><a th:href="@{/dds/summary/incomes/updateIncomeForm(incomeId=${income.incomeId})}"><input class="btn" type="button" value="Modyfikuj"></a>
-							<a th:href="@{/dds/summary/incomes/deleteIncome(incomeId=${income.incomeId})}"><input class="btn btn-del" type="button" value="Usuń"></a>
+			        <tr>
+			            <th>Nazwa</th>
+			            <th>Wydział</th>
+			            <th>Ulica i numer</th>
+			            <th>Kod pocztowy i miasto</th>
+			            <th>Akcje</th>
+			        </tr>
+		    	</thead>
+	    	
+		    	<tbody>
+			        <tr th:each="court : ${courts}">
+			            <td th:text="${court.name}"/>
+			            <td th:text="${court.department}"/>
+			            <td th:text="${court.streetAndNumber}"/>
+			            <td th:text="${court.postalAndCity}"/>
+			            <td><a th:href="@{/dds/docGenerator/courtsList/updateCourtForm(courtId=${court.id})}"><input class="btn" type="button" value="Modyfikuj"></a>
+							<a th:href="@{/dds/docGenerator/courtsList/deleteCourt(courtId=${court.id})}"><input class="btn btn-del" type="button" value="Usuń"></a>
 						</td>
-					</tr>
-				</tbody>
-			</table>
+			        </tr>
+		    	</tbody>
+			</table>		
 		</div>
 	</body>
-
+	
 </html>

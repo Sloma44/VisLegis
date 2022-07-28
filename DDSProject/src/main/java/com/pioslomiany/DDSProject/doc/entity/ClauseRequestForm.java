@@ -12,27 +12,56 @@ import com.pioslomiany.DDSProject.calculator.validators.CurrentDateConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
-public class ProsecutorAccessionForm {
-
+public class ClauseRequestForm {
+	
+	@Getter @Setter
 	@DateTimeFormat(iso = ISO.DATE, fallbackPatterns = { "M/d/yy", "dd.MM.yyyy" })
 	@CurrentDateConstraint
 	private LocalDate actDate;
 	
-	@NotEmpty(message="Pole nie może być puste")
-	private String destination;
+	@Getter @Setter
+	private int courtId;
 	
+	@Getter @Setter
 	@NotEmpty(message="Pole nie może być puste")
 	private String firstName;
 	
+	@Getter @Setter
 	@NotEmpty(message="Pole nie może być puste")
 	private String lastName;
 	
+	@Getter @Setter
 	@NotEmpty(message="Pole nie może być puste")
 	private String caseSignature;
 	
-	public ProsecutorAccessionForm () {
+	@Setter
+	private boolean verdict;
+	
+	@Getter @Setter
+	@DateTimeFormat(iso = ISO.DATE, fallbackPatterns = { "M/d/yy", "dd.MM.yyyy" })
+	@CurrentDateConstraint
+	private LocalDate verdictDate;
+	
+	@Setter
+	private boolean validity;
+	
+	@Setter
+	private boolean costFree;
+	
+	public ClauseRequestForm () {
 		this.actDate = LocalDate.now();
 	}
-	
+
+	public boolean getVerdict() {
+		return verdict;
+	}
+
+	public boolean getValidity() {
+		return validity;
+	}
+
+	public boolean getCostFree() {
+		return costFree;
+	}
+
 }
