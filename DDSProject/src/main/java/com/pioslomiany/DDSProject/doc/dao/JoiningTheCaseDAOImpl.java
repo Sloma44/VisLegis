@@ -14,18 +14,18 @@ import com.pioslomiany.DDSProject.doc.entity.Court;
 import com.pioslomiany.DDSProject.doc.entity.DocxForm;
 
 @Repository
-public class ProsecutorAccesionDAOImpl {
+public class JoiningTheCaseDAOImpl {
 	
 	@Autowired
 	private CourtDAOImpl courtDAOImpl;
 
-	public ByteArrayOutputStream generateProsecutorAccesionFile(DocxForm prosecutorAccessionForm) throws Throwable {
+	public ByteArrayOutputStream generateJoiningTheCaseFormFile(DocxForm joiningTheCaseForm) throws Throwable {
 			
-			String dateInNewFormat = DocGeneratorStatic.changeDatePattern(prosecutorAccessionForm.getActDate());
+			String dateInNewFormat = DocGeneratorStatic.changeDatePattern(joiningTheCaseForm.getActDate());
 			
-			Court theCourt = courtDAOImpl.getCourtById(prosecutorAccessionForm.getCourtId());
+			Court theCourt = courtDAOImpl.getCourtById(joiningTheCaseForm.getCourtId());
 			
-			File file = new File(DocGeneratorStatic.URL + DocGeneratorStatic.PROKURATURA_WSTAPIENIE_NAME);
+			File file = new File(DocGeneratorStatic.URL + DocGeneratorStatic.WSTAPIENIE_DO_SPRAWY_NAME);
 			
 		    WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(file);
 		 
@@ -36,9 +36,10 @@ public class ProsecutorAccesionDAOImpl {
 		    HashMap<String, String> variables = new HashMap<>();
 		    variables.put("actDate", dateInNewFormat);
 		    variables.put("destination", theCourt.getName());
-		    variables.put("firstName", prosecutorAccessionForm.getFirstName());
-		    variables.put("lastName", prosecutorAccessionForm.getLastName());
-		    variables.put("caseSignature", prosecutorAccessionForm.getCaseSignature());
+		    variables.put("department", theCourt.getDepartment());
+		    variables.put("firstName", joiningTheCaseForm.getFirstName());
+		    variables.put("lastName", joiningTheCaseForm.getLastName());
+		    variables.put("caseSignature", joiningTheCaseForm.getCaseSignature());
 			
 		    documentPart.variableReplace(variables);
 		    

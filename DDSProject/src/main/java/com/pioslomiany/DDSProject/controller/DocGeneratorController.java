@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pioslomiany.DDSProject.doc.entity.ClauseRequestForm;
 import com.pioslomiany.DDSProject.doc.entity.Court;
-import com.pioslomiany.DDSProject.doc.entity.ProsecutorAccessionForm;
+import com.pioslomiany.DDSProject.doc.entity.DocxForm;
+import com.pioslomiany.DDSProject.doc.entity.JustificationRequestForm;
 import com.pioslomiany.DDSProject.doc.service.DocGeneratorService;
 
 @Controller
@@ -27,6 +28,8 @@ public class DocGeneratorController {
 	
 	@Autowired
 	DocGeneratorService docGeneratorService;
+	
+	private final String ERROR_MESSAGE = "Oops... something went wrong. Could not generate file. Check if all fields are filled.";
 
 	@GetMapping("")
 	public String docxGeneratorMain() {
@@ -39,13 +42,13 @@ public class DocGeneratorController {
 		List<Court> courts = docGeneratorService.getAllCourts();
 		
 		model.addAttribute("courts", courts);
-		model.addAttribute("prosecutorAccession", new ProsecutorAccessionForm());
+		model.addAttribute("prosecutorAccession", new DocxForm());
 		
 		return "docGenerator/prosecutorAccession-docx-form";
 	}
 	
 	@PostMapping("createProsecutorAccessionDocx")
-	public void createProsecutorAccessionDocx(@Valid @ModelAttribute("prosecutorAccession") ProsecutorAccessionForm prosecutorAccessionForm,
+	public void createProsecutorAccessionDocx(@Valid @ModelAttribute("prosecutorAccession") DocxForm prosecutorAccessionForm,
 												BindingResult bindingResult ,HttpServletResponse response) throws Throwable {
 		
 		if(!bindingResult.hasErrors()) {
@@ -59,7 +62,38 @@ public class DocGeneratorController {
 			outputStream.writeTo(response.getOutputStream());
 			response.getOutputStream().flush();			
 		} else {
-			response.getWriter().write("Ops... something went wrong. Could not generate file. Check if all fields are filled.");
+			response.getWriter().write(ERROR_MESSAGE);
+			response.getWriter().flush();
+		}
+	}
+	
+	@GetMapping("createJustificationRequestDocxForm")
+	public String createJustificationRequestDocxForm(Model model) {
+		
+		List<Court> courts = docGeneratorService.getAllCourts();
+		
+		model.addAttribute("courts", courts);
+		model.addAttribute("justificationRequest", new JustificationRequestForm());
+		
+		return "docGenerator/justificationRequest-docx-form";
+	}
+	
+	@PostMapping("createJustificationRequestDocx")
+	public void createJustificationRequestDocx(@Valid @ModelAttribute("justificationRequest") JustificationRequestForm justificationRequestForm,
+												BindingResult bindingResult ,HttpServletResponse response) throws Throwable {
+		
+		if(!bindingResult.hasErrors()) {
+			ByteArrayOutputStream outputStream = docGeneratorService.generateJustificationRequestFormFile(justificationRequestForm);
+			
+			String fileName = justificationRequestForm.getLastName() + "WniosekUzasadnienie.docx";
+			
+			response.setContentType("application/docx");
+			response.addHeader("Content-Disposition", "attachment; filename=" + fileName);
+			
+			outputStream.writeTo(response.getOutputStream());
+			response.getOutputStream().flush();			
+		} else {
+			response.getWriter().write(ERROR_MESSAGE);
 			response.getWriter().flush();
 		}
 	}
@@ -90,11 +124,43 @@ public class DocGeneratorController {
 			outputStream.writeTo(response.getOutputStream());
 			response.getOutputStream().flush();			
 		} else {
-			response.getWriter().write("Ops... something went wrong. Could not generate file. Check if all fields are filled.");
+			response.getWriter().write(ERROR_MESSAGE);
 			response.getWriter().flush();
 		}
 	}
 	
+	
+//	Here is used the same form as with "prosecutorAccession"
+	@GetMapping("createJoiningTheCaseDocxForm")
+	public String createJoiningTheCaseForm(Model model) {
+		
+		List<Court> courts = docGeneratorService.getAllCourts();
+		
+		model.addAttribute("courts", courts);
+		model.addAttribute("joinTheCase", new DocxForm());
+		
+		return "docGenerator/joinTheCase-docx-form";
+	}
+	
+	@PostMapping("createJoiningTheCaseDocx")
+	public void createJoiningTheCaseDocx(@Valid @ModelAttribute("joinTheCase") DocxForm joiningTheCaseForm,
+												BindingResult bindingResult ,HttpServletResponse response) throws Throwable {
+		
+		if(!bindingResult.hasErrors()) {
+			ByteArrayOutputStream outputStream = docGeneratorService.generateJoiningTheCaseFile(joiningTheCaseForm);
+			
+			String fileName = joiningTheCaseForm.getLastName() + "WstapienieDoSprawy.docx";
+			
+			response.setContentType("application/docx");
+			response.addHeader("Content-Disposition", "attachment; filename=" + fileName);
+			
+			outputStream.writeTo(response.getOutputStream());
+			response.getOutputStream().flush();			
+		} else {
+			response.getWriter().write(ERROR_MESSAGE);
+			response.getWriter().flush();
+		}
+	}
 	
 	
 	@GetMapping("courtsList")

@@ -2,7 +2,6 @@ package com.pioslomiany.DDSProject.doc.dao;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 import org.docx4j.model.datastorage.migration.VariablePrepare;
@@ -11,26 +10,26 @@ import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.pioslomiany.DDSProject.doc.entity.ClauseRequestForm;
 import com.pioslomiany.DDSProject.doc.entity.Court;
+import com.pioslomiany.DDSProject.doc.entity.JustificationRequestForm;
 
 @Repository
-public class ClauseRequestDAOImpl {
+public class JustificationRequestDAOImpl {
 	
 	@Autowired
 	CourtDAOImpl courtDAOImpl;
 
-	public ByteArrayOutputStream generateClauseRequestFormFile(ClauseRequestForm clauseRequestForm) throws Throwable {
-		String actDateInNewFormat = clauseRequestForm.getActDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")).toString();
-		String verdictDateInNewFormat = clauseRequestForm.getVerdictDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")).toString();
+	public ByteArrayOutputStream generateJustificationRequestFormFile(JustificationRequestForm justificationRequestForm) throws Throwable {
+		String actDateInNewFormat = DocGeneratorStatic.changeDatePattern(justificationRequestForm.getActDate());
+		String verdictDateInNewFormat = DocGeneratorStatic.changeDatePattern(justificationRequestForm.getVerdictDate());
 		
-		Court theCourt = courtDAOImpl.getCourtById(clauseRequestForm.getCourtId());
+		Court theCourt = courtDAOImpl.getCourtById(justificationRequestForm.getCourtId());
 		
-		String stringVerdict = DocGeneratorStatic.generateVerdict(clauseRequestForm.getVerdict());
-		String stringValidity = DocGeneratorStatic.generateValidity(clauseRequestForm.getValidity());
-		String[] stringCostFreeList = DocGeneratorStatic.generateCostFreeStrings(clauseRequestForm.getCostFree());
+		String stringVerdict = DocGeneratorStatic.generateVerdict(justificationRequestForm.getVerdict());
 		
-		File file = new File(DocGeneratorStatic.URL + DocGeneratorStatic.WNIOSEK_KLAUZULA_NAME);
+		String[] stringCostFreeList = DocGeneratorStatic.generateCostFreeStrings(justificationRequestForm.getCostFree());
+				
+		File file = new File(DocGeneratorStatic.URL + DocGeneratorStatic.WNIOSEK_UZADANIENIE_NAME);
 		
 	    WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(file);
 	 
@@ -42,12 +41,11 @@ public class ClauseRequestDAOImpl {
 	    variables.put("actDate", actDateInNewFormat);
 	    variables.put("destination", theCourt.getName());
 	    variables.put("department", theCourt.getDepartment());
-	    variables.put("firstName", clauseRequestForm.getFirstName());
-	    variables.put("lastName", clauseRequestForm.getLastName());
-	    variables.put("caseSignature", clauseRequestForm.getCaseSignature());
+	    variables.put("firstName", justificationRequestForm.getFirstName());
+	    variables.put("lastName", justificationRequestForm.getLastName());
+	    variables.put("caseSignature", justificationRequestForm.getCaseSignature());
 	    variables.put("verdictDate", verdictDateInNewFormat);
 	    variables.put("verdict", stringVerdict);
-	    variables.put("validity", stringValidity);
 	    variables.put("stringCostFree", stringCostFreeList[0]);
 	    variables.put("stringCostNotFreeFirstSentense", stringCostFreeList[1]);
 	    variables.put("stringCostNotFreeSecondSentense", stringCostFreeList[2]);

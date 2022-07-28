@@ -13,14 +13,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ProsecutorAccessionForm {
+public class DocxForm {
 
 	@DateTimeFormat(iso = ISO.DATE, fallbackPatterns = { "M/d/yy", "dd.MM.yyyy" })
 	@CurrentDateConstraint
 	private LocalDate actDate;
 	
-	@NotEmpty(message="Pole nie może być puste")
-	private String destination;
+	private int courtId;
 	
 	@NotEmpty(message="Pole nie może być puste")
 	private String firstName;
@@ -31,7 +30,7 @@ public class ProsecutorAccessionForm {
 	@NotEmpty(message="Pole nie może być puste")
 	private String caseSignature;
 	
-	public ProsecutorAccessionForm () {
+	public DocxForm () {
 		this.actDate = LocalDate.now();
 	}
 	

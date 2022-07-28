@@ -18,7 +18,7 @@
 			<div class="container">
 				<div class="page-title">
 					<div class="page-title-text">
-						<h2>Prokuratura wstąpienie</h2>
+						<h2>Wniosek o uzasadnienie</h2>
 					</div>
 					<div class="btns-options">
 						<a th:href="@{/dds/docGenerator}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
@@ -26,7 +26,7 @@
 				</div>
 			<br>
 			<div class="form">
-				<form action="#" th:action="@{createProsecutorAccessionDocx}" th:object="${prosecutorAccession}" method="POST">
+				<form action="#" th:action="@{createJustificationRequestDocx}" th:object="${justificationRequest}" method="POST">
 
 					<div class="form-square">
 						Data pisma *<div th:if="${#fields.hasErrors('actDate')}" th:errors="*{actDate}" th:class="${#fields.hasErrors('actDate')}? error"></div>
@@ -46,7 +46,7 @@
 						    </option>
 						</select>
 					</div>
-
+					
 					<div class="form-square">
 						Imię *<div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:class="${#fields.hasErrors('firstName')}? error"></div>
 						<input type="text" th:field="*{firstName}" name="firstName"/>
@@ -55,6 +55,35 @@
 					<div class="form-square">
 						Nazwisko *<div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:class="${#fields.hasErrors('lastName')}? error"></div>
 						<input type="text" th:field="*{lastName}" name="lastName"/>
+					</div>
+					
+					<div class="form-square">
+						Rodzaj odpisu
+						<div class = "radio-square">
+							<input type="radio" value="false" name="verdict" th:field="*{verdict}">
+							<label>Postanowienie</label>
+						</div>
+						<div class = "radio-square">
+							<input type="radio" value="true"  name="verdict" th:field="*{verdict}">
+							<label>Wyrok</label>
+						</div>
+					</div>
+
+					<div class="form-square">
+						Data orzeczenia *<div th:if="${#fields.hasErrors('verdictDate')}" th:errors="*{verdictDate}" th:class="${#fields.hasErrors('verdictDate')}? error"></div>
+						<input type="date" th:field="*{verdictDate}" name="verdictDate"/>
+					</div>
+					
+					<div class="form-square">
+						Zwolnienie z kosztów
+						<div class = "radio-square">
+							<input type="radio" value="false" name="costFree" th:field="*{costFree}">
+							<label>Nie</label>
+						</div>
+						<div class = "radio-square">
+							<input type="radio" value="true"  name="costFree" th:field="*{costFree}">
+							<label>Tak</label>
+						</div>
 					</div>
 					
 				

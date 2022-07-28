@@ -26,7 +26,7 @@
 				</div>
 			<br>
 			<div class="form">
-				<form action="#" th:action="@{createProsecutorAccessionDocx}" th:object="${prosecutorAccession}" method="POST">
+				<form action="#" th:action="@{createJoiningTheCaseDocx}" th:object="${joinTheCase}" method="POST">
 
 					<div class="form-square">
 						Data pisma *<div th:if="${#fields.hasErrors('actDate')}" th:errors="*{actDate}" th:class="${#fields.hasErrors('actDate')}? error"></div>
