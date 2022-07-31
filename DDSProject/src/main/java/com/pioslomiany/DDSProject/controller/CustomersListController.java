@@ -44,7 +44,7 @@ public class CustomersListController {
 		
 		model.addAttribute("customers", customerList);	
 		
-		return "list-view";
+		return "customer/list-view";
 	}
 
 	
@@ -70,7 +70,7 @@ public class CustomersListController {
 		model.addAttribute("customerContactInfo", theCustomerContactInfo);
 		model.addAttribute("lawCases", lawCaseList);
 		
-		return "customer-details";
+		return "customer/customer-details";
 	}
 	
 	
@@ -81,7 +81,7 @@ public class CustomersListController {
 		model.addAttribute("customer", new Customer());
 		model.addAttribute("customerContactInfo", new CustomerContactInfo());
 		
-		return "save-customer-form";
+		return "customer/save-customer-form";
 	}
 	
 	@GetMapping("updateCustomerForm")
@@ -93,7 +93,7 @@ public class CustomersListController {
 		model.addAttribute("customer", theCustomer);
 		model.addAttribute("customerContactInfo", theCustomerContactInfo);
 
-		return "save-customer-form";
+		return "customer/save-customer-form";
 	}
 	
 	@PostMapping("saveCustomer")
@@ -102,7 +102,7 @@ public class CustomersListController {
 			Model model) {
 		
 		if (bindingResult.hasErrors()) {
-			return "save-customer-form";
+			return "customer/save-customer-form";
 		}
 		
 		customerService.saveCustomer(theCustomer);
@@ -152,7 +152,7 @@ public class CustomersListController {
 		model.addAttribute("customerCaseCosts", customerCaseCostList);
 		model.addAttribute("courtAgenda", courtHearingList);
 		
-		return "lawCase-details";
+		return "customer/lawCase-details";
 	}
 
 	
@@ -165,7 +165,7 @@ public class CustomersListController {
 		model.addAttribute("customer", theCustomer);
 		model.addAttribute("lawCase", new LawCase());
 		
-		return "save-lawCase-form";
+		return "customer/save-lawCase-form";
 	}
 	
 	@GetMapping("customerDetails/updateLawCaseForm")
@@ -177,7 +177,7 @@ public class CustomersListController {
 		model.addAttribute("lawCase", theLawCase);
 		model.addAttribute("customer", theCustomer);
 		
-		return "save-lawCase-form";
+		return "customer/save-lawCase-form";
 	}
 	
 	@PostMapping("customerDetails/saveLawCase")
@@ -218,7 +218,7 @@ public class CustomersListController {
 		model.addAttribute("customer", theCustomer);
 		model.addAttribute("income", new CaseIncome());
 
-		return "save-income-form-by-customer";
+		return "customer/save-income-form-by-customer";
 	}
 	
 	@GetMapping("customerDetails/caseDetails/updateIncomeForm")
@@ -232,7 +232,7 @@ public class CustomersListController {
 		model.addAttribute("customer", theCustomer);
 		model.addAttribute("income", theCaseIncome);
 		
-		return "save-income-form-by-customer";
+		return "customer/save-income-form-by-customer";
 	}
 	
 	@PostMapping("customerDetails/caseDetails/saveIncome")
@@ -268,7 +268,7 @@ public class CustomersListController {
 		model.addAttribute("customer", theCustomer);
 		model.addAttribute("customerCaseCost", new CustomerCaseCost());
 
-		return "save-customerCaseCost-form-by-customer";
+		return "customer/save-customerCaseCost-form-by-customer";
 	}
 	
 	@GetMapping("customerDetails/caseDetails/updateCustomerCaseCostForm")
@@ -282,7 +282,7 @@ public class CustomersListController {
 		model.addAttribute("customer", theCustomer);
 		model.addAttribute("customerCaseCost", theCustomerCaseCost);
 		
-		return "save-customerCaseCost-form-by-customer";
+		return "customer/save-customerCaseCost-form-by-customer";
 	}
 	
 	@PostMapping("customerDetails/caseDetails/saveCustomerCaseCost")
@@ -318,7 +318,7 @@ public class CustomersListController {
 		model.addAttribute("customer", theCustomer);
 		model.addAttribute("courtHearing", new CourtHearing());
 
-		return "save-courtHearing-form-by-customer";
+		return "customer/save-courtHearing-form-by-customer";
 	}
 	
 	@GetMapping("customerDetails/caseDetails/updateCourtHearingForm")
@@ -332,7 +332,7 @@ public class CustomersListController {
 		model.addAttribute("customer", theCustomer);
 		model.addAttribute("courtHearing", theCourtHearing);
 		
-		return "save-courtHearing-form-by-customer";
+		return "customer/save-courtHearing-form-by-customer";
 	}
 	
 	@PostMapping("customerDetails/caseDetails/saveCourtHearing")

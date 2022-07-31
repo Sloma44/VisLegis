@@ -13,8 +13,8 @@
 
 	
 	<body>
-		<div th:replace="fragments/menu :: menu"></div>
 		<div th:replace="fragments/header :: header"></div>
+		<div th:replace="fragments/menu :: menu"></div>
 		<div class="container">
 			<div class="page-title">
 				<div class="page-title-text">
@@ -27,11 +27,10 @@
 			<br>
 			<div class="form">
 				<form action="#" th:action="@{saveIncome}" th:object="${income}" method="POST">
-					<input type="hidden" th:value="${income.id}" name="id"/>
+					<input type="hidden" th:field="*{id}" name="id"/>
 					<div class="form-square">
 						<select class="form-select" th:value="${lawCase}" name="caseId">
-							<option th:value="${chosenLawCase.caseId}" th:text="${chosenLawCase.getCustomer.getLastName} + ' - ' + ${chosenLawCase.caseDescription}"></option>
-						    <option th:each="lawCase : ${lawCases}"
+							<option th:each="lawCase : ${lawCases}"
 						    		th:value="${lawCase.caseId}"
 						    		th:text="${lawCase.getCustomer.getLastName} + ' - ' + ${lawCase.caseDescription}">
 						    </option>

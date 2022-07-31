@@ -13,43 +13,43 @@
 
 	
 	<body>
-		<div th:replace="fragments/menu :: menu"></div>
 		<div th:replace="fragments/header :: header"></div>
+		<div th:replace="fragments/menu :: menu"></div>
 		<div class="container">
 			<div class="page-title">
 				<h2>Generator dokumentów</h2>
 			</div>
 			
 			<div class="nav-blocks">
-			<br>
+				<br>
 				<div class="square">
-					<a th:href="@{/dds/docGenerator/createProsecutorAccessionDocxForm}" class="tilelink">
-					 	Prokuratura wstąpienie
-					 </a>
+					<a th:href="@{/dds/docGenerator/createProsecutorAccessionDocxForm}">
+						<input class="btn-square" type="button" value="Prokuratura wstąpienie">
+					</a>
 				</div>
 				
 				<div class="square">
-					<a th:href="@{/dds/docGenerator/createJustificationRequestDocxForm}" class="tilelink">
-					 	Wniosek o uzasadnienie
-					 </a>
-				</div>
-
-				<div class="square">
-					<a th:href="@{/dds/docGenerator/createClauseRequestDocxForm}" class="tilelink">
-					 	Wniosek o odpis z klauzulą
-					 </a>
+					<a th:href="@{/dds/docGenerator/createJustificationRequestDocxForm}">
+						<input class="btn-square" type="button" value="Wniosek o uzasadnienie">
+					</a>
 				</div>
 				
 				<div class="square">
-					<a th:href="@{/dds/docGenerator/createJoiningTheCaseDocxForm}" class="tilelink">
-					 	Wstąpienie do sprawy
-					 </a>
+					<a th:href="@{/dds/docGenerator/createClauseRequestDocxForm}">
+						<input class="btn-square" type="button" value="Wniosek o odpis z klauzulą">
+					</a>
 				</div>
 				
 				<div class="square">
-					<a th:href="@{/dds/docGenerator/courtsList}" class="tilelink">
-					 	Lista organów
-					 </a>
+					<a th:href="@{/dds/docGenerator/createJoiningTheCaseDocxForm}">
+						<input class="btn-square" type="button" value="Wstąpienie do sprawy">
+					</a>
+				</div>
+				
+				<div class="square">
+					<a th:href="@{/dds/docGenerator/courtsList}">
+						<input class="btn-square" type="button" value="Lista organów">
+					</a>
 				</div>
 				
 			</div>

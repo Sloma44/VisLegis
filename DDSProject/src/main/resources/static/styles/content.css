@@ -3,8 +3,8 @@ body {
 }
 
 .container {
-	width: 89vw;
-	margin-left: 220px;	
+	width: 85vw;
+	margin-left: 12vw;
 }
 
 .page-title {
@@ -28,22 +28,43 @@ body {
 	margin-top: 15px;
 }
 
-.btn-square {
+.nav-blocks {
 	font-size: 20px;
-	color: #fff;
-	width: 290px;
-	height: 120px;
-	background-color: #212529;
-	border: none;
-	white-space: normal;
-	float: left;
-	margin-right: 15px;
-	margin-bottom: 15px;
 }
 
-.btn-square:hover {
-	cursor: pointer;
-	background-color: #394047;
+.square {
+	float: left;
+	background-color: #212529;
+	width: 230px;
+	height: 57px;
+	padding-top: 50px;
+	padding-bottom: 35px;
+	margin-right: 15px;
+	text-align: center;
+}
+
+.square:hover {
+	opacity: 0.85;
+	cursor:pointer;
+}
+
+a.tilelink {
+	width: 230px;
+	height: 142px;
+}
+
+a.tilelink:link, a.tilelink:visited {
+	width: 230px;
+	height: 142px;
+	text-decoration: none;
+	color: #fff;
+}
+
+a.tilelink:hover {
+	width: 230px;
+	height: 142px;
+	display: block;
+	text-decoration: none;
 }
 
 .btn {

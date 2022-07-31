@@ -33,7 +33,7 @@ public class SummaryController {
 	
 	@GetMapping("")
 	public String getSummary() {
-		return "summary-main";
+		return "summary/summary-main";
 	}
 	
 	// Letters
@@ -50,7 +50,7 @@ public class SummaryController {
 		
 		model.addAttribute("letters", theCustomerCaseJournalView);
 		
-		return "summary-letters";
+		return "summary/summary-letters";
 	}
 	
 	@GetMapping("letters/saveLetterForm")
@@ -61,7 +61,7 @@ public class SummaryController {
 		model.addAttribute("lawCases", lawCasesList);
 		model.addAttribute("letter", new Letter());
 		
-		return "save-letter-form";
+		return "summary/save-letter-form";
 	}
 	
 	@GetMapping("letters/updateLetterForm")
@@ -75,7 +75,7 @@ public class SummaryController {
 		model.addAttribute("chosenLawCase", theLawCase);
 		model.addAttribute("letter", theLetter);
 		
-		return "update-letter-form";
+		return "summary/update-letter-form";
 	}
 	
 	@PostMapping("letters/saveLetter")
@@ -110,7 +110,7 @@ public class SummaryController {
 		
 		model.addAttribute("hearings", theCourtHearings);
 		
-		return "summary-courtHearings";
+		return "summary/summary-courtHearings";
 	}
 	
 	@GetMapping("courtHearings/saveHearingForm")
@@ -121,7 +121,7 @@ public class SummaryController {
 		model.addAttribute("lawCases", lawCasesList);
 		model.addAttribute("hearing", new CourtHearing());
 		
-		return "save-hearing-form";
+		return "summary/save-hearing-form";
 	}
 	
 	@GetMapping("courtHearings/updateHearingForm")
@@ -135,7 +135,7 @@ public class SummaryController {
 		model.addAttribute("chosenLawCase", theLawCase);
 		model.addAttribute("hearing", theCourtHearing);
 		
-		return "update-hearing-form";
+		return "summary/update-hearing-form";
 	}
 	
 	@PostMapping("courtHearings/saveHearing")
@@ -170,7 +170,7 @@ public class SummaryController {
 		
 		model.addAttribute("incomes", customerCaseIncomeView);
 		
-		return "summary-incomes";
+		return "summary/summary-incomes";
 	}
 	
 	@GetMapping("incomes/saveIncomeForm")
@@ -181,7 +181,7 @@ public class SummaryController {
 		model.addAttribute("lawCases", lawCasesList);
 		model.addAttribute("income", new CaseIncome());
 		
-		return "save-income-form";
+		return "summary/save-income-form";
 	}
 	
 	@GetMapping("incomes/updateIncomeForm")
@@ -195,7 +195,7 @@ public class SummaryController {
 		model.addAttribute("chosenLawCase", theLawCase);
 		model.addAttribute("income", theIncome);
 		
-		return "update-income-form";
+		return "summary/update-income-form";
 	}
 	
 	@PostMapping("incomes/saveIncome")

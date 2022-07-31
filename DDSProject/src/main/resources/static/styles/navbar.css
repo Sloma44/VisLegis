@@ -5,7 +5,7 @@ body {
 
 .navbar {
 	float: left;
-	width: 9vw;;
+	width: 155px;
 	height: 100%;
 	position: fixed;
 	
@@ -13,12 +13,12 @@ body {
 	top: 0; /* Stay at the top */
 	left: 0;
 	
-	min-width: 155px;
-	
 	background-color: #212529;
 	padding-left: 1%;
 	padding-right: 1%;
 	overflow-x: hidden;
+	
+	direction: rtl;
 }
 
 .logo > a > img {
@@ -47,18 +47,19 @@ body {
 	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 5px;
+	direction: ltr;
 }
 
 .navbar a {
 	text-decoration: none;
 	color: #fff;
+	display: block;
 }
 
 .navbar-block:hover {
 	background-color: #4d9dd6;
 	color: inherit;
 	text-decoration: inherit;
-	color: 
 }
 
 navbar-block:link, navbar-block:visited {

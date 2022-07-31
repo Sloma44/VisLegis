@@ -10,25 +10,28 @@
       <body>
 		<div class="navbar" th:fragment="menu">
 			<div class="logo">
-				<a th:href="@{/dds}"><img th:src="@{/images/LOGO_white.png}" alt="puzzle"/></a>
+				<a th:href="@{/dds}"><img th:src="@{/images/LOGO_white.png}" alt="VisLegis"/></a>
 			</div>
 			<br>
-			<a th:href="@{/dds/customerList}"><div class="navbar-block">Klienci</div></a>
-			<a th:href="@{/dds/summary}"><div class="navbar-block">Podsumowanie</div></a>
-			<a th:href="@{/dds/summary/letters}"><div class="navbar-block navbar-small">Korespondencja</div></a>
-			<a th:href="@{/dds/summary/incomes}"><div class="navbar-block navbar-small">Wpływy</div></a>
-			<a th:href="@{/dds/summary/courtHearings}"><div class="navbar-block navbar-small">Terminarz rozpraw</div></a>
-			<a th:href="@{/dds/calculator}"><div class="navbar-block">Kalkulator</div></a>
-			<a th:href="@{/dds/calculator/criminalCalculatorForm}"><div class="navbar-block navbar-small">Koszty spraw karnych</div></a>
-			<a th:href="@{/dds/calculator/eurExchangeRateForm}"><div class="navbar-block navbar-small">Kurs euro NBP dla ostatniego dnia miesiąca</div></a>
-			<a th:href="@{/dds/calculator/eurExchangeRateDay}"><div class="navbar-block navbar-small">Kurs euro NBP</div></a>
-			<a th:href="@{/dds/calculator/recompanseRateForm}"><div class="navbar-block navbar-small">Zryczałtowane odszkodowanie za opóźnienie w płatności</div></a>
-			<a th:href="@{/dds/docGenerator}"><div class="navbar-block">Generator dokumentów</div></a>
-			<a th:href="@{/dds/docGenerator/createProsecutorAccessionDocxForm}"><div class="navbar-block navbar-small">Prokuratura wstąpienie</div></a>
-			<a th:href="@{/dds/docGenerator/createJustificationRequestDocxForm}"><div class="navbar-block navbar-small">Wniosek o uzasadnienie</div></a>
-			<a th:href="@{/dds/docGenerator/createClauseRequestDocxForm}"><div class="navbar-block navbar-small">Wniosek o odpis z klauzulą</div></a>
-			<a th:href="@{/dds/docGenerator/createJoiningTheCaseDocxForm}"><div class="navbar-block navbar-small">Wstąpienie do sprawy</div></a>
-			<a th:href="@{/dds/docGenerator/courtsList}"><div class="navbar-block navbar-small">Organy</div></a>
+			<div class="navbar-block"><a th:href="@{/dds/customerList}">Klienci</a></div>
+			
+			<div class="navbar-block"><a th:href="@{/dds/summary}">Podsumowanie</a></div>
+			<div class="navbar-block navbar-small"><a th:href="@{/dds/summary/letters}">Korespondencja</a></div>
+			<div class="navbar-block navbar-small"><a th:href="@{/dds/summary/incomes}">Wpływy</a></div>
+			<div class="navbar-block navbar-small"><a th:href="@{/dds/summary/courtHearings}">Terminarz rozpraw</a></div>
+			
+			<div class="navbar-block"><a th:href="@{/dds/calculator}">Kalkulator</a></div>
+			<div class="navbar-block navbar-small"><a th:href="@{/dds/calculator/criminalCalculatorForm}">Koszty spraw karnych</a></div>
+			<div class="navbar-block navbar-small"><a th:href="@{/dds/calculator/eurExchangeRateForm}">Kurs euro NBP dla ostatniego dnia miesiąca</a></div>
+			<div class="navbar-block navbar-small"><a th:href="@{/dds/calculator/eurExchangeRateDay}">Kurs euro NBP</a></div>
+			<div class="navbar-block navbar-small"><a th:href="@{/dds/calculator/recompanseRateForm}">Zryczałtowane odszkodowanie za opóźnienie w płatności</a></div>
+			
+			<div class="navbar-block"><a th:href="@{/dds/docGenerator}">Generator dokumentów</a></div>
+			<div class="navbar-block navbar-small"><a th:href="@{/dds/docGenerator/createProsecutorAccessionDocxForm}">Prokuratura wstąpienie</a></div>
+			<div class="navbar-block navbar-small"><a th:href="@{/dds/docGenerator/createJustificationRequestDocxForm}">Wniosek o uzasadnienie</a></div>
+			<div class="navbar-block navbar-small"><a th:href="@{/dds/docGenerator/createClauseRequestDocxForm}">Wniosek o odpis z klauzulą</a></div>
+			<div class="navbar-block navbar-small"><a th:href="@{/dds/docGenerator/createJoiningTheCaseDocxForm}">Wstąpienie do sprawy</a></div>
+			<div class="navbar-block navbar-small"><a th:href="@{/dds/docGenerator/courtsList}">Organy</a></div>
 		</div>      
       </body>
       
