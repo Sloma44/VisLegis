@@ -19,17 +19,22 @@ public class ClauseRequestDAOImpl {
 	
 	@Autowired
 	CourtDAOImpl courtDAOImpl;
+	
+//	Load the document from tamplate (url, file names and methods from DocGeneratorStatic)
 
 	public ByteArrayOutputStream generateClauseRequestFormFile(ClauseRequestForm clauseRequestForm) throws Throwable {
+		//set date from LocalDate to String in format dd.MM.yyyy
 		String actDateInNewFormat = clauseRequestForm.getActDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")).toString();
 		String verdictDateInNewFormat = clauseRequestForm.getVerdictDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")).toString();
 		
 		Court theCourt = courtDAOImpl.getCourtById(clauseRequestForm.getCourtId());
 		
+		// generates right Strings based on the user choices from the form
 		String stringVerdict = DocGeneratorStatic.generateVerdict(clauseRequestForm.getVerdict());
 		String stringValidity = DocGeneratorStatic.generateValidity(clauseRequestForm.getValidity());
 		String[] stringCostFreeList = DocGeneratorStatic.generateCostFreeStrings(clauseRequestForm.getCostFree());
 		
+		// load the file from templates and replace the variables with the strings
 		File file = new File(DocGeneratorStatic.URL + DocGeneratorStatic.WNIOSEK_KLAUZULA_NAME);
 		
 	    WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(file);

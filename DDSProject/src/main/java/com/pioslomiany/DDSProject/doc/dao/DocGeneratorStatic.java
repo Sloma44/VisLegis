@@ -3,6 +3,12 @@ package com.pioslomiany.DDSProject.doc.dao;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/*
+ * Static class where is stored localization to all template files with names and
+ * all strings used to create documents
+ * Static methods used in doc.DAO to generate right string based on the user choices in the form
+ */
+
 public class DocGeneratorStatic {
 
 // templates location and file names

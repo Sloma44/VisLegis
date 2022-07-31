@@ -31,11 +31,16 @@ public class DocGeneratorController {
 	
 	private final String ERROR_MESSAGE = "Oops... something went wrong. Could not generate file. Check if all fields are filled.";
 
+	
+//	Main page for document generator
 	@GetMapping("")
 	public String docxGeneratorMain() {
 		return "docGenerator/main-docGenerator";
 	}
 	
+
+//	Generates document for "Prokuratura wstąpienie"
+
 	@GetMapping("createProsecutorAccessionDocxForm")
 	public String createProsecutorAccessionDocxForm(Model model) {
 		
@@ -51,9 +56,13 @@ public class DocGeneratorController {
 	public void createProsecutorAccessionDocx(@Valid @ModelAttribute("prosecutorAccession") DocxForm prosecutorAccessionForm,
 												BindingResult bindingResult ,HttpServletResponse response) throws Throwable {
 		
+		// if one of the fields is blnk it will not generate the document
+		// printing message for user as HttpResponse
 		if(!bindingResult.hasErrors()) {
+			// Generate template with replaced strings as outputStream
 			ByteArrayOutputStream outputStream = docGeneratorService.generateProsecutorAccesionFile(prosecutorAccessionForm);
 			
+			// output file name (Customer lastName + string)
 			String fileName = prosecutorAccessionForm.getLastName() + "Prokuratura-wstapienie.docx";
 			
 			response.setContentType("application/docx");
@@ -66,6 +75,9 @@ public class DocGeneratorController {
 			response.getWriter().flush();
 		}
 	}
+	
+	
+//	Generates document for "Wniosek o uzasadnienie"
 	
 	@GetMapping("createJustificationRequestDocxForm")
 	public String createJustificationRequestDocxForm(Model model) {
@@ -82,9 +94,13 @@ public class DocGeneratorController {
 	public void createJustificationRequestDocx(@Valid @ModelAttribute("justificationRequest") JustificationRequestForm justificationRequestForm,
 												BindingResult bindingResult ,HttpServletResponse response) throws Throwable {
 		
+		// if one of the fields is blnk it will not generate the document
+		// printing message for user as HttpResponse
 		if(!bindingResult.hasErrors()) {
+			// Generate template with replaced strings as outputStream
 			ByteArrayOutputStream outputStream = docGeneratorService.generateJustificationRequestFormFile(justificationRequestForm);
 			
+			// output file name (Customer lastName + string)
 			String fileName = justificationRequestForm.getLastName() + "WniosekUzasadnienie.docx";
 			
 			response.setContentType("application/docx");
@@ -97,6 +113,9 @@ public class DocGeneratorController {
 			response.getWriter().flush();
 		}
 	}
+	
+	
+//	Generates document for "Wniosek o klauzulę"
 	
 	@GetMapping("createClauseRequestDocxForm")
 	public String createClauseRequestDocxForm(Model model) {
@@ -113,9 +132,13 @@ public class DocGeneratorController {
 	public void createClauseRequestDocx(@Valid @ModelAttribute("clauseRequest") ClauseRequestForm clauseRequestForm,
 												BindingResult bindingResult ,HttpServletResponse response) throws Throwable {
 		
+		// if one of the fields is blnk it will not generate the document
+		// printing message for user as HttpResponse
 		if(!bindingResult.hasErrors()) {
+			// Generate template with replaced strings as outputStream
 			ByteArrayOutputStream outputStream = docGeneratorService.generateClauseRequestFormFile(clauseRequestForm);
 			
+			// output file name (Customer lastName + string)
 			String fileName = clauseRequestForm.getLastName() + "WniosekKlauzula.docx";
 			
 			response.setContentType("application/docx");
@@ -129,8 +152,8 @@ public class DocGeneratorController {
 		}
 	}
 	
-	
-//	Here is used the same form as with "prosecutorAccession"
+//	Generates document for "Wstąpienie do sprawy"
+//	The same form is used as in "prosecutorAccession"
 	@GetMapping("createJoiningTheCaseDocxForm")
 	public String createJoiningTheCaseForm(Model model) {
 		
@@ -146,9 +169,14 @@ public class DocGeneratorController {
 	public void createJoiningTheCaseDocx(@Valid @ModelAttribute("joinTheCase") DocxForm joiningTheCaseForm,
 												BindingResult bindingResult ,HttpServletResponse response) throws Throwable {
 		
+		// if one of the fields is blnk it will not generate the document
+		// printing message for user as HttpResponse
 		if(!bindingResult.hasErrors()) {
+			
+			// Generate template with replaced strings as outputStream
 			ByteArrayOutputStream outputStream = docGeneratorService.generateJoiningTheCaseFile(joiningTheCaseForm);
 			
+			// output file name (Customer lastName + string)
 			String fileName = joiningTheCaseForm.getLastName() + "WstapienieDoSprawy.docx";
 			
 			response.setContentType("application/docx");
@@ -162,6 +190,8 @@ public class DocGeneratorController {
 		}
 	}
 	
+	
+//	Typical CRUD for Court entity
 	
 	@GetMapping("courtsList")
 	public String courtsList(Model model) {
