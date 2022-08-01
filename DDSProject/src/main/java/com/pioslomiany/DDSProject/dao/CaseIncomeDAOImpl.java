@@ -28,10 +28,8 @@ public class CaseIncomeDAOImpl {
 		return query.getResultList();
 	}
 	
-	public void saveCaseIncome(LawCase theLawCase, CaseIncome theCaseIncome) {
+	public void saveCaseIncome(CaseIncome theCaseIncome) {
 		Session session = entityManager.unwrap(Session.class);
-		
-		theCaseIncome.setLawCase(theLawCase);
 		
 		session.saveOrUpdate(theCaseIncome);
 	}
@@ -48,5 +46,13 @@ public class CaseIncomeDAOImpl {
 		CaseIncome theCaseIncome = session.get(CaseIncome.class, incomeId);
 		
 		session.delete(theCaseIncome);
+	}
+
+	public void saveCaseIncome(LawCase theLawCase, CaseIncome theCaseIncome) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		theCaseIncome.setLawCase(theLawCase);
+		
+		session.saveOrUpdate(theCaseIncome);
 	}
 }

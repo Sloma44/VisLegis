@@ -45,6 +45,12 @@ public class CourtHearingDAOImpl {
 		session.saveOrUpdate(theCourtHearing);
 	}
 
+	public void saveCourtHearing(CourtHearing theCourtHearing) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		session.saveOrUpdate(theCourtHearing);
+		
+	}
 
 	public void deleteHearingById(int hearingId) {
 		Session session = entityManager.unwrap(Session.class);
@@ -53,4 +59,5 @@ public class CourtHearingDAOImpl {
 		
 		session.delete(theCourtHearing);	
 	}
+
 }

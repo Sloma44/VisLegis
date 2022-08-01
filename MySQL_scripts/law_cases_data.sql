@@ -1,1 +1,1 @@
-INSERT INTO dds_main.law_case (signature, case_description, authority, sort, customer_id) VALUES ('NJ43/2022', 'Divorce', 'Sąd Rejonowy Gliwice Zachód','Z urzędu', '1');
+INSERT INTO dds_main.law_case (signature, case_description, authority_id, sort, customer_id) VALUES ('NJ43/2022', 'Divorce', '3','Z urzędu', '1');

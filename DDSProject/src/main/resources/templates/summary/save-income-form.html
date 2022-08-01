@@ -29,7 +29,7 @@
 				<form action="#" th:action="@{saveIncome}" th:object="${income}" method="POST">
 					<input type="hidden" th:field="*{id}" name="id"/>
 					<div class="form-square">
-						<select class="form-select" th:value="${lawCase}" name="caseId">
+						<select class="form-select" th:field="${income.lawCase.caseId}">
 							<option th:each="lawCase : ${lawCases}"
 						    		th:value="${lawCase.caseId}"
 						    		th:text="${lawCase.getCustomer.getLastName} + ' - ' + ${lawCase.caseDescription}">

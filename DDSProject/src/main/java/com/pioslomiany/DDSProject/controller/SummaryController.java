@@ -75,14 +75,14 @@ public class SummaryController {
 		model.addAttribute("chosenLawCase", theLawCase);
 		model.addAttribute("letter", theLetter);
 		
-		return "summary/update-letter-form";
+		return "summary/save-letter-form";
 	}
 	
 	@PostMapping("letters/saveLetter")
 	public String saveLetter(@ModelAttribute("letter") Letter theLetter,
-								@ModelAttribute("lawCase") LawCase theLawCase, Model model) {
+								Model model) {
 		
-		customerService.saveLetter(theLawCase, theLetter);
+		customerService.saveLetter(theLetter);
 		
 		return "redirect:/dds/summary/letters";
 	}
@@ -135,14 +135,14 @@ public class SummaryController {
 		model.addAttribute("chosenLawCase", theLawCase);
 		model.addAttribute("hearing", theCourtHearing);
 		
-		return "summary/update-hearing-form";
+		return "summary/save-hearing-form";
 	}
 	
 	@PostMapping("courtHearings/saveHearing")
 	public String saveHearing(@ModelAttribute("hearing") CourtHearing theCourtHearing,
-								@ModelAttribute("lawCase") LawCase theLawCase, Model model) {
+								Model model) {
 		
-		customerService.saveCourtHearing(theLawCase, theCourtHearing);
+		customerService.saveCourtHearing(theCourtHearing);
 		
 		return "redirect:/dds/summary/courtHearings";
 	}
@@ -195,14 +195,14 @@ public class SummaryController {
 		model.addAttribute("chosenLawCase", theLawCase);
 		model.addAttribute("income", theIncome);
 		
-		return "summary/update-income-form";
+		return "summary/save-income-form";
 	}
 	
 	@PostMapping("incomes/saveIncome")
 	public String saveIncome(@ModelAttribute("income") CaseIncome theCaseIncome,
-								@ModelAttribute("lawCase") LawCase theLawCase, Model model) {
+								Model model) {
 		
-		customerService.saveCaseIncome(theLawCase, theCaseIncome);
+		customerService.saveCaseIncome(theCaseIncome);
 		
 		return "redirect:/dds/summary/incomes";
 	}

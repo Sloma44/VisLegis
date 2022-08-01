@@ -129,11 +129,11 @@ public class CustomerServiceImpl implements CustomerService {
 	public Letter getLetterById(int letterId) {
 		return letterDAO.getLetterById(letterId);
 	}
-	
+
 	@Override
 	@Transactional
-	public void saveLetter(LawCase theLawCase, Letter theLetter) {
-		letterDAO.saveLetter(theLawCase, theLetter);
+	public void saveLetter(Letter theLetter) {
+		letterDAO.saveLetter(theLetter);
 	}
 
 	@Override
@@ -162,6 +162,13 @@ public class CustomerServiceImpl implements CustomerService {
 		courtHearingDAO.saveCourtHearing(theLawCase, theCourtHearing);		
 	}
 	
+	
+	@Override
+	@Transactional
+	public void saveCourtHearing(CourtHearing theCourtHearing) {
+		courtHearingDAO.saveCourtHearing(theCourtHearing);			
+	}
+
 	@Override
 	@Transactional
 	public void deleteHearingById(int hearingId) {
@@ -184,8 +191,17 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	@Transactional
+	public void saveCaseIncome(CaseIncome theCaseIncome) {
+		caseIncomeDAO.saveCaseIncome(theCaseIncome);
+	}
+	
+	
+
+	@Override
+	@Transactional
 	public void saveCaseIncome(LawCase theLawCase, CaseIncome theCaseIncome) {
 		caseIncomeDAO.saveCaseIncome(theLawCase, theCaseIncome);
+		
 	}
 
 	@Override

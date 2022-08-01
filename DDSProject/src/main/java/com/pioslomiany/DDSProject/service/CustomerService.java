@@ -2,7 +2,6 @@ package com.pioslomiany.DDSProject.service;
 
 import java.util.List;
 
-import com.pioslomiany.DDSProject.doc.entity.Court;
 import com.pioslomiany.DDSProject.entity.CaseIncome;
 import com.pioslomiany.DDSProject.entity.CourtHearing;
 import com.pioslomiany.DDSProject.entity.Customer;
@@ -45,8 +44,8 @@ public interface CustomerService {
 	public List<Letter> getLawCaseLetters(LawCase theLawCase);
 
 	public Letter getLetterById(int letterId);
-	
-	public void saveLetter(LawCase theLawCase, Letter theLetter);
+
+	public void saveLetter(Letter theLetter);
 
 	public void deleteLetterById(int letterId);
 
@@ -57,6 +56,8 @@ public interface CustomerService {
 	public CourtHearing getHearingById(int hearingId);
 	
 	public void saveCourtHearing(LawCase theLawCase, CourtHearing theCourtHearing);
+	
+	public void saveCourtHearing(CourtHearing theCourtHearing);
 
 	public void deleteHearingById(int hearingId);
 
@@ -66,6 +67,8 @@ public interface CustomerService {
 	
 	public CaseIncome getCaseIncomeById(int incomeId);
 	
+	public void saveCaseIncome(CaseIncome theCaseIncome);
+
 	public void saveCaseIncome(LawCase theLawCase, CaseIncome theCaseIncome);
 
 	public void deleteCaseIncomeById(int incomeId);
@@ -79,4 +82,7 @@ public interface CustomerService {
 	public void saveCustomerCaseCost(LawCase theLawCase, CustomerCaseCost theCustomerCaseCost);
 
 	public void deleteCustomerCaseCostById(int customerCaseCostId);
+
+
+
 }

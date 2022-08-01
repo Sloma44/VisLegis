@@ -27,11 +27,9 @@ public class LetterDAOImpl {
 		
 		return query.getResultList();
 	}
-
-	public void saveLetter(LawCase theLawCase, Letter theLetter) {
+	
+	public void saveLetter(Letter theLetter) {
 		Session session = entityManager.unwrap(Session.class);
-		
-		theLetter.setLawCase(theLawCase);
 		
 		session.saveOrUpdate(theLetter);
 	}
@@ -51,4 +49,5 @@ public class LetterDAOImpl {
 		
 		session.delete(theLetter);
 	}
+
 }
