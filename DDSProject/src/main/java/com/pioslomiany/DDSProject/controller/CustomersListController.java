@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pioslomiany.DDSProject.doc.entity.Court;
+import com.pioslomiany.DDSProject.doc.service.DocGeneratorService;
 import com.pioslomiany.DDSProject.entity.CaseIncome;
 import com.pioslomiany.DDSProject.entity.CourtHearing;
 import com.pioslomiany.DDSProject.entity.Customer;
@@ -29,6 +31,9 @@ public class CustomersListController {
 
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private DocGeneratorService docGeneratorService;
 	
 	
 	/* List of all customers
@@ -139,6 +144,7 @@ public class CustomersListController {
 	public String caseDetails(@RequestParam("caseId") int theId, Model model) {
 		
 		LawCase theLawCase = customerService.getLawCaseById(theId);
+//		Court theCourt = theLawCase.getLawCaseCourt();
 		Customer theCustomer = theLawCase.getCustomer();
 		List<CaseIncome> caseIncomeList = customerService.getAllCaseIncomes(theLawCase);
 		List<Letter> theJournal = customerService.getLawCaseLetters(theLawCase);
@@ -146,6 +152,7 @@ public class CustomersListController {
 		List<CourtHearing> courtHearingList = customerService.getAllCaseCourtHearings(theLawCase);
 		
 		model.addAttribute("lawCase", theLawCase);
+//		model.addAttribute("authority", theCourt);
 		model.addAttribute("customer", theCustomer);
 		model.addAttribute("caseIncomes", caseIncomeList);
 		model.addAttribute("journals", theJournal);
@@ -161,7 +168,9 @@ public class CustomersListController {
 	public String saveLawCaseForm(@RequestParam("customerId") int theId, Model model) {
 		
 		Customer theCustomer = customerService.getCustomerById(theId);
+		List<Court> courts = docGeneratorService.getAllCourts();
 		
+		model.addAttribute("courts", courts);
 		model.addAttribute("customer", theCustomer);
 		model.addAttribute("lawCase", new LawCase());
 		
@@ -173,9 +182,11 @@ public class CustomersListController {
 		
 		LawCase theLawCase = customerService.getLawCaseById(theId);
 		Customer theCustomer = theLawCase.getCustomer();
+		List<Court> courts = docGeneratorService.getAllCourts();
 		
 		model.addAttribute("lawCase", theLawCase);
 		model.addAttribute("customer", theCustomer);
+		model.addAttribute("courts", courts);
 		
 		return "customer/save-lawCase-form";
 	}
@@ -188,7 +199,6 @@ public class CustomersListController {
 		customerService.saveLawCase(theCustomer, theLawCase);
 		
 		int caseId = theLawCase.getCaseId();
-		
 		return "redirect:/dds/customerList/customerDetails/caseDetails?caseId=" + caseId;
 	}
 	

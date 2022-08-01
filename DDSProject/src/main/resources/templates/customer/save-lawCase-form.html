@@ -23,6 +23,8 @@
 				<div class="btns-options">
 					<a th:href="${lawCase.caseId} == 0 ? @{'/dds/customerList/customerDetails?customerId=' + ${customer.id}} : @{'/dds/customerList/customerDetails/caseDetails?caseId=' + ${lawCase.caseId}}">
 						<input class="btn btn-back" type="button" value="<< Powrót"></a>
+				<a th:href="@{/dds/docGenerator/courtsList/saveCourtForm}">
+						<input class="btn btn-add" type="button" value="Dodaj organ"></a>
 				</div>
 			</div>
 			<br>
@@ -42,10 +44,16 @@
 						Opis sprawy
 						<input type="text" th:value="${lawCase.caseDescription}" name="caseDescription"/>
 					</div>
+					
 					<div class="form-square">
-						Organ
-						<input type="text" th:value="${lawCase.authority}" name="authority"/>
+						Organ <select class="form-select" th:field="${lawCase.court.id}">
+						    <option th:each="court : ${courts}"
+						    		th:value="${court.id}"
+						    		th:text="${court.name} + ' - ' + ${court.department}">
+						    </option>
+						</select>
 					</div>
+					
 					<div class="form-square">
 						<div class = "radio-square">
 							<input type="radio" value="Z urzedu" name="sort" th:field="*{sort}">

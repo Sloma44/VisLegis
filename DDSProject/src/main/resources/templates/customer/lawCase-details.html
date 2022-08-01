@@ -31,6 +31,15 @@
 						<a th:href="@{'/dds/customerList/customerDetails?customerId=' + ${customer.id}}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
 						<a th:href="@{/dds/customerList/customerDetails/updateLawCaseForm(caseId=${lawCase.caseId})}"><input class="btn btn-add" type="button" value="Modyfikuj"></a>
 						<a th:href="@{/dds/customerList/customerDetails/caseDetails/deleteLawCase(caseId=${lawCase.caseId})}"><input class="btn btn-del" type="button" value="Usuń"></a>
+						<div class="dropdown">
+						  <button class="btn dropbtn">Dokumenty</button>
+						  <div class="dropdown-content">
+							  <a href="#">Prokuratura wstąpienie</a>
+							  <a href="#">Wniosek o uzasadnienie</a>
+							  <a href="#">Wniosek o odpis z klauzulą</a>
+							  <a href="#">Wstąpienie do sprawy</a>
+						  </div>
+						</div>
 					</div>
 				</div>
 			<br>
@@ -40,7 +49,8 @@
 				<tr>
 					<td th:text="${lawCase.signature}"/>
 					<td th:text="${lawCase.caseDescription}"/>
-					<td th:text="${lawCase.authority}"/>
+					<td th:text="${lawCase.court.getName()}"/>
+					<td th:text="${lawCase.court.getDepartment}"/>
 					<td th:text="${lawCase.sort}"/>
 				</tr>
 			</table>

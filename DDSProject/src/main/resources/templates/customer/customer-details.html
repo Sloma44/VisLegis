@@ -67,7 +67,7 @@
 					<tr th:each="lawCase : ${lawCases}">
 						<td th:text="${lawCase.signature}"></td>
 						<td th:text="${lawCase.caseDescription}"></td>
-						<td th:text="${lawCase.authority}"></td>
+						<td th:text="${lawCase.court.getName()}"></td>
 						<td th:text="${lawCase.sort}"></td>
 						<td><a th:href="@{/dds/customerList/customerDetails/caseDetails(caseId=${lawCase.caseId})}"><input class="btn" type="button" value="Szczegóły"></a>				
 					</tr>

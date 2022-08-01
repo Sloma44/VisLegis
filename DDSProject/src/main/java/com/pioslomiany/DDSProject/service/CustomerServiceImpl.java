@@ -105,7 +105,6 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 	
 	@Override
-	@Transactional
 	public void saveLawCase(Customer theCustomer, LawCase theLawCase) {
 		lawCaseDAO.saveLawCase(theCustomer, theLawCase);
 	}

@@ -12,15 +12,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.pioslomiany.DDSProject.doc.entity.Court;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name="law_case")
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @ToString
 public class LawCase {
 
 	@Id
@@ -34,8 +38,10 @@ public class LawCase {
 	@Column(name="case_description")
 	private String caseDescription;
 	
-	@Column(name="authority")
-	private String authority;
+	//poprawić CascadeType
+	@OneToOne(cascade= CascadeType.ALL)
+	@JoinColumn(name="authority_id")
+	private Court court;
 	
 	@Column(name="sort")
 	private String sort;

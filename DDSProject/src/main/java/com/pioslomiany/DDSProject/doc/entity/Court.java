@@ -11,10 +11,11 @@ import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name="court_registry")
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @ToString
 public class Court {
 
 	@Id
@@ -37,5 +38,5 @@ public class Court {
 	@Column(name="postal_and_city")
 	@NotEmpty(message="Pole nie może być puste")
 	private String postalAndCity;
-	
+
 }

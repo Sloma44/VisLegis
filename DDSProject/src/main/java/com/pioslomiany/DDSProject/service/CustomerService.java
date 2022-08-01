@@ -2,6 +2,7 @@ package com.pioslomiany.DDSProject.service;
 
 import java.util.List;
 
+import com.pioslomiany.DDSProject.doc.entity.Court;
 import com.pioslomiany.DDSProject.entity.CaseIncome;
 import com.pioslomiany.DDSProject.entity.CourtHearing;
 import com.pioslomiany.DDSProject.entity.Customer;
