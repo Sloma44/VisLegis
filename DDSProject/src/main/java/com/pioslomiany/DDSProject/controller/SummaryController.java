@@ -213,6 +213,5 @@ public class SummaryController {
 		customerService.deleteCaseIncomeById(incomeId);
 		
 		return "redirect:/dds/summary/incomes";
-	}
-	
+	}	
 }

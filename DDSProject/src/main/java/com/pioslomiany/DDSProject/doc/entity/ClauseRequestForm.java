@@ -14,5 +14,9 @@ public class ClauseRequestForm extends JustificationRequestForm {
 	public ClauseRequestForm() {
 		super();
 	}
+	
+	public ClauseRequestForm(int courtId, String firstName, String lastName, String caseSignature) {
+		super(courtId, firstName, lastName, caseSignature);
+	}
 
 }

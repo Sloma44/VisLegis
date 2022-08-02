@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pioslomiany.DDSProject.doc.entity.ClauseRequestForm;
 import com.pioslomiany.DDSProject.doc.entity.Court;
+import com.pioslomiany.DDSProject.doc.entity.DocxForm;
+import com.pioslomiany.DDSProject.doc.entity.JustificationRequestForm;
 import com.pioslomiany.DDSProject.doc.service.DocGeneratorService;
 import com.pioslomiany.DDSProject.entity.CaseIncome;
 import com.pioslomiany.DDSProject.entity.CourtHearing;
@@ -144,7 +147,6 @@ public class CustomersListController {
 	public String caseDetails(@RequestParam("caseId") int theId, Model model) {
 		
 		LawCase theLawCase = customerService.getLawCaseById(theId);
-//		Court theCourt = theLawCase.getLawCaseCourt();
 		Customer theCustomer = theLawCase.getCustomer();
 		List<CaseIncome> caseIncomeList = customerService.getAllCaseIncomes(theLawCase);
 		List<Letter> theJournal = customerService.getLawCaseLetters(theLawCase);
@@ -152,7 +154,6 @@ public class CustomersListController {
 		List<CourtHearing> courtHearingList = customerService.getAllCaseCourtHearings(theLawCase);
 		
 		model.addAttribute("lawCase", theLawCase);
-//		model.addAttribute("authority", theCourt);
 		model.addAttribute("customer", theCustomer);
 		model.addAttribute("caseIncomes", caseIncomeList);
 		model.addAttribute("journals", theJournal);
@@ -215,7 +216,7 @@ public class CustomersListController {
 	
 	
 	
-//	Actions on Income, CustomerCaseCost, CourtHearings
+//	Typical CRUD actions on Income, CustomerCaseCost, CourtHearings
 	
 //	Income
 	@GetMapping("customerDetails/caseDetails/saveIncomeForm")
@@ -364,6 +365,108 @@ public class CustomersListController {
 		customerService.deleteHearingById(courtHearingId);
 		
 		return "redirect:/dds/customerList/customerDetails/caseDetails?caseId=" + caseId;
+	}
+	
+	
+//	Document generator from case details page
+
+//	Generates document for "Prokuratura wstąpienie"	for selected case
+// Document generator method located in DocGeneratorController (public void createProsecutorAccessionDocx)
+	@GetMapping("customerDetails/caseDetails/createProsecutorAccessionDocxForm")
+	public String createProsecutorAccessionDocxForm(@RequestParam("caseId") int caseId, Model model) {
+		
+		List<Court> courts = docGeneratorService.getAllCourts();
+		LawCase theLawCase = customerService.getLawCaseById(caseId);
+		
+		// load from LawCase data to the "document generator form"
+		int courtId = theLawCase.getCourt().getId();
+		String firstName = theLawCase.getCustomer().getFirstName();
+		String lastName = theLawCase.getCustomer().getLastName();
+		String caseSignature = theLawCase.getSignature();
+		
+		model.addAttribute("courts", courts);
+		model.addAttribute("prosecutorAccession", new DocxForm(courtId, firstName, lastName, caseSignature));
+		
+		// for button back "<<Powrót". If caseIdContion is not null it will go back to caseDetail page,
+		// else it will go back to DocGenerater main menu from DocGeneratorController
+		model.addAttribute("caseIdCondition", theLawCase.getCaseId());
+		
+		return "docGenerator/prosecutorAccession-docx-form";
+	}
+	
+//	Generates document for "Wniosek o uzasadnienie"	for selected case
+// Document generator method located in DocGeneratorController (public void createJustificationRequestDocx)
+	@GetMapping("customerDetails/caseDetails/createJustificationRequestDocxForm")
+	public String createJustificationRequestDocxForm(@RequestParam("caseId") int caseId, Model model) {
+		
+		List<Court> courts = docGeneratorService.getAllCourts();
+		LawCase theLawCase = customerService.getLawCaseById(caseId);
+		
+		// load from LawCase data to the "document generator form"
+		int courtId = theLawCase.getCourt().getId();
+		String firstName = theLawCase.getCustomer().getFirstName();
+		String lastName = theLawCase.getCustomer().getLastName();
+		String caseSignature = theLawCase.getSignature();
+		
+		model.addAttribute("courts", courts);
+		model.addAttribute("justificationRequest", new JustificationRequestForm(courtId, firstName, lastName, caseSignature));
+		
+		// for button back "<<Powrót". If caseIdContion is not null it will go back to caseDetail page,
+		// else it will go back to DocGenerater main menu from DocGeneratorController
+		model.addAttribute("caseIdCondition", theLawCase.getCaseId());
+		
+		return "docGenerator/justificationRequest-docx-form";
+	}
+	
+	
+//	Generates document for "Wniosek o klauzulę"	for selected case
+// Document generator method located in DocGeneratorController (public void createClauseRequestDocx)
+	@GetMapping("customerDetails/caseDetails/createClauseRequestDocxForm")
+	public String createClauseRequestDocxForm(@RequestParam("caseId") int caseId, Model model) {
+		
+		List<Court> courts = docGeneratorService.getAllCourts();
+		LawCase theLawCase = customerService.getLawCaseById(caseId);
+		
+		// load from LawCase data to the "document generator form"
+		int courtId = theLawCase.getCourt().getId();
+		String firstName = theLawCase.getCustomer().getFirstName();
+		String lastName = theLawCase.getCustomer().getLastName();
+		String caseSignature = theLawCase.getSignature();
+		
+		model.addAttribute("courts", courts);
+		model.addAttribute("clauseRequest", new ClauseRequestForm(courtId, firstName, lastName, caseSignature));
+		
+		// for button back "<<Powrót". If caseIdContion is not null it will go back to caseDetail page,
+		// else it will go back to DocGenerater main menu from DocGeneratorController
+		model.addAttribute("caseIdCondition", theLawCase.getCaseId());
+		
+		return "docGenerator/clauseRequest-docx-form";
+	}
+	
+	
+//	Generates document for "Wstąpienie do sprawy" for selected case
+//	The same form is used as in "prosecutorAccession"
+// Document generator method located in DocGeneratorController (public void createJoiningTheCaseDocx)
+	@GetMapping("customerDetails/caseDetails/createJoiningTheCaseDocxForm")
+	public String createJoiningTheCaseForm(@RequestParam("caseId") int caseId, Model model) {
+		
+		List<Court> courts = docGeneratorService.getAllCourts();
+		LawCase theLawCase = customerService.getLawCaseById(caseId);
+		
+		// load from LawCase data to the "document generator form"
+		int courtId = theLawCase.getCourt().getId();
+		String firstName = theLawCase.getCustomer().getFirstName();
+		String lastName = theLawCase.getCustomer().getLastName();
+		String caseSignature = theLawCase.getSignature();
+		
+		model.addAttribute("courts", courts);
+		model.addAttribute("joinTheCase", new DocxForm(courtId, firstName, lastName, caseSignature));
+		
+		// for button back "<<Powrót". If caseIdContion is not null it will go back to caseDetail page,
+		// else it will go back to DocGenerater main menu from DocGeneratorController
+		model.addAttribute("caseIdCondition", theLawCase.getCaseId());
+		
+		return "docGenerator/joinTheCase-docx-form";
 	}
 	
 }

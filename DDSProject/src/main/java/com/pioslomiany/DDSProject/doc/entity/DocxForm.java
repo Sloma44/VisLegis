@@ -34,4 +34,12 @@ public class DocxForm {
 		this.actDate = LocalDate.now();
 	}
 	
+	public DocxForm(int courtId, String firstName, String lastName, String caseSignature) {
+		this.actDate = LocalDate.now();
+		this.courtId = courtId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.caseSignature = caseSignature;
+	}
+	
 }

@@ -26,6 +26,10 @@ public class JustificationRequestForm extends DocxForm {
 	public JustificationRequestForm () {
 		super();
 	}
+	
+	public JustificationRequestForm(int courtId, String firstName, String lastName, String caseSignature) {
+		super(courtId, firstName, lastName, caseSignature);
+	}
 
 	public boolean getVerdict() {
 		return verdict;

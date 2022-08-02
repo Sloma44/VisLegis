@@ -21,12 +21,12 @@
 						<h2>Wniosek o odpis z klauzulą</h2>
 					</div>
 					<div class="btns-options">
-						<a th:href="@{/dds/docGenerator}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
+						<a th:href="${caseIdCondition} != null ? @{'/dds/customerList/customerDetails/caseDetails?caseId=' + ${caseIdCondition}} : @{/dds/docGenerator}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
 					</div>
 				</div>
 			<br>
 			<div class="form">
-				<form action="#" th:action="@{createClauseRequestDocx}" th:object="${clauseRequest}" method="POST">
+				<form action="#" th:action="@{/dds/docGenerator/createClauseRequestDocx}" th:object="${clauseRequest}" method="POST">
 
 					<div class="form-square">
 						Data pisma *<div th:if="${#fields.hasErrors('actDate')}" th:errors="*{actDate}" th:class="${#fields.hasErrors('actDate')}? error"></div>
@@ -39,7 +39,7 @@
 					</div>
 					
 					<div class="form-square description">
-						Organ *<select class="form-select" th:value="*{courtId}" name="courtId">
+						Organ *<select class="form-select" th:field="*{courtId}">
 						    <option th:each="court : ${courts}"
 						    		th:value="${court.id}"
 						    		th:text="${court.name} + ' - ' + ${court.department}">
