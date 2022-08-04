@@ -1,0 +1,221 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Klienci</title>
+<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+<link th:href="@{/styles/header.css}" rel="stylesheet" />
+<link th:href="@{/styles/container.css}" rel="stylesheet" />
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/images/favicon.ico}" />
+<link rel="stylesheet" type="text/css"
+	href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+<link rel="stylesheet" type="text/css"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.12.1/css/dataTables.jqueryui.min.css" />
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+
+<script th:src="@{/js/big-table.js}"></script>
+</head>
+
+
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/menu :: menu"></div>
+	<div class="container">
+		<div class="page-title">
+			<div class="page-title-text">
+				<h2>Sprawa</h2>
+			</div>
+			<div class="btns-options">
+				<a
+					th:href="@{'/vislegis/customerList/customerDetails?customerId=' + ${customer.id}}"><input
+					class="btn btn-back" type="button" value="<< Powrót"></a> <a
+					th:href="@{/vislegis/customerList/customerDetails/updateLawCaseForm(caseId=${lawCase.caseId})}"><input
+					class="btn btn-add" type="button" value="Modyfikuj"></a> <a
+					th:href="@{/vislegis/customerList/customerDetails/caseDetails/deleteLawCase(caseId=${lawCase.caseId})}">
+					<input class="btn btn-del" type="button" value="Usuń"
+					th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
+				</a>
+
+				<div class="dropdown">
+					<button class="btn dropbtn">Dokumenty</button>
+					<div class="dropdown-content">
+						<a
+							th:href="@{/vislegis/customerList/customerDetails/caseDetails/createProsecutorAccessionDocxForm(caseId=${lawCase.caseId})}">Prokuratura
+							wstąpienie</a> <a
+							th:href="@{/vislegis/customerList/customerDetails/caseDetails/createJustificationRequestDocxForm(caseId=${lawCase.caseId})}">Wniosek
+							o uzasadnienie</a> <a
+							th:href="@{/vislegis/customerList/customerDetails/caseDetails/createClauseRequestDocxForm(caseId=${lawCase.caseId})}">Wniosek
+							o odpis z klauzulą</a> <a
+							th:href="@{/vislegis/customerList/customerDetails/caseDetails/createJoiningTheCaseDocxForm(caseId=${lawCase.caseId})}">Wstąpienie
+							do sprawy</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<h3 th:text="${customer.firstName} + ' ' + ${customer.lastName}"></h3>
+
+		<table class="customer-info">
+			<tr>
+				<td th:text="${lawCase.signature}" />
+				<td th:text="${lawCase.caseDescription}" />
+				<td th:text="${lawCase.court.getName()}" />
+				<td th:text="${lawCase.court.getDepartment}" />
+				<td th:text="${lawCase.sort}" />
+			</tr>
+		</table>
+		<div class="page-title page-title-no-border">
+			<div class="page-title-text">
+				<h3>Wpływy</h3>
+			</div>
+			<div class="btns-options">
+				<a
+					th:href="@{/vislegis/customerList/customerDetails/caseDetails/saveIncomeForm(caseId=${lawCase.caseId})}"><input
+					class="btn btn-add" type="button" value="Dodaj wpływ"></a>
+			</div>
+		</div>
+
+		<table class="dtBasicTable display">
+			<thead>
+				<tr>
+					<th>Data</th>
+					<th>Wartość</th>
+					<th>Komentarz</th>
+					<th>Akcje</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="caseIncome : ${caseIncomes}">
+					<td th:text="${caseIncome.incomeDate}"></td>
+					<td th:text="${caseIncome.incomeValue}"></td>
+					<td th:text="${caseIncome.incomeComment}"></td>
+					<td><a
+						th:href="@{/vislegis/customerList/customerDetails/caseDetails/updateIncomeForm(incomeId=${caseIncome.id})}"><input
+							class="btn" type="button" value="Modyfikuj"></a> <a
+						th:href="@{/vislegis/customerList/customerDetails/caseDetails/deleteIncome(incomeId=${caseIncome.id})}">
+							<input class="btn btn-del" type="button" value="Usuń"
+							th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
+					</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+
+		<div class="separator"></div>
+		<h3>Korespondencja</h3>
+		<table class="dtBasicTable display">
+			<thead>
+				<tr>
+					<th>Data</th>
+					<th>Rodzaj</th>
+					<th>Numer</th>
+					<th>Odbiorca/Nadawca</th>
+					<th>Zawartość</th>
+					<th>Koszt</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="journal : ${journals}">
+					<td th:text="${journal.letterDate}"></td>
+					<td th:text="${journal.sort}"></td>
+					<td th:text="${journal.internalNumber}"></td>
+					<td th:text="${journal.recipient}"></td>
+					<td th:text="${journal.content}"></td>
+					<td th:text="${journal.cost}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="separator"></div>
+		<div class="page-title page-title-no-border">
+			<div class="page-title-text">
+				<h3>Koszty klienta</h3>
+			</div>
+			<div class="btns-options">
+				<a
+					th:href="@{/vislegis/customerList/customerDetails/caseDetails/saveCustomerCaseCostForm(caseId=${lawCase.caseId})}"><input
+					class="btn btn-add" type="button" value="Dodaj koszt"></a>
+			</div>
+		</div>
+
+		<table class="dtBasicTable display">
+			<thead>
+				<tr>
+					<th>Data</th>
+					<th>Wartość</th>
+					<th>Komentarz</th>
+					<th>Akcje</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="customerCost : ${customerCaseCosts}">
+					<td th:text="${customerCost.costDate}"></td>
+					<td th:text="${customerCost.costValue}"></td>
+					<td th:text="${customerCost.costComment}"></td>
+					<td><a
+						th:href="@{/vislegis/customerList/customerDetails/caseDetails/updateCustomerCaseCostForm(customerCaseCostId=${customerCost.id})}"><input
+							class="btn" type="button" value="Modyfikuj"></a> <a
+						th:href="@{/vislegis/customerList/customerDetails/caseDetails/deleteCustomerCaseCost(customerCaseCostId=${customerCost.id})}">
+							<input class="btn btn-del" type="button" value="Usuń"
+							th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
+					</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="separator"></div>
+		<div class="page-title page-title-no-border">
+			<div class="page-title-text">
+				<h3>Terminarz rozpraw</h3>
+			</div>
+			<div class="btns-options">
+				<a
+					th:href="@{/vislegis/customerList/customerDetails/caseDetails/saveCourtHearingForm(caseId=${lawCase.caseId})}"><input
+					class="btn btn-add" type="button" value="Dodaj termin"></a>
+			</div>
+		</div>
+
+
+		<table class="dtBasicTable display">
+			<thead>
+				<tr>
+					<th>Data</th>
+					<th>Godzina</th>
+					<th>Miejsce</th>
+					<th>Pokój</th>
+					<th>Akcje</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="courtHearing : ${courtAgenda}">
+					<td th:text="${courtHearing.hearingDate}"></td>
+					<td th:text="${courtHearing.hearingHour}"></td>
+					<td th:text="${courtHearing.place}"></td>
+					<td th:text="${courtHearing.room}"></td>
+					<td><a
+						th:href="@{/vislegis/customerList/customerDetails/caseDetails/updateCourtHearingForm(courtHearingId=${courtHearing.id})}"><input
+							class="btn" type="button" value="Modyfikuj"></a> <a
+						th:href="@{/vislegis/customerList/customerDetails/caseDetails/deleteCourtHearing(courtHearingId=${courtHearing.id})}">
+							<input class="btn btn-del" type="button" value="Usuń"
+							th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
+					</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>

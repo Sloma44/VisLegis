@@ -1,0 +1,70 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Generator pism</title>
+<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+<link th:href="@{/styles/header.css}" rel="stylesheet" />
+<link th:href="@{/styles/container.css}" rel="stylesheet" />
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/images/favicon.ico}" />
+<link rel="stylesheet" type="text/css"
+	href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+</head>
+
+
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/menu :: menu"></div>
+	<div class="container">
+		<div class="page-title">
+			<h2>Generator pism</h2>
+		</div>
+
+		<div class="nav-blocks">
+			<br>
+			<div class="square">
+				<a
+					th:href="@{/vislegis/docGenerator/createProsecutorAccessionDocxForm}">
+					<input class="btn-square" type="button"
+					value="Prokuratura wstąpienie">
+				</a>
+			</div>
+
+			<div class="square">
+				<a
+					th:href="@{/vislegis/docGenerator/createJustificationRequestDocxForm}">
+					<input class="btn-square" type="button"
+					value="Wniosek o uzasadnienie">
+				</a>
+			</div>
+
+			<div class="square">
+				<a th:href="@{/vislegis/docGenerator/createClauseRequestDocxForm}">
+					<input class="btn-square" type="button"
+					value="Wniosek o odpis z klauzulą">
+				</a>
+			</div>
+
+			<div class="square">
+				<a th:href="@{/vislegis/docGenerator/createJoiningTheCaseDocxForm}">
+					<input class="btn-square" type="button"
+					value="Wstąpienie do sprawy">
+				</a>
+			</div>
+
+			<div class="square">
+				<a th:href="@{/vislegis/docGenerator/courtsList}"> <input
+					class="btn-square" type="button" value="Lista organów">
+				</a>
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+
+</html>

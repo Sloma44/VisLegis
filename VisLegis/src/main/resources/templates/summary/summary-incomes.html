@@ -1,0 +1,85 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Podsumowanie</title>
+<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+<link th:href="@{/styles/header.css}" rel="stylesheet" />
+<link th:href="@{/styles/container.css}" rel="stylesheet" />
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/images/favicon.ico}" />
+<link rel="stylesheet" type="text/css"
+	href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+<link rel="stylesheet" type="text/css"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.12.1/css/dataTables.jqueryui.min.css" />
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+
+<script th:src="@{/js/big-table.js}"></script>
+</head>
+
+
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/menu :: menu"></div>
+	<div class="container">
+		<div class="page-title">
+			<div class="page-title-text">
+				<h2>Wpływy</h2>
+			</div>
+			<div class="btns-options">
+				<a th:href="@{/vislegis/summary/incomes/saveIncomeForm}"> <input
+					class="btn btn-add" type="button" value="Dodaj wpływ"></a>
+			</div>
+		</div>
+		<br>
+
+		<table class="dtBasicTable display">
+			<thead>
+				<tr>
+					<th>Klient</th>
+					<th>Opis sprawy</th>
+					<th>Data</th>
+					<th>Wartość</th>
+					<th>Komentarz</th>
+					<th>Akcje</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="income : ${incomes}">
+					<td th:text="${income.firstName} + ' ' + ${income.lastName}"></td>
+					<td th:text="${income.caseDescription}"></td>
+					<td th:text="${income.incomeDate}"></td>
+					<td th:text="${income.incomeValue}"></td>
+					<td th:text="${income.incomeComment}"></td>
+					<td><a
+						th:href="@{/vislegis/summary/incomes/updateIncomeForm(incomeId=${income.incomeId})}"><input
+							class="btn" type="button" value="Modyfikuj"></a> <a
+						th:href="@{/vislegis/summary/incomes/deleteIncome(incomeId=${income.incomeId})}">
+							<input class="btn btn-del" type="button" value="Usuń"
+							th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
+					</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<script>
+				function myFunction() {
+					if (!(confirm('Potwierdz operację usunięcia}'))) {
+						return false;
+					}
+				}
+			</script>
+
+	</div>
+</body>
+
+</html>

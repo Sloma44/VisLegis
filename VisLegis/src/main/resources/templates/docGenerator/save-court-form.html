@@ -1,0 +1,76 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Organy</title>
+<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+<link th:href="@{/styles/header.css}" rel="stylesheet" />
+<link th:href="@{/styles/container.css}" rel="stylesheet" />
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/images/favicon.ico}" />
+<link rel="stylesheet" type="text/css"
+	href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+</head>
+
+
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/menu :: menu"></div>
+	<div class="container">
+		<div class="page-title">
+			<div class="page-title-text">
+				<h2>Zapisz organ</h2>
+			</div>
+			<div class="btns-options">
+				<a th:href="@{/vislegis/docGenerator/courtsList}"><input
+					class="btn btn-back" type="button" value="<< Powrót"></a>
+			</div>
+		</div>
+		<br>
+		<div class="form">
+			<form action="#" th:action="@{saveCourt}" th:object="${court}"
+				method="POST">
+				<input type="hidden" th:value="${court.id}" name="id" />
+				<div class="form-square">
+					Nazwa *
+					<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+						th:class="${#fields.hasErrors('name')}? error"></div>
+					<input type="text" th:field="*{name}" name="name" />
+				</div>
+
+				<div class="form-square">
+					Wydział *
+					<div th:if="${#fields.hasErrors('department')}"
+						th:errors="*{department}"
+						th:class="${#fields.hasErrors('department')}? error"></div>
+					<input type="text" th:field="*{department}" name="department" />
+				</div>
+
+				<div class="form-square">
+					Ulica i numer *
+					<div th:if="${#fields.hasErrors('streetAndNumber')}"
+						th:errors="*{streetAndNumber}"
+						th:class="${#fields.hasErrors('streetAndNumber')}? error"></div>
+					<input type="text" th:value="*{streetAndNumber}"
+						name="streetAndNumber" />
+				</div>
+
+				<div class="form-square">
+					Kod pocztowy i miasto *
+					<div th:if="${#fields.hasErrors('postalAndCity')}"
+						th:errors="*{postalAndCity}"
+						th:class="${#fields.hasErrors('postalAndCity')}? error"></div>
+					<input type="text" th:value="*{postalAndCity}" name="postalAndCity" />
+				</div>
+
+				<div class="btn-submit">
+					<input type="submit" value="Zatwierdź" />
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

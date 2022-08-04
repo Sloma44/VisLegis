@@ -1,0 +1,85 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+</head>
+
+<body>
+	<div class="navbar" th:fragment="menu">
+		<div class="logo">
+			<a th:href="@{/vislegis}"><img
+				th:src="@{/images/VL_logo_white.png}" alt="VisLegis" /></a>
+		</div>
+		<br>
+		<div class="navbar-block">
+			<a th:href="@{/vislegis/customerList}">Klienci</a>
+		</div>
+
+		<div class="navbar-block">
+			<a th:href="@{/vislegis/summary}">Podsumowanie</a>
+		</div>
+		<div class="navbar-block navbar-small">
+			<a th:href="@{/vislegis/summary/letters}">Korespondencja</a>
+		</div>
+		<div class="navbar-block navbar-small">
+			<a th:href="@{/vislegis/summary/incomes}">Wpływy</a>
+		</div>
+		<div class="navbar-block navbar-small">
+			<a th:href="@{/vislegis/summary/courtHearings}">Terminarz rozpraw</a>
+		</div>
+
+		<div class="navbar-block">
+			<a th:href="@{/vislegis/calculator}">Kalkulator</a>
+		</div>
+		<div class="navbar-block navbar-small">
+			<a th:href="@{/vislegis/calculator/criminalCalculatorForm}">Koszty
+				spraw karnych</a>
+		</div>
+		<div class="navbar-block navbar-small">
+			<a th:href="@{/vislegis/calculator/eurExchangeRateForm}">Kurs
+				euro NBP dla ostatniego dnia miesiąca</a>
+		</div>
+		<div class="navbar-block navbar-small">
+			<a th:href="@{/vislegis/calculator/eurExchangeRateDay}">Kurs euro
+				NBP</a>
+		</div>
+		<div class="navbar-block navbar-small">
+			<a th:href="@{/vislegis/calculator/recompanseRateForm}">Zryczałtowane
+				odszkodowanie za opóźnienie w płatności</a>
+		</div>
+
+		<div class="navbar-block">
+			<a th:href="@{/vislegis/docGenerator}">Generator dokumentów</a>
+		</div>
+		<div class="navbar-block navbar-small">
+			<a
+				th:href="@{/vislegis/docGenerator/createProsecutorAccessionDocxForm}">Prokuratura
+				wstąpienie</a>
+		</div>
+		<div class="navbar-block navbar-small">
+			<a
+				th:href="@{/vislegis/docGenerator/createJustificationRequestDocxForm}">Wniosek
+				o uzasadnienie</a>
+		</div>
+		<div class="navbar-block navbar-small">
+			<a th:href="@{/vislegis/docGenerator/createClauseRequestDocxForm}">Wniosek
+				o odpis z klauzulą</a>
+		</div>
+		<div class="navbar-block navbar-small">
+			<a th:href="@{/vislegis/docGenerator/createJoiningTheCaseDocxForm}">Wstąpienie
+				do sprawy</a>
+		</div>
+		<div class="navbar-block navbar-small">
+			<a th:href="@{/vislegis/docGenerator/courtsList}">Organy</a>
+		</div>
+
+		<div class="navbar-block">
+			<a th:href="@{/vislegis/toDoList}">Lista zadań</a>
+		</div>
+	</div>
+</body>
+
+</html>

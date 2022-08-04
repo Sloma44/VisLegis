@@ -1,0 +1,74 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Organy</title>
+<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+<link th:href="@{/styles/header.css}" rel="stylesheet" />
+<link th:href="@{/styles/container.css}" rel="stylesheet" />
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/images/favicon.ico}" />
+<link rel="stylesheet" type="text/css"
+	href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+<link rel="stylesheet" type="text/css"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.12.1/css/dataTables.jqueryui.min.css" />
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+
+<script th:src="@{/js/big-table.js}"></script>
+</head>
+
+
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/menu :: menu"></div>
+	<div class="container">
+		<div class="page-title">
+			<div class="page-title-text">
+				<h2>Organy</h2>
+			</div>
+			<div class="btns-options">
+				<a th:href="@{/vislegis/docGenerator/courtsList/saveCourtForm}"><input
+					class="btn btn-add" type="button" value="Dodaj organ"></a>
+			</div>
+		</div>
+		<br>
+
+		<table class="dtBasicTable display">
+			<thead>
+				<tr>
+					<th>Nazwa</th>
+					<th>Wydział</th>
+					<th>Ulica i numer</th>
+					<th>Kod pocztowy i miasto</th>
+					<th>Akcje</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="court : ${courts}">
+					<td th:text="${court.name}" />
+					<td th:text="${court.department}" />
+					<td th:text="${court.streetAndNumber}" />
+					<td th:text="${court.postalAndCity}" />
+					<td><a
+						th:href="@{/vislegis/docGenerator/courtsList/updateCourtForm(courtId=${court.id})}"><input
+							class="btn" type="button" value="Modyfikuj"></a> <a
+						th:href="@{/vislegis/docGenerator/courtsList/deleteCourt(courtId=${court.id})}">
+							<input class="btn btn-del" type="button" value="Usuń"
+							th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
+					</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>

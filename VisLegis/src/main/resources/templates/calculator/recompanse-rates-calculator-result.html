@@ -1,0 +1,85 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Kalkulator</title>
+<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+<link th:href="@{/styles/header.css}" rel="stylesheet" />
+<link th:href="@{/styles/container.css}" rel="stylesheet" />
+<link th:href="@{/styles/calculator.css}" rel="stylesheet" />
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/images/favicon.ico}" />
+<link rel="stylesheet" type="text/css"
+	href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+</head>
+
+
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/menu :: menu"></div>
+	<div class="container">
+		<div class="page-title">
+			<div class="page-title-text">
+				<h2>Zryczałtowane odszkodowanie za opóźnienie w płatności</h2>
+			</div>
+			<div class="btns-options">
+				<a th:href="@{/vislegis/calculator/recompanseRateForm}"><input
+					class="btn btn-back" type="button" value="<< Powrót"></a>
+			</div>
+			<div class="btns-options">
+				<a th:href="@{/vislegis/calculator/recompanseRatesListReset}"> <input
+					class="btn btn-del" type="button" value="Reset"
+					th:onclick="if(!(confirm('Potwierdz operację resetowania.') )) return false">
+				</a>
+			</div>
+		</div>
+		<br>
+		<div class="form">
+			<table>
+				<tr class="title-head">
+					<td>Numer faktury</td>
+					<td style="padding-left: 25px; padding-right: 25px;">Data
+						faktury</td>
+					<td>Data płatności</td>
+					<td>Kwota brutto</td>
+					<td>Termin wykonalności</td>
+					<td style="padding-left: 40px; padding-right: 40px;">Kurs z
+						dnia</td>
+					<td>Wysokość kary EUR</td>
+					<td>NBP kurs EUR</td>
+					<td>Rekompensata</td>
+					<td>Rekompensata #.##</td>
+					<td>Akcje</td>
+				</tr>
+				<tr th:each=" recompanseRate : ${recompanseRates}">
+					<td th:text="${recompanseRate.invoice}">
+					<td th:text="${recompanseRate.invoiceDate}">
+					<td th:text="${recompanseRate.dateOfPayement}">
+					<td th:text="${recompanseRate.valueGross}">
+					<td th:text="${recompanseRate.payementClaimDate}">
+					<td th:text="${recompanseRate.lastDayEurRateDate}">
+					<td th:text="${recompanseRate.fineValue}">
+					<td th:text="${recompanseRate.nbpEuroRate}">
+					<td th:text="${recompanseRate.recompense}">
+					<td th:text="${recompanseRate.recompenseRounded}">
+					<td><a
+						th:href="@{/vislegis/calculator/deleteRecompanseRate(recompanseRate=${recompanseRate.hashCode()})}">
+							<input class="btn btn-del" type="button" value="Usuń"
+							th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
+					</a></td>
+				</tr>
+			</table>
+
+
+			<a th:href="@{/vislegis/calculator/recompanseRateForm}"><input
+				class="btn btn-submitEur" style="width: 400px;" type="submit"
+				value="+"></a>
+
+
+		</div>
+	</div>
+</body>
+
+</html>

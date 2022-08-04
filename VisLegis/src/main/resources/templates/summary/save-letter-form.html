@@ -1,0 +1,85 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Podsumowanie</title>
+<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
+<link th:href="@{/styles/header.css}" rel="stylesheet" />
+<link th:href="@{/styles/container.css}" rel="stylesheet" />
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/images/favicon.ico}" />
+<link rel="stylesheet" type="text/css"
+	href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+</head>
+
+
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/menu :: menu"></div>
+	<div class="container">
+		<div class="page-title">
+			<div class="page-title-text">
+				<h2>Zapisz list</h2>
+			</div>
+			<div class="btns-options">
+				<a th:href="@{/vislegis/summary/letters}"><input
+					class="btn btn-back" type="button" value="<< Powrót"></a>
+			</div>
+		</div>
+		<br>
+		<div class="form">
+			<form action="#" th:action="@{saveLetter}" th:object="${letter}"
+				method="POST">
+				<input type="hidden" th:field="*{id}" name="id" />
+				<div class="form-square">
+					<select class="form-select" th:field="${letter.lawCase.caseId}">
+						<option th:each="lawCase : ${lawCases}"
+							th:value="${lawCase.caseId}"
+							th:text="${lawCase.getCustomer.getLastName} + ' - ' + ${lawCase.caseDescription}">
+						</option>
+					</select>
+				</div>
+				<div class="form-square">
+					<br>
+					<br>
+				</div>
+
+				<div class="form-square">
+					Data <input type="date" th:field="*{letterDate}" />
+				</div>
+				<div class="form-square">
+					<div class="radio-square">
+						<input type="radio" value="przychodząca" name="sort"
+							th:field="*{sort}"> <label>Przychodząca</label>
+					</div>
+					<div class="radio-square">
+						<input type="radio" id="radioChecked" value="wychodząca"
+							name="sort" th:field="*{sort}" checked="checked"> <label>Wychodząca</label>
+					</div>
+					<script>
+							document.getElementById("radioChecked").setAttribute("checked","checked")
+						</script>
+				</div>
+				<div class="form-square">
+					Numer <input type="text" th:field="*{internalNumber}" />
+				</div>
+				<div class="form-square">
+					Odbiorca/Nadawca <input type="text" th:field="*{recipient}" />
+				</div>
+				<div class="form-square">
+					Zawartość <input type="text" th:field="*{content}" />
+				</div>
+				<div class="form-square">
+					Koszt <input type="number" th:field="*{cost}" step="0.01" />
+				</div>
+				<div class="btn-submit">
+					<input type="submit" value="Zatwierdź" />
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>
