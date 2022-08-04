@@ -8,6 +8,7 @@
 		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
 		<link th:href="@{/styles/header.css}" rel="stylesheet" />
 		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.jqueryui.min.css"/>
@@ -28,7 +29,7 @@
 					<h2>Klienci</h2>			
 				</div>
 				<div class="btns-options">
-					<a th:href="@{/dds/customerList/saveCustomerForm}"><input class="btn btn-add" type="button" value="Dodaj klienta"></a>
+					<a th:href="@{/vislegis/customerList/saveCustomerForm}"><input class="btn btn-add" type="button" value="Dodaj klienta"></a>
 				</div>
 			</div>
 			<br>
@@ -48,7 +49,7 @@
 			            <td th:text="${customer.id}"/>
 			            <td th:text="${customer.firstName}"/>
 			            <td th:text="${customer.lastName}"/>
-			            <td><a th:href="@{/dds/customerList/customerDetails(customerId=${customer.id})}"><input class="btn" type="button" value="Szczegóły"></a></td>
+			            <td><a th:href="@{/vislegis/customerList/customerDetails(customerId=${customer.id})}"><input class="btn" type="button" value="Szczegóły"></a></td>
 			        </tr>
 		    	</tbody>
 			</table>		

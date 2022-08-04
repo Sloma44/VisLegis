@@ -4,10 +4,11 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Zapisz klienta</title>
+		<title>Klienci</title>
 		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
 		<link th:href="@{/styles/header.css}" rel="stylesheet" />
 		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	</head>
 
@@ -21,7 +22,7 @@
 						<h2>Zapisz klienta</h2>
 					</div>
 					<div class="btns-options">
-						<a th:href="${customer.id} == 0 ? @{/dds/customerList} : @{'/dds/customerList/customerDetails?customerId=' + ${customer.id}}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
+						<a th:href="${customer.id} == 0 ? @{/vislegis/customerList} : @{'/vislegis/customerList/customerDetails?customerId=' + ${customer.id}}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
 					</div>
 				</div>
 			<br>

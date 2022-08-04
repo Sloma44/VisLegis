@@ -4,10 +4,11 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Informacje o kliencie</title>
+		<title>Klienci</title>
 		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
 		<link th:href="@{/styles/header.css}" rel="stylesheet" />
 		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.jqueryui.min.css"/>
@@ -28,9 +29,12 @@
 					<h2>Klient</h2>
 				</div>
 				<div class="btns-options">
-					<a th:href="@{/dds/customerList}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
-					<a th:href="@{/dds/customerList/updateCustomerForm(customerId=${customer.id})}"><input class="btn btn-add" type="button" value="Modyfikuj"></a>
-					<a th:href="@{/dds/customerList/customerDetails/deleteCustomer(customerId=${customer.id})}"><input class="btn btn-del" type="button" value="Usuń"></a>
+					<a th:href="@{/vislegis/customerList}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
+					<a th:href="@{/vislegis/customerList/updateCustomerForm(customerId=${customer.id})}"><input class="btn btn-add" type="button" value="Modyfikuj"></a>
+					<a th:href="@{/vislegis/customerList/customerDetails/deleteCustomer(customerId=${customer.id})}">
+						<input class="btn btn-del" type="button" value="Usuń"
+							th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
+					</a>
 				</div>
 			</div>
 			<br>
@@ -48,7 +52,7 @@
 					<h3>Sprawy klienta</h3>
 				</div>
 				<div class="btns-options">
-					<a th:href="@{/dds/customerList/customerDetails/saveLawCaseForm(customerId=${customer.id})}"><input class="btn btn-add" type="button" value="Dodaj sprawę"></a>
+					<a th:href="@{/vislegis/customerList/customerDetails/saveLawCaseForm(customerId=${customer.id})}"><input class="btn btn-add" type="button" value="Dodaj sprawę"></a>
 				</div>
 			</div>
 			
@@ -69,7 +73,7 @@
 						<td th:text="${lawCase.caseDescription}"></td>
 						<td th:text="${lawCase.court.getName()}"></td>
 						<td th:text="${lawCase.sort}"></td>
-						<td><a th:href="@{/dds/customerList/customerDetails/caseDetails(caseId=${lawCase.caseId})}"><input class="btn" type="button" value="Szczegóły"></a>				
+						<td><a th:href="@{/vislegis/customerList/customerDetails/caseDetails(caseId=${lawCase.caseId})}"><input class="btn" type="button" value="Szczegóły"></a>				
 					</tr>
 				</tbody>
 			</table>

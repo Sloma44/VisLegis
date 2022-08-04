@@ -4,10 +4,11 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Korespondencja</title>
+		<title>Podsumowanie</title>
 		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
 		<link th:href="@{/styles/header.css}" rel="stylesheet" />
 		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.jqueryui.min.css"/>
@@ -28,7 +29,7 @@
 					<h2>Korespondencja</h2>
 				</div>
 				<div class="btns-options">
-					<a th:href="@{/dds/summary/letters/saveLetterForm}"> <input class="btn btn-add" type="button" value="Dodaj list"></a>
+					<a th:href="@{/vislegis/summary/letters/saveLetterForm}"> <input class="btn btn-add" type="button" value="Dodaj list"></a>
 				</div>
 			</div>
 			<br>
@@ -57,8 +58,11 @@
 						<td th:text="${letter.recipient}"></td>	
 						<td th:text="${letter.content}"> </td>	
 						<td th:text="${letter.cost}"></td>
-						<td><a th:href="@{/dds/summary/letters/updateLetterForm(letterId=${letter.letterId})}"><input class="btn" type="button" value="Modyfikuj"></a>
-							<a th:href="@{/dds/summary/letters/deleteLetter(letterId=${letter.letterId})}"><input class="btn btn-del" type="button" value="Usuń"></a>
+						<td><a th:href="@{/vislegis/summary/letters/updateLetterForm(letterId=${letter.letterId})}"><input class="btn" type="button" value="Modyfikuj"></a>
+							<a th:href="@{/vislegis/summary/letters/deleteLetter(letterId=${letter.letterId})}">
+								<input class="btn btn-del" type="button" value="Usuń"
+									th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
+							</a>
 						</td>
 					</tr>
 				</tbody>

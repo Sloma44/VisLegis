@@ -4,10 +4,11 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Strona główna</title>
+		<title>Vis Legis</title>
 		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
 		<link th:href="@{/styles/header.css}" rel="stylesheet" />
 		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	</head>
 
@@ -25,31 +26,31 @@
 				<br>
 				
 				<div class="square">
-					<a th:href="@{/dds/customerList}">
+					<a th:href="@{/vislegis/customerList}">
 						<input class="btn-square" type="button" value="Klienci">
 					</a>
 				</div>
 
 				<div class="square">
-					<a th:href="@{/dds/summary}">
+					<a th:href="@{/vislegis/summary}">
 						<input class="btn-square" type="button" value="Podsumowanie">
 					</a>
 				</div>
 				
 				<div class="square">
-					<a th:href="@{/dds/calculator}">
+					<a th:href="@{/vislegis/calculator}">
 						<input class="btn-square" type="button" value="Kalkulator">
 					</a>
 				</div>
 				
 				<div class="square">
-					<a th:href="@{/dds/docGenerator}">
+					<a th:href="@{/vislegis/docGenerator}">
 						<input class="btn-square" type="button" value="Generator dokumentów">
 					</a>
 				</div>
 				
 				<div class="square">
-					<a th:href="@{/dds/toDoList}">
+					<a th:href="@{/vislegis/toDoList}">
 						<input class="btn-square" type="button" value="Lista zadań">
 					</a>
 				</div>

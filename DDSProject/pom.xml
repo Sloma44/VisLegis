@@ -10,9 +10,9 @@
 	</parent>
 	
 	<groupId>com.pioslomiany</groupId>
-	<artifactId>DDSProject</artifactId>
+	<artifactId>VisLegis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>DDSProject</name>
+	<name>VisLegis</name>
 	<description>CRM application for lawyer&apos;s office</description>
 	
 	<properties>

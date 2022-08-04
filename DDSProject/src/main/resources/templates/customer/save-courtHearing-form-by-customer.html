@@ -4,10 +4,11 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Zapisz termin rozprawy</title>
+		<title>Klienci</title>
 		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
 		<link th:href="@{/styles/header.css}" rel="stylesheet" />
 		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	</head>
 
@@ -21,7 +22,7 @@
 					<h2>Zapisz termin rozprawy</h2>
 				</div>
 				<div class="btns-options">
-					<a th:href="@{'/dds/customerList/customerDetails/caseDetails?caseId=' + ${lawCase.caseId}}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
+					<a th:href="@{'/vislegis/customerList/customerDetails/caseDetails?caseId=' + ${lawCase.caseId}}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
 				</div>
 			</div>
 			<br>

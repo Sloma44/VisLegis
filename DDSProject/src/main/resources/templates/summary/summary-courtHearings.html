@@ -4,10 +4,11 @@
       xmlns:th="http://www.thymeleaf.org">
       
 	<head>
-		<title>Terminarz rozpraw</title>
+		<title>Podsumowanie</title>
 		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
 		<link th:href="@{/styles/header.css}" rel="stylesheet" />
 		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.jqueryui.min.css"/>
@@ -28,7 +29,7 @@
 						<h2>Terminarz rozpraw</h2>
 					</div>
 					<div class="btns-options">
-						<a th:href="@{/dds/summary/courtHearings/saveHearingForm}"> <input class="btn btn-add" type="button" value="Dodaj termin"></a>
+						<a th:href="@{/vislegis/summary/courtHearings/saveHearingForm}"> <input class="btn btn-add" type="button" value="Dodaj termin"></a>
 					</div>
 				</div>
 			<br>
@@ -56,8 +57,11 @@
 						<td th:text="${hearing.hearingHour}"></td>	
 						<td th:text="${hearing.place}"></td>	
 						<td th:text="${hearing.room}"></td>	
-						<td><a th:href="@{/dds/summary/courtHearings/updateHearingForm(hearingId=${hearing.hearingId})}"><input class="btn" type="button" value="Modyfikuj"></a>
-							<a th:href="@{/dds/summary/courtHearings/deleteHearing(hearingId=${hearing.hearingId})}"><input class="btn btn-del" type="button" value="Usuń"></a>
+						<td><a th:href="@{/vislegis/summary/courtHearings/updateHearingForm(hearingId=${hearing.hearingId})}"><input class="btn" type="button" value="Modyfikuj"></a>
+							<a th:href="@{/vislegis/summary/courtHearings/deleteHearing(hearingId=${hearing.hearingId})}">
+								<input class="btn btn-del" type="button" value="Usuń"
+									th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
+							</a>
 						</td>
 					</tr>
 				</tbody>

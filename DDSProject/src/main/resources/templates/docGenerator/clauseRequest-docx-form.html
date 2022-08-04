@@ -8,6 +8,7 @@
 		<link th:href="@{/styles/navbar.css}" rel="stylesheet" />
 		<link th:href="@{/styles/header.css}" rel="stylesheet" />
 		<link th:href="@{/styles/container.css}" rel="stylesheet" />
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	</head>
 
@@ -21,12 +22,12 @@
 						<h2>Wniosek o odpis z klauzulą</h2>
 					</div>
 					<div class="btns-options">
-						<a th:href="${caseIdCondition} != null ? @{'/dds/customerList/customerDetails/caseDetails?caseId=' + ${caseIdCondition}} : @{/dds/docGenerator}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
+						<a th:href="${caseIdCondition} != null ? @{'/vislegis/customerList/customerDetails/caseDetails?caseId=' + ${caseIdCondition}} : @{/vislegis/docGenerator}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
 					</div>
 				</div>
 			<br>
 			<div class="form">
-				<form action="#" th:action="@{/dds/docGenerator/createClauseRequestDocx}" th:object="${clauseRequest}" method="POST">
+				<form action="#" th:action="@{/vislegis/docGenerator/createClauseRequestDocx}" th:object="${clauseRequest}" method="POST">
 
 					<div class="form-square">
 						Data pisma *<div th:if="${#fields.hasErrors('actDate')}" th:errors="*{actDate}" th:class="${#fields.hasErrors('actDate')}? error"></div>

@@ -9,6 +9,7 @@
 		<link th:href="@{/styles/header.css}" rel="stylesheet" />
 		<link th:href="@{/styles/container.css}" rel="stylesheet" />
 		<link th:href="@{/styles/calculator.css}" rel="stylesheet" />
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 	</head>
 
@@ -22,10 +23,13 @@
 					<h2>Zryczałtowane odszkodowanie za opóźnienie w płatności</h2>
 				</div>
 				<div class="btns-options">
-					<a th:href="@{/dds/calculator/recompanseRateForm}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
+					<a th:href="@{/vislegis/calculator/recompanseRateForm}"><input class="btn btn-back" type="button" value="<< Powrót"></a>
 				</div>
 				<div class="btns-options">
-					<a th:href="@{/dds/calculator/recompanseRatesListReset}"><input class="btn btn-del" type="button" value="Reset"></a>
+					<a th:href="@{/vislegis/calculator/recompanseRatesListReset}">
+						<input class="btn btn-del" type="button" value="Reset"
+							th:onclick="if(!(confirm('Potwierdz operację resetowania.') )) return false">
+					</a>
 				</div>
 			</div>
 			<br>
@@ -58,13 +62,16 @@
 						<td th:text="${recompanseRate.recompense}">
 						<td th:text="${recompanseRate.recompenseRounded}">
 						<td>
-							<a th:href="@{/dds/calculator/deleteRecompanseRate(recompanseRate=${recompanseRate.hashCode()})}"><input class="btn btn-del" type="button" value="Usuń"></a>
+							<a th:href="@{/vislegis/calculator/deleteRecompanseRate(recompanseRate=${recompanseRate.hashCode()})}">
+								<input class="btn btn-del" type="button" value="Usuń"
+									th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
+							</a>
 						</td>
 					</tr>
 				</table>
 				
 				
-				<a th:href="@{/dds/calculator/recompanseRateForm}"><input class="btn btn-submitEur" style="width: 400px;" type="submit" value="+"></a>
+				<a th:href="@{/vislegis/calculator/recompanseRateForm}"><input class="btn btn-submitEur" style="width: 400px;" type="submit" value="+"></a>
 				
 
 			</div>
