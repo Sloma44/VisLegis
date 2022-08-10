@@ -16,8 +16,32 @@ body {
 	font-weight: bold;
 	margin-top: 0;
 	margin-left: -2vw;
+	
+		/* Chrome 10-25, Safari 5.1-6 */
+	background: -webkit-linear-gradient(to right, rgb(33, 37, 41), rgb(57, 64, 71));
+
+	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background: linear-gradient(to right, rgb(33, 37, 41), rgb(57, 64, 71))
 }
 
 .header-text {
 	margin-left: 250px;
 }
+
+.logout-pos {
+	position: fixed;
+	right: 80px;
+	top: 5px;
+
+}
+
+.logout-btn {
+	background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+}
+
+
+
+

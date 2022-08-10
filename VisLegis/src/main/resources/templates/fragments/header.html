@@ -4,13 +4,19 @@
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
 	<div class="header" th:fragment="header">
 		<div class="header-text">Vis Legis</div>
+	
+		<form class="logout-pos" th:action="@{/vislegis/logout}" method="POST">
+				<input class="logout-btn" type="submit" value="Wyloguj">
+		</form>
 	</div>
+	
+	
 </body>
 
 </html>

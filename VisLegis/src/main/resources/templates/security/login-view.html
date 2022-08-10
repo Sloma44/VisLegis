@@ -1,0 +1,48 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Logowanie</title>
+	
+	<link th:href="@{/styles/login.css}" rel="stylesheet" />
+	
+</head>
+
+
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<div class="card my-5">
+	
+				    <form class="card-body cardbody-color p-lg-5" th:action="@{/vislegis/login-authenticaton}" method="post">
+				    	<div class="text-center">
+				    		<img th:src="@{/images/VL_logo_white.png}" alt="logo"
+							class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px"/>
+						</div>
+						
+						<div class="mb-3">
+							<input type="text" class="form-control" name="username" id="username" autofocus="autofocus" placeholder="Nazwa użytkownika"/>
+				      	</div>
+				      	
+						<div class="mb-3">
+							<input type="password" class="form-control" name="password" id="password" placeholder="Hasło"/>
+				      	</div>
+
+					    <p th:if="${loginError}" class="failed">Niewłaściwa nazwa użytkownika / hasło</p>
+					    
+				      	<div class="text-center">
+							<input class="btn btn-color px-5 mb-5 w-100" type="submit" value="Zaloguj" />
+						</div>
+				    </form>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
