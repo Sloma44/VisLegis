@@ -66,7 +66,7 @@ public class SecurityController {
 		if (bindingResult.hasErrors()) {
 			return "security/security-new-user-form";
 		}
-//		securityService.saveUserAndRole(theUser, theRole);
+		securityService.saveUserAndRole(theUser, theRole);
 		
 		return "redirect:/vislegis/security/users";
 	}
