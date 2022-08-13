@@ -1,0 +1,10 @@
+USE dds_main;
+
+DROP TABLE IF EXISTS authorities;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+username VARCHAR(50) PRIMARY KEY NOT NULL,
+password CHAR(68) NOT NULL,
+enabled TINYINT(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

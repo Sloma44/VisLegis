@@ -1,26 +1,22 @@
 package com.pioslomiany.VisLegis;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.User.UserBuilder;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+	
+	@Autowired
+	private DataSource securityDataSource;
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
-		//adding hard coded users
-		UserBuilder users = User.withDefaultPasswordEncoder();
-		
-			auth.inMemoryAuthentication()
-				.withUser(users.username("a").password("a").roles("ADMIN", "MANAGER", "EMPLOYEE", "CUSTOMER"))
-				.withUser(users.username("m").password("m").roles("MANAGER", "EMPLOYEE", "CUSTOMER"))
-				.withUser(users.username("e").password("e").roles("EMPLOYEE", "CUSTOMER"))
-				.withUser(users.username("c").password("c").roles("CUSTOMER"));
+		auth.jdbcAuthentication().dataSource(securityDataSource);
 	}
 
 	@Override
@@ -35,28 +31,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests((authz) -> authz
 								.antMatchers(staticResources).permitAll()
-								.antMatchers("/vislegis/customerList/updateCustomerForm").hasRole("MANAGER")
-								.antMatchers("/vislegis/customerList/customerDetails/deleteCustomer").hasRole("MANAGER")
-								.antMatchers("/vislegis/customerList/customerDetails/updateLawCaseForm").hasRole("MANAGER")
-								.antMatchers("/vislegis/customerList/customerDetails/caseDetails/deleteLawCase").hasRole("MANAGER")
-								.antMatchers("/vislegis/customerList/customerDetails/caseDetails/updateIncomeForm").hasRole("MANAGER")
-								.antMatchers("/vislegis/customerList/customerDetails/caseDetails/deleteIncome").hasRole("MANAGER")
-								.antMatchers("/vislegis/customerList/customerDetails/caseDetails/updateCustomerCaseCostForm").hasRole("MANAGER")
-								.antMatchers("/vislegis/customerList/customerDetails/caseDetails/deleteCustomerCaseCost").hasRole("MANAGER")
-								.antMatchers("/vislegis/customerList/**").hasRole("EMPLOYEE")
-								.antMatchers("/vislegis/summary/letters/deleteLetter").hasRole("MANAGER")
-								.antMatchers("/vislegis/summary/letters**").hasRole("EMPLOYEE")
-								.antMatchers("/vislegis/summary/incomes/**").hasRole("MANAGER")
-								.antMatchers("/vislegis/summary/courtHearings/deleteHearing").hasRole("MANAGER")
-								.antMatchers("/vislegis/summary/courtHearings**").hasRole("EMPLOYEE")
-								.antMatchers("/vislegis/summary/**").hasRole("EMPLOYEE")
+								.antMatchers("/vislegis/customerList/updateCustomerForm").hasAnyRole("ADMIN", "MANAGER")
+								.antMatchers("/vislegis/customerList/customerDetails/deleteCustomer").hasAnyRole("ADMIN", "MANAGER")
+								.antMatchers("/vislegis/customerList/customerDetails/updateLawCaseForm").hasAnyRole("ADMIN", "MANAGER")
+								.antMatchers("/vislegis/customerList/customerDetails/caseDetails/deleteLawCase").hasAnyRole("ADMIN", "MANAGER")
+								.antMatchers("/vislegis/customerList/customerDetails/caseDetails/updateIncomeForm").hasAnyRole("ADMIN", "MANAGER")
+								.antMatchers("/vislegis/customerList/customerDetails/caseDetails/deleteIncome").hasAnyRole("ADMIN", "MANAGER")
+								.antMatchers("/vislegis/customerList/customerDetails/caseDetails/updateCustomerCaseCostForm").hasAnyRole("ADMIN", "MANAGER")
+								.antMatchers("/vislegis/customerList/customerDetails/caseDetails/deleteCustomerCaseCost").hasAnyRole("ADMIN", "MANAGER")
+								.antMatchers("/vislegis/customerList/**").hasAnyRole("ADMIN", "MANAGER", "EMPLOYEE")
+								.antMatchers("/vislegis/summary/letters/deleteLetter").hasAnyRole("ADMIN", "MANAGER")
+								.antMatchers("/vislegis/summary/letters**").hasAnyRole("ADMIN", "MANAGER", "EMPLOYEE")
+								.antMatchers("/vislegis/summary/incomes/**").hasAnyRole("ADMIN", "MANAGER")
+								.antMatchers("/vislegis/summary/courtHearings/deleteHearing").hasAnyRole("ADMIN", "MANAGER")
+								.antMatchers("/vislegis/summary/courtHearings**").hasAnyRole("ADMIN", "MANAGER", "EMPLOYEE")
+								.antMatchers("/vislegis/summary/**").hasAnyRole("ADMIN", "MANAGER", "EMPLOYEE")
 								.antMatchers("/vislegis/calculator/values/updateValueForm").hasRole("ADMIN")
-								.antMatchers("/vislegis/calculator/**").hasRole("EMPLOYEE")
-								.antMatchers("/vislegis/docGenerator/courtsList/updateCourtForm").hasRole("MANAGER")
-								.antMatchers("/vislegis/docGenerator/courtsList/deleteCourt").hasRole("MANAGER")
-								.antMatchers("/vislegis/docGenerator/**").hasRole("EMPLOYEE")
-								.antMatchers("/vislegis/toDoList/**").hasRole("MANAGER")
-								.antMatchers("/vislegis").hasRole("EMPLOYEE")//wymga modyfikacji o customera
+								.antMatchers("/vislegis/calculator/**").hasAnyRole("ADMIN", "MANAGER", "EMPLOYEE")
+								.antMatchers("/vislegis/docGenerator/courtsList/updateCourtForm").hasAnyRole("ADMIN", "MANAGER")
+								.antMatchers("/vislegis/docGenerator/courtsList/deleteCourt").hasAnyRole("ADMIN", "MANAGER")
+								.antMatchers("/vislegis/docGenerator/**").hasAnyRole("ADMIN", "MANAGER", "EMPLOYEE")
+								.antMatchers("/vislegis/toDoList/**").hasAnyRole("ADMIN", "MANAGER")
+								.antMatchers("/vislegis/security/**").hasRole("ADMIN")
+								.antMatchers("/vislegis").hasAnyRole("ADMIN", "MANAGER", "EMPLOYEE")
 			)
 			.formLogin((formLogin) -> formLogin
 											.loginPage("/vislegis/login")
