@@ -2,35 +2,41 @@ package com.pioslomiany.VisLegis;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration {
 	
-	@Autowired
-	private DataSource securityDataSource;
-	
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().dataSource(securityDataSource);
+	@Bean
+	public PasswordEncoder encoder() {
+	    return new BCryptPasswordEncoder();
 	}
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		
-//		 Resources that are available before login validation
-	    String[] staticResources  =  {
-	            "/styles/login.css",
-	            "/images/VL_logo_white.png",
-	        };
+    @Bean
+    public UserDetailsManager users(DataSource dataSource) {
+        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
+        return users;
+    }
+    
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+    	//Resources ignored by authorization (login page styles and login page logo)
+    	return (web) -> web.ignoring().antMatchers("/styles/login.css", "/images/VL_logo_white.png");
+    }
+   	
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
 		http
 			.authorizeRequests((authz) -> authz
-								.antMatchers(staticResources).permitAll()
 								.antMatchers("/vislegis/customerList/updateCustomerForm").hasAnyRole("ADMIN", "MANAGER")
 								.antMatchers("/vislegis/customerList/customerDetails/deleteCustomer").hasAnyRole("ADMIN", "MANAGER")
 								.antMatchers("/vislegis/customerList/customerDetails/updateLawCaseForm").hasAnyRole("ADMIN", "MANAGER")
@@ -71,67 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.accessDeniedPage("/vislegis/accessDenied")
 			)
 			.httpBasic();
+		
+		return http.build();
 	}
-	
-	
-	
-	
-	
-//	@Bean
-//	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//		
-//		// Resources that are available before login validation
-//	    String[] staticResources  =  {
-//	            "/styles/login.css",
-//	            "/images/VL_logo_white.png",
-//	        };
-//		
-//		http
-//			.authorizeHttpRequests((authz) -> authz
-//													.antMatchers(staticResources).permitAll()
-//													.anyRequest()
-//													.authenticated()
-//													.mvcMatchers("/vislegis/docGenerator/courtsList").access(new CustomAuthorizationManager())
-//			)
-//			.formLogin((formLogin) -> formLogin
-//												.loginPage("/vislegis/login").permitAll()
-//												.defaultSuccessUrl("/vislegis/")
-//												.failureUrl("/vislegis/login-error")
-//			)
-//			.logout((logout) -> logout.deleteCookies("remove")
-//										.logoutUrl("/vislegis/logout")
-//										.logoutSuccessUrl("/vislegis/logout-success")
-//			)
-//			.httpBasic();
-//		
-//		return http.build();
-//	}
-//	
-//	@Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.ignoring().antMatchers("/ignore1", "/ignore2");
-//    }
-//	
-//	
-//	// this part will be deleted and repleced with JDBC Authentication
-//	@Bean
-//    public InMemoryUserDetailsManager userDetailsService() {
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//            .username("u")
-//            .password("u")
-//            .roles("USER")
-//            .build();
-//        return new InMemoryUserDetailsManager(user);
-//    }
-//	
-//	@Bean
-//    public InMemoryUserDetailsManager userDetailsService2() {
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//            .username("a")
-//            .password("a")
-//            .roles("ADMIN")
-//            .build();
-//        return new InMemoryUserDetailsManager(user);
-//    }
-
 }
