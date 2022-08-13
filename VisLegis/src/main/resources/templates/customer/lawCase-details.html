@@ -1,7 +1,8 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <title>Klienci</title>
@@ -37,9 +38,11 @@
 			<div class="btns-options">
 				<a
 					th:href="@{'/vislegis/customerList/customerDetails?customerId=' + ${customer.id}}"><input
-					class="btn btn-back" type="button" value="<< Powrót"></a> <a
+					class="btn btn-back" type="button" value="<< Powrót"></a> 
+					<a sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"
 					th:href="@{/vislegis/customerList/customerDetails/updateLawCaseForm(caseId=${lawCase.caseId})}"><input
-					class="btn btn-add" type="button" value="Modyfikuj"></a> <a
+					class="btn btn-add" type="button" value="Modyfikuj"></a> 
+					<a sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"
 					th:href="@{/vislegis/customerList/customerDetails/caseDetails/deleteLawCase(caseId=${lawCase.caseId})}">
 					<input class="btn btn-del" type="button" value="Usuń"
 					th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
@@ -90,7 +93,7 @@
 					<th>Data</th>
 					<th>Wartość</th>
 					<th>Komentarz</th>
-					<th>Akcje</th>
+					<th sec:authorize="hasAnyRole('ADMIN', 'MANAGER')">Akcje</th>
 				</tr>
 			</thead>
 
@@ -99,9 +102,10 @@
 					<td th:text="${caseIncome.incomeDate}"></td>
 					<td th:text="${caseIncome.incomeValue}"></td>
 					<td th:text="${caseIncome.incomeComment}"></td>
-					<td><a
+					<td sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"><a
 						th:href="@{/vislegis/customerList/customerDetails/caseDetails/updateIncomeForm(incomeId=${caseIncome.id})}"><input
-							class="btn" type="button" value="Modyfikuj"></a> <a
+							class="btn" type="button" value="Modyfikuj"></a> 
+						<a 
 						th:href="@{/vislegis/customerList/customerDetails/caseDetails/deleteIncome(incomeId=${caseIncome.id})}">
 							<input class="btn btn-del" type="button" value="Usuń"
 							th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
@@ -143,8 +147,7 @@
 				<h3>Koszty klienta</h3>
 			</div>
 			<div class="btns-options">
-				<a
-					th:href="@{/vislegis/customerList/customerDetails/caseDetails/saveCustomerCaseCostForm(caseId=${lawCase.caseId})}"><input
+				<a th:href="@{/vislegis/customerList/customerDetails/caseDetails/saveCustomerCaseCostForm(caseId=${lawCase.caseId})}"><input
 					class="btn btn-add" type="button" value="Dodaj koszt"></a>
 			</div>
 		</div>
@@ -155,7 +158,7 @@
 					<th>Data</th>
 					<th>Wartość</th>
 					<th>Komentarz</th>
-					<th>Akcje</th>
+					<th sec:authorize="hasAnyRole('ADMIN', 'MANAGER')">Akcje</th>
 				</tr>
 			</thead>
 
@@ -164,10 +167,10 @@
 					<td th:text="${customerCost.costDate}"></td>
 					<td th:text="${customerCost.costValue}"></td>
 					<td th:text="${customerCost.costComment}"></td>
-					<td><a
+					<td sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"><a
 						th:href="@{/vislegis/customerList/customerDetails/caseDetails/updateCustomerCaseCostForm(customerCaseCostId=${customerCost.id})}"><input
-							class="btn" type="button" value="Modyfikuj"></a> <a
-						th:href="@{/vislegis/customerList/customerDetails/caseDetails/deleteCustomerCaseCost(customerCaseCostId=${customerCost.id})}">
+							class="btn" type="button" value="Modyfikuj"></a> 
+						<a th:href="@{/vislegis/customerList/customerDetails/caseDetails/deleteCustomerCaseCost(customerCaseCostId=${customerCost.id})}">
 							<input class="btn btn-del" type="button" value="Usuń"
 							th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
 					</a></td>
@@ -181,8 +184,7 @@
 				<h3>Terminarz rozpraw</h3>
 			</div>
 			<div class="btns-options">
-				<a
-					th:href="@{/vislegis/customerList/customerDetails/caseDetails/saveCourtHearingForm(caseId=${lawCase.caseId})}"><input
+				<a th:href="@{/vislegis/customerList/customerDetails/caseDetails/saveCourtHearingForm(caseId=${lawCase.caseId})}"><input
 					class="btn btn-add" type="button" value="Dodaj termin"></a>
 			</div>
 		</div>
@@ -195,7 +197,7 @@
 					<th>Godzina</th>
 					<th>Miejsce</th>
 					<th>Pokój</th>
-					<th>Akcje</th>
+					<th sec:authorize="hasAnyRole('ADMIN', 'MANAGER')">Akcje</th>
 				</tr>
 			</thead>
 
@@ -205,13 +207,13 @@
 					<td th:text="${courtHearing.hearingHour}"></td>
 					<td th:text="${courtHearing.place}"></td>
 					<td th:text="${courtHearing.room}"></td>
-					<td><a
-						th:href="@{/vislegis/customerList/customerDetails/caseDetails/updateCourtHearingForm(courtHearingId=${courtHearing.id})}"><input
-							class="btn" type="button" value="Modyfikuj"></a> <a
-						th:href="@{/vislegis/customerList/customerDetails/caseDetails/deleteCourtHearing(courtHearingId=${courtHearing.id})}">
+					<td sec:authorize="hasAnyRole('ADMIN', 'MANAGER')">
+						<a th:href="@{/vislegis/customerList/customerDetails/caseDetails/updateCourtHearingForm(courtHearingId=${courtHearing.id})}"><input
+							class="btn" type="button" value="Modyfikuj"></a> 
+						<a th:href="@{/vislegis/customerList/customerDetails/caseDetails/deleteCourtHearing(courtHearingId=${courtHearing.id})}">
 							<input class="btn btn-del" type="button" value="Usuń"
-							th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">
-					</a></td>
+							th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false"></a>
+					</td>
 				</tr>
 			</tbody>
 		</table>

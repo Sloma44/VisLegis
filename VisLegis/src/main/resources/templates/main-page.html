@@ -2,7 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <title>Vis Legis</title>
@@ -52,9 +52,15 @@
 				</a>
 			</div>
 
-			<div class="square" sec:authorize="hasAnyRole('MANAGER', 'ADMIN', 'EMPLOYEE')">
+			<div class="square" sec:authorize="hasAnyRole('MANAGER', 'ADMIN',)">
 				<a th:href="@{/vislegis/toDoList}"> <input class="btn-square"
 					type="button" value="Lista zadań">
+				</a>
+			</div>
+			
+			<div class="square" sec:authorize="hasRole('ADMIN')">
+				<a th:href="@{/vislegis/security}"> <input class="btn-square"
+					type="button" value="Bezpieczeństwo">
 				</a>
 			</div>
 

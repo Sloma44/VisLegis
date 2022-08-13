@@ -1,7 +1,8 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <link th:href="@{/styles/navbar.css}" rel="stylesheet" />
@@ -24,7 +25,7 @@
 		<div class="navbar-block navbar-small">
 			<a th:href="@{/vislegis/summary/letters}">Korespondencja</a>
 		</div>
-		<div class="navbar-block navbar-small">
+		<div class="navbar-block navbar-small" sec:authorize="hasAnyRole('ADMIN', 'MANAGER')">
 			<a th:href="@{/vislegis/summary/incomes}">Wpływy</a>
 		</div>
 		<div class="navbar-block navbar-small">
@@ -76,8 +77,15 @@
 			<a th:href="@{/vislegis/docGenerator/courtsList}">Organy</a>
 		</div>
 
-		<div class="navbar-block">
+		<div class="navbar-block" sec:authorize="hasAnyRole('ADMIN', 'MANAGER')">
 			<a th:href="@{/vislegis/toDoList}">Lista zadań</a>
+		</div>
+		
+		<div class="navbar-block" sec:authorize="hasAnyRole('ADMIN')">
+			<a th:href="@{/vislegis/security}">Bezpieczeństwo</a>
+		</div>
+		<div class="navbar-block navbar-small" sec:authorize="hasAnyRole('ADMIN')">
+			<a th:href="@{/vislegis/security/users}">Użytkownicy</a>
 		</div>
 	</div>
 </body>

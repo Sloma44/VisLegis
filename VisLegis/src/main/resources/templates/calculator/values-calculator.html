@@ -1,7 +1,8 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <title>Stawki</title>
@@ -47,6 +48,7 @@
 					<th>Id</th>
 					<th>Opis</th>
 					<th>Wartość</th>
+					<th sec:authorize="hasAnyRole('ADMIN')">Akcje</th>
 				</tr>
 			</thead>
 
@@ -55,7 +57,7 @@
 					<td th:text="${value.id}"></td>
 					<td th:text="${value.name}"></td>
 					<td th:text="${value.value}"></td>
-					<td><a
+					<td sec:authorize="hasAnyRole('ADMIN')"><a
 						th:href="@{/vislegis/calculator/values/updateValueForm(valueId=${value.id})}"><input
 							class="btn" type="button" value="Modyfikuj"></a></td>
 				</tr>

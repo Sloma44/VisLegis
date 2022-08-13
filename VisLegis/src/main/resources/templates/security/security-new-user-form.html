@@ -33,10 +33,18 @@
 			<form action="#" th:action="@{saveUser}"
 				th:object="${user}" method="POST">
 				<div class="form-square">
-					Nazwa użytkownika <input type="text" th:field="*{userName}" autocomplete="off"/>
+					Nazwa użytkownika *
+					<div th:if="${#fields.hasErrors('userName')}"
+						th:errors="*{userName}"
+						th:class="${#fields.hasErrors('userName')}? error"></div>
+					<input type="text" th:field="*{userName}" autocomplete="off"/>
 				</div>
 				<div class="form-square">
-					Hasło <input type="text" th:field="*{password}" autocomplete="off"/>
+					Hasło *
+					<div th:if="${#fields.hasErrors('password')}"
+						th:errors="*{password}"
+						th:class="${#fields.hasErrors('password')}? error"></div>
+					<input type="password" th:field="*{password}" autocomplete="off"/>
 				</div>
 					
  				<div class="form-square" th:object="${RoleOfUser}">

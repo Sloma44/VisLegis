@@ -47,7 +47,7 @@
 					<div th:if="${#fields.hasErrors('caseSignature')}"
 						th:errors="*{caseSignature}"
 						th:class="${#fields.hasErrors('caseSignature')}? error"></div>
-					<input type="text" th:field="*{caseSignature}" name="caseSignature" />
+					<input type="text" th:field="*{caseSignature}" name="caseSignature" autocomplete="off"/>
 				</div>
 
 				<div class="form-square description">
@@ -62,7 +62,7 @@
 					<div th:if="${#fields.hasErrors('firstName')}"
 						th:errors="*{firstName}"
 						th:class="${#fields.hasErrors('firstName')}? error"></div>
-					<input type="text" th:field="*{firstName}" name="firstName" />
+					<input type="text" th:field="*{firstName}" name="firstName" autocomplete="off"/>
 				</div>
 
 				<div class="form-square">
@@ -70,7 +70,7 @@
 					<div th:if="${#fields.hasErrors('lastName')}"
 						th:errors="*{lastName}"
 						th:class="${#fields.hasErrors('lastName')}? error"></div>
-					<input type="text" th:field="*{lastName}" name="lastName" />
+					<input type="text" th:field="*{lastName}" name="lastName" autocomplete="off"/>
 				</div>
 
 				<div class="form-square">

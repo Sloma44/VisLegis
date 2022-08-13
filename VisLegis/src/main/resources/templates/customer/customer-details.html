@@ -1,7 +1,8 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <title>Klienci</title>
@@ -36,9 +37,11 @@
 			</div>
 			<div class="btns-options">
 				<a th:href="@{/vislegis/customerList}"><input
-					class="btn btn-back" type="button" value="<< Powrót"></a> <a
+					class="btn btn-back" type="button" value="<< Powrót"></a> 
+					<a sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"
 					th:href="@{/vislegis/customerList/updateCustomerForm(customerId=${customer.id})}"><input
-					class="btn btn-add" type="button" value="Modyfikuj"></a> <a
+					class="btn btn-add" type="button" value="Modyfikuj"></a> 
+					<a sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"
 					th:href="@{/vislegis/customerList/customerDetails/deleteCustomer(customerId=${customer.id})}">
 					<input class="btn btn-del" type="button" value="Usuń"
 					th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">

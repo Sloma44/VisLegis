@@ -37,7 +37,7 @@
 					Nazwa *
 					<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
 						th:class="${#fields.hasErrors('name')}? error"></div>
-					<input type="text" th:field="*{name}" name="name" />
+					<input type="text" th:field="*{name}" name="name" autocomplete="off"/>
 				</div>
 
 				<div class="form-square">
@@ -45,7 +45,7 @@
 					<div th:if="${#fields.hasErrors('department')}"
 						th:errors="*{department}"
 						th:class="${#fields.hasErrors('department')}? error"></div>
-					<input type="text" th:field="*{department}" name="department" />
+					<input type="text" th:field="*{department}" name="department" autocomplete="off"/>
 				</div>
 
 				<div class="form-square">
@@ -54,7 +54,7 @@
 						th:errors="*{streetAndNumber}"
 						th:class="${#fields.hasErrors('streetAndNumber')}? error"></div>
 					<input type="text" th:value="*{streetAndNumber}"
-						name="streetAndNumber" />
+						name="streetAndNumber" autocomplete="off"/>
 				</div>
 
 				<div class="form-square">
@@ -62,7 +62,7 @@
 					<div th:if="${#fields.hasErrors('postalAndCity')}"
 						th:errors="*{postalAndCity}"
 						th:class="${#fields.hasErrors('postalAndCity')}? error"></div>
-					<input type="text" th:value="*{postalAndCity}" name="postalAndCity" />
+					<input type="text" th:value="*{postalAndCity}" name="postalAndCity" autocomplete="off"/>
 				</div>
 
 				<div class="btn-submit">

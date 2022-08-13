@@ -39,7 +39,7 @@
 					<div th:if="${#fields.hasErrors('firstName')}"
 						th:errors="*{firstName}"
 						th:class="${#fields.hasErrors('firstName')}? error"></div>
-					<input type="text" th:field="*{firstName}" name="firstName" />
+					<input type="text" th:field="*{firstName}" name="firstName" autocomplete="off"/>
 
 				</div>
 				<div class="form-square">
@@ -47,23 +47,23 @@
 					<div th:if="${#fields.hasErrors('lastName')}"
 						th:errors="*{lastName}"
 						th:class="${#fields.hasErrors('lastName')}? error"></div>
-					<input type="text" th:field="*{lastName}" name="lastName" />
+					<input type="text" th:field="*{lastName}" name="lastName" autocomplete="off"/>
 				</div>
 				<div class="form-square">
 					Ulica<br> <input type="text"
-						th:value="${customerContactInfo.street}" name="street" />
+						th:value="${customerContactInfo.street}" name="street" autocomplete="off"/>
 				</div>
 				<div class="form-square">
 					Nr domu<br> <input type="text"
-						th:value="${customerContactInfo.houseNumber}" name="houseNumber" />
+						th:value="${customerContactInfo.houseNumber}" name="houseNumber" autocomplete="off"/>
 				</div>
 				<div class="form-square">
 					Kod pocztowy<br> <input type="text"
-						th:value="${customerContactInfo.postalCode}" name="postalCode" />
+						th:value="${customerContactInfo.postalCode}" name="postalCode"/>
 				</div>
 				<div class="form-square">
 					Miasto<br> <input type="text"
-						th:value="${customerContactInfo.city}" name="city" />
+						th:value="${customerContactInfo.city}" name="city"/>
 				</div>
 				<div class="form-square">
 					Kraj<br> <input type="text"
@@ -75,11 +75,11 @@
 				</div>
 				<div class="form-square">
 					Nr telefonu<br> <input type="text"
-						th:value="${customerContactInfo.telephone}" name="telephone" />
+						th:value="${customerContactInfo.telephone}" name="telephone" autocomplete="off"/>
 				</div>
 				<div class="form-square">
 					Email<br> <input type="text"
-						th:value="${customerContactInfo.email}" name="email" />
+						th:value="${customerContactInfo.email}" name="email" autocomplete="off"/>
 				</div>
 				<div class="btn-submit">
 					<input type="submit" value="Zatwierdź" />

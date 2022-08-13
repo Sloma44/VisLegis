@@ -88,14 +88,14 @@
 					<div th:if="${#fields.hasErrors('firstInstance')}"
 						th:errorclass="error" th:errors="*{firstInstance}"></div>
 					<input type="text" th:field="*{firstInstance}"
-						placeholder="2,3,1,4" />
+						placeholder="2,3,1,4" autocomplete="off"/>
 				</div>
 				<div class="form-square">
 					Ilość wystąpień w II instancji
 					<div th:if="${#fields.hasErrors('secondInstance')}"
 						th:errorclass="error" th:errors="*{secondInstance}"></div>
 					<input type="text" th:field="*{secondInstance}"
-						placeholder="2,3,1,4" />
+						placeholder="2,3,1,4" autocomplete="off"/>
 				</div>
 				<div class="btn-submit">
 					<input type="submit" value="Dalej >>" />

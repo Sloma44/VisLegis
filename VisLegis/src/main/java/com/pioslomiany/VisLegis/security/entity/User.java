@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,9 +16,11 @@ public class User {
 	
 	@Id
 	@Column(name="username")
+	@NotEmpty(message="Pole nie może być puste")
 	private String userName;
 
 	@Column(name="password")
+	@NotEmpty(message="Pole nie może być puste")
 	private String password;
 	
 	@Column(name="enabled")

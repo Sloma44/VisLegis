@@ -11,27 +11,42 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 @Configuration
 public class SecurityConfiguration {
 	
+	
+	// Needed for thymeleaf springsecurity5 to use sec:authorize (hide fiels according to user role)
+	@Bean
+	public SpringSecurityDialect securityDialect() {
+	    return new SpringSecurityDialect();
+	}
+	
+	
+	// Passwords are saved in DB as BCrypt(10)
 	@Bean
 	public PasswordEncoder encoder() {
 	    return new BCryptPasswordEncoder();
 	}
 
+	
+	// Users and Roles defined in DB
     @Bean
     public UserDetailsManager users(DataSource dataSource) {
         JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
         return users;
     }
     
+    
+    // Resources ignored by authorization (login page styles and login page logo)
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-    	//Resources ignored by authorization (login page styles and login page logo)
     	return (web) -> web.ignoring().antMatchers("/styles/login.css", "/images/VL_logo_white.png");
     }
    	
+    
+    // Definition of access
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		

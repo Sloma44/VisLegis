@@ -1,7 +1,8 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <title>Podsumowanie</title>
@@ -33,6 +34,10 @@
 		<div class="page-title">
 			<div class="page-title-text">
 				<h2>Terminarz rozpraw</h2>
+			</div>
+			<div class="btns-options">
+				<a th:href="@{/vislegis/summary}"><input
+					class="btn btn-back" type="button" value="<< Powrót"></a>
 			</div>
 			<div class="btns-options">
 				<a th:href="@{/vislegis/summary/courtHearings/saveHearingForm}">
@@ -67,7 +72,8 @@
 					<td th:text="${hearing.room}"></td>
 					<td><a
 						th:href="@{/vislegis/summary/courtHearings/updateHearingForm(hearingId=${hearing.hearingId})}"><input
-							class="btn" type="button" value="Modyfikuj"></a> <a
+							class="btn" type="button" value="Modyfikuj"></a> 
+						<a sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"
 						th:href="@{/vislegis/summary/courtHearings/deleteHearing(hearingId=${hearing.hearingId})}">
 							<input class="btn btn-del" type="button" value="Usuń"
 							th:onclick="if(!(confirm('Potwierdz operację usunięcia.') )) return false">

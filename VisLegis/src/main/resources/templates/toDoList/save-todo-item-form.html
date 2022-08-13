@@ -35,7 +35,7 @@
 				<input type="hidden" th:value="${item.id}" name="id" />
 
 				<div class="form-square">
-					Kategoria <input type="text" th:field="*{category}" name="category" />
+					Kategoria <input type="text" th:field="*{category}" name="category" autocomplete="off"/>
 				</div>
 
 				<div class="form-square">
@@ -48,7 +48,7 @@
 					<div th:if="${#fields.hasErrors('description')}"
 						th:errors="*{description}"
 						th:class="${#fields.hasErrors('description')}? error"></div>
-					<input type="text" th:field="*{description}" name="description" />
+					<input type="text" th:field="*{description}" name="description" autocomplete="off"/>
 				</div>
 
 				<div class="btn-submit">

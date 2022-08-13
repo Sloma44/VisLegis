@@ -37,7 +37,7 @@
 			<form action="#" th:action="@{saveRecompanseRateForm}"
 				th:object="${recompanseRate}" method="POST">
 				<div class="form-square">
-					Numer faktury <input type="text" th:field="*{invoice}" />
+					Numer faktury <input type="text" th:field="*{invoice}" autocomplete="off"/>
 				</div>
 				<div class="form-square">
 					Data faktury

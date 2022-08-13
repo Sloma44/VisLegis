@@ -2,9 +2,12 @@ package com.pioslomiany.VisLegis.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,11 +59,14 @@ public class SecurityController {
 	}
 	
 	@PostMapping("saveUser")
-	public String saveUser(@ModelAttribute("user") User theUser,
+	public String saveUser(@Valid @ModelAttribute("user") User theUser, BindingResult bindingResult,
 							@ModelAttribute("RoleOfUser") Role theRole, 
 							Model model) {
 		
-		securityService.saveUserAndRole(theUser, theRole);
+		if (bindingResult.hasErrors()) {
+			return "security/security-new-user-form";
+		}
+//		securityService.saveUserAndRole(theUser, theRole);
 		
 		return "redirect:/vislegis/security/users";
 	}

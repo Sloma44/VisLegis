@@ -1,7 +1,8 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <title>Organy</title>
@@ -48,7 +49,7 @@
 					<th>Wydział</th>
 					<th>Ulica i numer</th>
 					<th>Kod pocztowy i miasto</th>
-					<th>Akcje</th>
+					<th sec:authorize="hasAnyRole('ADMIN', 'MANAGER')">Akcje</th>
 				</tr>
 			</thead>
 
@@ -58,7 +59,7 @@
 					<td th:text="${court.department}" />
 					<td th:text="${court.streetAndNumber}" />
 					<td th:text="${court.postalAndCity}" />
-					<td><a
+					<td sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"><a
 						th:href="@{/vislegis/docGenerator/courtsList/updateCourtForm(courtId=${court.id})}"><input
 							class="btn" type="button" value="Modyfikuj"></a> <a
 						th:href="@{/vislegis/docGenerator/courtsList/deleteCourt(courtId=${court.id})}">
