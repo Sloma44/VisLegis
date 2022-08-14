@@ -35,22 +35,29 @@ public class DocGeneratorService {
 	@Autowired
 	CourtDAOImpl courtDAOImpl;
 	
+	
+	/*"Prokuratura wstąpienie"*/
 	public ByteArrayOutputStream generateProsecutorAccesionFile(DocxForm prosecutorAccessionForm) throws Throwable {
 	    return prosecutorAccesionDAOImpl.generateProsecutorAccesionFile(prosecutorAccessionForm);
 	}
 	
+	/* Wniosek o uzasadnienie */
 	public ByteArrayOutputStream generateJustificationRequestFormFile(JustificationRequestForm justificationRequestForm) throws Throwable {
 		return justificationRequestDAOImpl.generateJustificationRequestFormFile(justificationRequestForm);
 	}
 
+	/* Wniosek o odpis z klauzulą */
 	public ByteArrayOutputStream generateClauseRequestFormFile(ClauseRequestForm clauseRequestForm) throws Throwable {
 		return clauseRequestDAOImpl.generateClauseRequestFormFile(clauseRequestForm);
 	}
 	
+	/* Wstąpienie do sprawy */
 	public ByteArrayOutputStream generateJoiningTheCaseFile(DocxForm joiningTheCaseForm) throws Throwable {
 		return joiningTheCaseDAOImpl.generateJoiningTheCaseFormFile(joiningTheCaseForm);
 	}
 	
+	
+	/* Courts */
 	@Transactional
 	public List<Court> getAllCourts() {
 		return courtDAOImpl.getAllCourts();

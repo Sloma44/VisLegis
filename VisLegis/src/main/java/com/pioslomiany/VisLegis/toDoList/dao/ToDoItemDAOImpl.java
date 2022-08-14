@@ -39,7 +39,7 @@ public class ToDoItemDAOImpl {
 	}
 
 	/*
-	 * every time the button is cliked the task status is changed
+	 * every time the button is clicked the task status is changed
 	 * there are only two states possible, both hard coded:
 	 * done / not done ("W trakcie" / "Zakończono")
 	 */

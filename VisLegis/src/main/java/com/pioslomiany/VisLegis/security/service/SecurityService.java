@@ -47,8 +47,8 @@ public class SecurityService {
 		roleDAOImpl.saveRole(theRole);
 	}
 	
-	// There is no relation between enties 
-	// so the operation of deleting must be in orded
+	// There is no relation between entities 
+	// so the operation of deleting must be in order
 	// if the role is deleted it returns true
 	// if role is deleted the user can also be deleted
 	// the role will not be deleted if has role of ADMIN
@@ -60,10 +60,4 @@ public class SecurityService {
 			userDAOImpl.deleteUser(userName);			
 		}
 	}
-	
-	@Transactional
-	public void saveRole(Role theRole) {
-		roleDAOImpl.saveRole(theRole);
-	}
-	
 }

@@ -20,6 +20,11 @@ public class RoleDAOImpl {
 		session.save(theRole);
 	}
 	
+	/*
+	 * If the role is not an ADMIN it can be deleted. If returned value is true it
+	 * means that user can be deleted. If false -> the user cannot be deleted
+	 * because it is an Admin
+	 */
 	public boolean deleteRole(String userName) {
 		Session session = entityManger.unwrap(Session.class);
 		
@@ -27,7 +32,6 @@ public class RoleDAOImpl {
 		
 		String roleName = role.getRole();
 		
-		//AMIN cannot be deleted
 		if(!roleName.equals("ROLE_ADMIN")) {
 			session.delete(role);
 			return true;

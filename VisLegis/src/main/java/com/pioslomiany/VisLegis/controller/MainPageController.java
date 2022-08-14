@@ -15,6 +15,8 @@ public class MainPageController {
 	}
 	
 	
+	/* Spring security authorization */
+	
 	@GetMapping("/login")
 	public String login() {
 		return "security/login-view";

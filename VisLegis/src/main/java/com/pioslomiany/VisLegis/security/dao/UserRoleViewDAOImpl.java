@@ -17,6 +17,7 @@ public class UserRoleViewDAOImpl {
 	@Autowired
 	EntityManager entityManager;
 	
+	/* Returns list of all users: userName, status (active / inactive), role */
 	public List<UserRoleView> getUsersAndRoles() {
 		Session session = entityManager.unwrap(Session.class);
 		

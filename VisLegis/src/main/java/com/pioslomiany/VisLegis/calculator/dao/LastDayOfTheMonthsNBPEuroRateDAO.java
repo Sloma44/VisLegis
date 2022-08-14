@@ -16,6 +16,8 @@ import com.pioslomiany.VisLegis.calculator.entity.DateRangeForm;
 import com.pioslomiany.VisLegis.calculator.entity.NBPExchangeRate;
 import com.pioslomiany.VisLegis.calculator.entity.NBPExchangeRate.Rate;
 
+/*("Kurs euro NBP dla ostaniego dnia miesiąca")*/
+
 @Repository
 public class LastDayOfTheMonthsNBPEuroRateDAO {
 	
@@ -27,6 +29,11 @@ public class LastDayOfTheMonthsNBPEuroRateDAO {
 		this.dateRange = dateRange;
 	}
 
+	/*
+	 * Connects with NBP api and using method buildLastDaysOfTheMonthsList returns
+	 * the final List with Rates
+	 */
+	
 	public List<Rate> getLastDaysNBPExchangeRates() {
 		checkDateRange();
 		
@@ -40,7 +47,8 @@ public class LastDayOfTheMonthsNBPEuroRateDAO {
 	}
 	
 	
-	/* NBP api maximal period to be checked with one request is the range of 367 days
+	/* 
+	 * NBP api maximal period to be checked with one request is the range of 367 days
 	 * This method check if the dates and if the days difference is grater then 367 it changes the start date
 	 * Here is potential of future development. It could send a series of request to API to get the desired date range,
 	 * instead of just limiting the date

@@ -14,6 +14,8 @@ import com.pioslomiany.VisLegis.calculator.service.CalculatorService;
 
 import lombok.Setter;
 
+/*("Koszt spraw karnych")*/
+
 @Repository
 public class CriminalCourtCostDAO {
 	

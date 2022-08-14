@@ -12,6 +12,12 @@ import com.pioslomiany.VisLegis.calculator.validators.CurrentDateConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
+	/*
+	 * Used in
+	 * "Prokuratura wstąpienie" - ProsecutorAccesion
+	 * "Wstąpienie do sprawy" - JoiningTheCase
+	 */
+
 @Getter @Setter
 public class DocxForm {
 

@@ -4,6 +4,8 @@ import com.pioslomiany.VisLegis.calculator.service.CalculatorService;
 
 import lombok.Getter;
 
+/*("Koszt spraw karnych")*/
+
 public class PreparatoryProceeding {
 	
 	private CriminalCourtCostForm criminalCourtCostForm;

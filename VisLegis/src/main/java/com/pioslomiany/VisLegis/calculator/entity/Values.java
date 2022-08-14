@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/*("Wartości do obliczeń")*/
+
 @Entity
 @Table(name="constant_values")
 @Getter @Setter @NoArgsConstructor

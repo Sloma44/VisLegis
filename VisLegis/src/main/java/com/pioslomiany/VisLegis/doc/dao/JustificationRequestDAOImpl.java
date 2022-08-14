@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 import com.pioslomiany.VisLegis.doc.entity.Court;
 import com.pioslomiany.VisLegis.doc.entity.JustificationRequestForm;
 
+/* Wniosek o uzasadnienie */
+
 @Repository
 public class JustificationRequestDAOImpl {
 	

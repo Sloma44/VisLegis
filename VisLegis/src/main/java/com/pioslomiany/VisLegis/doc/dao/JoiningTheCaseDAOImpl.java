@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 import com.pioslomiany.VisLegis.doc.entity.Court;
 import com.pioslomiany.VisLegis.doc.entity.DocxForm;
 
+/* Wstąpienie do sprawy */
+
 @Repository
 public class JoiningTheCaseDAOImpl {
 	

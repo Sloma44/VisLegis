@@ -2,6 +2,8 @@ package com.pioslomiany.VisLegis.calculator.entity;
 
 import lombok.Getter;
 
+/*("Koszt spraw karnych")*/
+
 @Getter
 public class CriminalCourtCost {
 	

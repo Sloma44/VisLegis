@@ -34,7 +34,7 @@ public class CalculatorService {
 	RecompenseRateDAO recompenseRateDAO;
 	
 
-//	Values entity
+//	Values used in calculators ("Wartości do obliczeń")
 	
 	@Transactional
 	public List<Values> getAllValues() {
@@ -58,6 +58,7 @@ public class CalculatorService {
 
 	
 //	LastDayOfTheMonthsNBPEuroRate - euroExchangeValues for the last days of the months from specified range
+//	("Kurs euro NBP dla ostaniego dnia miesiąca")
 	
 	public void setStartEndDate(DateRangeForm dateRange) {
 		lastDayOfTheMonthsNBPEuroRateDAO.setStartEndDate(dateRange);
@@ -70,6 +71,7 @@ public class CalculatorService {
 	
 	
 //	RecompanseRate Controller (the list of recompense for the customer for delays in payment) 
+//	("Zryczałtowane odszkodowanie za opóźnienia w wpłatności")
 	
 	public List<RecompenseRate> getRecompenseRatesList(){
 		return recompenseRateDAO.getRecompenseRatesList();
@@ -87,7 +89,8 @@ public class CalculatorService {
 		recompenseRateDAO.deleteRecompenseRateByHashCode(theHashCode);
 	}
 	
-//	----------------------------------------------------------------
+	
+//	Criminal calculator ("Koszt spraw karnych")
 	
 	public PreparatoryProceeding getPreparatoryProceeding() {
 		return criminalCourtCostDAO.getPreparatoryProceeding();

@@ -19,6 +19,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/*("Zryczałtowane odszkodowanie za opóźnienia w wpłatności")*/
+
 @Getter @Setter @NoArgsConstructor
 public class RecompenseRate {
 	

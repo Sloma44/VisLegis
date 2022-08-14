@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/*("Kurs euro NBP dla ostaniego dnia miesiąca")*/
+
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class DateRangeForm {
 	

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.pioslomiany.VisLegis.calculator.entity.RecompenseRate;
 
+/*("Zryczałtowane odszkodowanie za opóźnienia w wpłatności")*/
+
 @Repository
 public class RecompenseRateDAO {
 

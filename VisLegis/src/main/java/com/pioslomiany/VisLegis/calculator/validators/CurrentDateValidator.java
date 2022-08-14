@@ -14,6 +14,10 @@ public class CurrentDateValidator implements
 		ConstraintValidator.super.initialize(constraintAnnotation);
 	}
 
+	/*
+	 * Validation for date. Cannot be null or in future
+	 */
+	
 	@Override
 	public boolean isValid(LocalDate date, ConstraintValidatorContext context) {
 		

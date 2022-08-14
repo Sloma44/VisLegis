@@ -19,6 +19,14 @@ import com.pioslomiany.VisLegis.security.entity.User;
 import com.pioslomiany.VisLegis.security.entity.UserRoleView;
 import com.pioslomiany.VisLegis.security.service.SecurityService;
 
+	/*
+	 * CRUD operations on users, with access only for ADMIN.
+	 * User can be added, deleted or status change to active / inactive. 
+	 * User cannot be modified. 
+	 * Available users: employee / manager.
+	 * Cannot create new ADMIN, cannot change ADMIN status and ADMIN cannot be deleted.
+	 */
+
 @Controller
 @RequestMapping("/vislegis/security")
 public class SecurityController {
@@ -31,6 +39,11 @@ public class SecurityController {
 		return "security/main-security";
 	}
 	
+	
+	/* 
+	 * List off all users with their status and role
+	 * Using DB View to compile role with userName and status
+	 */
 	@GetMapping("/users")
 	public String getEmployees(Model model) {
 		
@@ -41,6 +54,10 @@ public class SecurityController {
 		return "security/security-users";
 	}
 	
+	/*
+	 * User status can be changed to active / inactive.
+	 * Cannot change status of the ADMIN.
+	 */
 	@GetMapping("users/changeStatus")
 	public String changeStatus(@RequestParam("userName") String userName, Model model) {
 		

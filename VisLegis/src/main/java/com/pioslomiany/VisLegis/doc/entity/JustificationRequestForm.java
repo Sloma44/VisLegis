@@ -10,6 +10,11 @@ import com.pioslomiany.VisLegis.calculator.validators.CurrentDateConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
+	/*
+	 * Used in
+	 * "Wniosek o uzasadnienie" - JustificationRequest
+	 */
+
 public class JustificationRequestForm extends DocxForm {
 	
 	@Setter

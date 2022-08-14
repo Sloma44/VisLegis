@@ -2,6 +2,8 @@ package com.pioslomiany.VisLegis.calculator.entity;
 
 import javax.validation.constraints.Pattern;
 
+/*("Koszt spraw karnych")*/
+
 public class CriminalCourtCostForm {
 
 	//false = "Z urzędu" / true = "Z wyboru"

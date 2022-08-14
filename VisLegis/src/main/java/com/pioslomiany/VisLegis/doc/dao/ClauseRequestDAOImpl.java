@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import com.pioslomiany.VisLegis.doc.entity.ClauseRequestForm;
 import com.pioslomiany.VisLegis.doc.entity.Court;
 
+/* Wniosek o odpis z klauzulą */
+
 @Repository
 public class ClauseRequestDAOImpl {
 	

@@ -2,6 +2,11 @@ package com.pioslomiany.VisLegis.doc.entity;
 
 import lombok.Setter;
 
+	/*
+	 * Used in
+	 * "Wniosek o odpis z klauzulą" - ClauseRequest
+	 */
+
 public class ClauseRequestForm extends JustificationRequestForm {
 	
 	@Setter

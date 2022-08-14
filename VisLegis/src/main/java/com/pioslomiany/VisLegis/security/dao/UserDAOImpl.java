@@ -32,7 +32,8 @@ public class UserDAOImpl {
 		return session.get(User.class, userName);
 	}
 	
-	//
+	
+	/* Status of the ADMIN user cannot be changed. ADMIN cannot be inactive */
 	public void changeUserStatusByName(String userName) {
 		Session session = entityManager.unwrap(Session.class);
 		

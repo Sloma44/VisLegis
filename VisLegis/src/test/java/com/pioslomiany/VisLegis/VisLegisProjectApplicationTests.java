@@ -5,9 +5,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class VisLegisProjectApplicationTests {
-
+	
 	@Test
 	void contextLoads() {
+
 	}
 
 }

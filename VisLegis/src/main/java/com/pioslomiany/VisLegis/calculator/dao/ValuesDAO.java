@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.pioslomiany.VisLegis.calculator.entity.Values;
 
+/*("Wartości do obliczeń")*/
+
 @Repository
 public class ValuesDAO {
 
