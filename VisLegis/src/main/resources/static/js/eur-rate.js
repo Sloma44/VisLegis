@@ -1,4 +1,4 @@
-const input = document.querySelector("input");
+const input = document.querySelector(".date-input");
 const button = document.querySelector(".btn-submitEurRate");
 const eurRate = document.querySelector(".eurRate");
 
@@ -17,7 +17,7 @@ async function getResult() {
 		eurRate.textContent = data.rates[0].mid;
 
 	} catch {
-		eurRate.textContent = "Błędna data";
+		eurRate.textContent = API_LINK + input.value;
 	}
 }
 
