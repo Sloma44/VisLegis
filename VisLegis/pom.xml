@@ -12,7 +12,7 @@
 
 	<groupId>com.pioslomiany</groupId>
 	<artifactId>VisLegis</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>VisLegis</name>
 	<description>CRM application for lawyer&apos;s office</description>
 

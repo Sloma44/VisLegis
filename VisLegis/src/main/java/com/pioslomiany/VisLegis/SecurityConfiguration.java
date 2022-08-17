@@ -17,7 +17,7 @@ import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 public class SecurityConfiguration {
 	
 	
-	// Needed for thymeleaf springsecurity5 to use sec:authorize (hide fiels according to user role)
+	// Needed for thymeleaf springsecurity5 to use sec:authorize (hide fields according to user role)
 	@Bean
 	public SpringSecurityDialect securityDialect() {
 	    return new SpringSecurityDialect();

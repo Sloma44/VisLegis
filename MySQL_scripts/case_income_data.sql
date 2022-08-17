@@ -1,3 +1,0 @@
-INSERT INTO dds_main.income_for_case (income_date, income_value, income_comment, case_id) VALUES ('2021-12-02', '200.25', 'porada', '1');
-INSERT INTO dds_main.income_for_case (income_date, income_value, income_comment, case_id) VALUES ('2022-01-22', '1400.99', 'Pismo', '1');
-INSERT INTO dds_main.income_for_case (income_date, income_value, income_comment, case_id) VALUES ('2022-02-13', '500', 'skarga', '12');

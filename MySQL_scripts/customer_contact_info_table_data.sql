@@ -1,1 +1,0 @@
-INSERT INTO dds_main.customer_contact_info_table (country, city, postal_code, street, house_number, telephone, email) VALUES ('Poland', 'Gliwice', '44-100', 'Hutnicza', '+48 123 123 123', 'nowak@gmail.com');
