@@ -46,7 +46,20 @@ Additionally in limited range:
 Project works with MySQL database. To run the application, first user has to build database structure. There is already prepared script "DataBaseSetup.sql" which create new MySQL user ("vislegis@localhost") with default password ("L905k[!!!!"). The same name and password is defined in "application.properties" file. Changing them would required to create new application executable jar file with changed properties file.
 The script also contains defined user of role "admin" with encrypted password (bctypt with cost 10). This is required for logging into the application.
 
-After configuration of data base, project is ready to be lunched from executable jar file "VisLegis-1.0.0.jar". To start the application run the following shell command from project directory:
+After configuration of data base, project is ready to be lunched.
+First it is recommended to create executable jar file. To do this run the following shell command from project directory.
+
+For Linux:
+```bash
+$ ./mvnw package
+```
+
+For Windows:
+```sh
+$ mvnw package
+```
+
+The executable jar file is created in the target sub directory so you need to move to this location. Default file name is "VisLegis-1.0.0.jar". To start the application run the following shell command from target directory:
 ```bash
 $ java -jar VisLegis-1.0.0.jar
 ```
