@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +19,7 @@ public class NBPExchangeRate {
 	private String code;
 	private List<Rate> rates;
 	
-	@Getter @Setter @NoArgsConstructor
+	@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Data
 	public static class Rate {
 		@JsonFormat(pattern="yyyy-MM-dd")
 		private LocalDate effectiveDate;
