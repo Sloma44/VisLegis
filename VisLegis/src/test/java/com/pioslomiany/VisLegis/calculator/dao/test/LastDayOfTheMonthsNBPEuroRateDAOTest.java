@@ -30,17 +30,17 @@ public class LastDayOfTheMonthsNBPEuroRateDAOTest {
 
 	@Test
 	void OneYearRangeTest() {
-		
 		lastDayOfTheMonthsNbpEuroRate = new LastDayOfTheMonthsNBPEuroRateDAO();
 		
 		DateRangeForm dateRange = new DateRangeForm();
 		dateRange.setStartDate(ONE_YEAR_TEST_START_DATE);
 		dateRange.setEndDate(ONE_YEAR_TEST_END_DATE);
 		
-		lastDayOfTheMonthsNbpEuroRate.setDateRange(dateRange);
 		
+		lastDayOfTheMonthsNbpEuroRate.setDateRange(dateRange);
+
 		List<Rate> result = lastDayOfTheMonthsNbpEuroRate
-						.getLastDaysNBPExchangeRates();
+				.getLastDaysNBPExchangeRates();
 
 		Assertions.assertEquals(oneYearResult, result);
 	}
@@ -74,12 +74,36 @@ public class LastDayOfTheMonthsNBPEuroRateDAOTest {
 		
 		List<Rate> result = lastDayOfTheMonthsNbpEuroRate
 						.getLastDaysNBPExchangeRates();
+		
+		List<Rate> expected = new ArrayList<>();
+		Rate oneRateExpected = new NBPExchangeRate.Rate(LocalDate.parse("2022-10-03"), "4.8272");
+		expected.add(oneRateExpected);
 
-		Assertions.assertTrue(result.size() == 0);
+		Assertions.assertEquals(expected, result);
 	}
+	
+	@Test
+	void alterantiveMehodTest() {
+		lastDayOfTheMonthsNbpEuroRate = new LastDayOfTheMonthsNBPEuroRateDAO();
+		
+		DateRangeForm dateRange = new DateRangeForm();
+		dateRange.setStartDate(ONE_YEAR_TEST_START_DATE);
+		dateRange.setEndDate(ONE_YEAR_TEST_END_DATE);
+		
+		lastDayOfTheMonthsNbpEuroRate.setDateRange(dateRange);
+
+		List<Rate> result = lastDayOfTheMonthsNbpEuroRate
+				.getLastDaysNBPExchangeRates();
+
+		Assertions.assertEquals(oneYearResult, result);
+	}
+	
+	
 	
 	private List<Rate> buildOneYearExpectedResult() {
 		List<Rate> expected = new ArrayList<>();
+		Rate rateOctober2021 = new NBPExchangeRate.Rate(LocalDate.parse("2021-10-29"), "4.6208");
+		expected.add(rateOctober2021);
 		Rate rateNovember2021 = new NBPExchangeRate.Rate(LocalDate.parse("2021-11-30"), "4.6834");
 		expected.add(rateNovember2021);
 		Rate rateDecember2021 = new NBPExchangeRate.Rate(LocalDate.parse("2021-12-31"), "4.5994");

@@ -20,10 +20,11 @@ public class NBPExchangeRate {
 	private List<Rate> rates;
 	
 	@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Data
-	public static class Rate {
+	public static class Rate{
 		@JsonFormat(pattern="yyyy-MM-dd")
 		private LocalDate effectiveDate;
 		private String mid;
+
 	}
 	
 }

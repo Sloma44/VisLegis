@@ -15,7 +15,7 @@ public class NBPApiClient {
 		this.dateRange = dateRange;
 	}
 	
-	public NBPExchangeRate getEuroRate() {
+	public NBPExchangeRate getNbpExchangeRateFromApi() {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
