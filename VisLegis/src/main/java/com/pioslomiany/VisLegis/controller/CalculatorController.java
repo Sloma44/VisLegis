@@ -113,7 +113,7 @@ public class CalculatorController {
 			return "redirect:/vislegis/calculator/eurExchangeRateForm";
 		}
 		
-		calculatorService.setStartEndDate(dateRangeForm);
+		calculatorService.setDateRange(dateRangeForm);
 		
 		return "redirect:/vislegis/calculator/eurExchangeRateResult";
 	}

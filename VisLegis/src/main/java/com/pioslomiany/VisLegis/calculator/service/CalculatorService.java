@@ -60,8 +60,8 @@ public class CalculatorService {
 //	LastDayOfTheMonthsNBPEuroRate - euroExchangeValues for the last days of the months from specified range
 //	("Kurs euro NBP dla ostaniego dnia miesiąca")
 	
-	public void setStartEndDate(DateRangeForm dateRange) {
-		lastDayOfTheMonthsNBPEuroRateDAO.setStartEndDate(dateRange);
+	public void setDateRange(DateRangeForm dateRange) {
+		lastDayOfTheMonthsNBPEuroRateDAO.setDateRange(dateRange);
 	}
 	
 	public List<Rate> getLastDaysNBPExchangeRates() {

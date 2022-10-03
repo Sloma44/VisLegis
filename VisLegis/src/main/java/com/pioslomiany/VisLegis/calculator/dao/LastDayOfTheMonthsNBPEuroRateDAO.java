@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.web.client.RestTemplate;
 
+import com.pioslomiany.VisLegis.calculator.client.NBPApiClient;
 import com.pioslomiany.VisLegis.calculator.entity.DateRangeForm;
 import com.pioslomiany.VisLegis.calculator.entity.NBPExchangeRate;
 import com.pioslomiany.VisLegis.calculator.entity.NBPExchangeRate.Rate;
@@ -25,8 +25,12 @@ public class LastDayOfTheMonthsNBPEuroRateDAO {
 	
 	private DateRangeForm dateRange;
 	
-	public void setStartEndDate(DateRangeForm dateRange) {
-		this.dateRange = dateRange;
+	public void setDateRange(DateRangeForm dateRange) {
+		if (isLowerThenOneYear(dateRange)) {
+			this.dateRange = dateRange;			
+		} else {
+			this.dateRange = changeStartDate(dateRange);
+		}
 	}
 
 	/*
@@ -35,13 +39,10 @@ public class LastDayOfTheMonthsNBPEuroRateDAO {
 	 */
 	
 	public List<Rate> getLastDaysNBPExchangeRates() {
-		checkDateRange();
 		
-		RestTemplate restTemplate = new RestTemplate();
+		NBPApiClient nbpClient = new NBPApiClient(dateRange);
 		
-		String url = "http://api.nbp.pl/api/exchangerates/rates/a/eur/" + dateRange.getStartDate().toString() + "/" + dateRange.getEndDate().toString();
-		
-		nbpExchangeRate = restTemplate.getForObject(url, NBPExchangeRate.class);
+		nbpExchangeRate = nbpClient.getEuroRate();
 		
 		return buildLastDaysNBPExchangeRates(nbpExchangeRate.getRates());
 	}
@@ -53,18 +54,29 @@ public class LastDayOfTheMonthsNBPEuroRateDAO {
 	 * Here is potential of future development. It could send a series of request to API to get the desired date range,
 	 * instead of just limiting the date
 	*/
-	private void checkDateRange() {
-		long diff = 0;
+	private DateRangeForm changeStartDate(DateRangeForm dateRange) {
+		LocalDate newStartDate = dateRange.getEndDate().minusDays(364);
+		dateRange.setStartDate(newStartDate);
+		return dateRange;
+	}
+	
+	private boolean isLowerThenOneYear(DateRangeForm dateRange) {
+		int VALID_TIME_RANGE_IN_DAYS = 367;
+		long dateDifferendeInDays =  getTimeDifferenceInDays(dateRange);
 		
-	    Date firstDate = Date.from(dateRange.getStartDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
-		Date secondDate = Date.from(dateRange.getEndDate().atStartOfDay(ZoneId.systemDefault()).toInstant());	    	
-		long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
-		diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-
-		if (diff > 367) {
-			LocalDate newStartDate = dateRange.getEndDate().minusDays(364);
-			dateRange.setStartDate(newStartDate);
+		if (dateDifferendeInDays > VALID_TIME_RANGE_IN_DAYS) {
+			return false;
 		}
+		return true;
+	}
+	
+	private long getTimeDifferenceInDays(DateRangeForm dateRange) {
+		Date startDate = Date.from(dateRange.getStartDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date endDate = Date.from(dateRange.getEndDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		
+		long dateDifferendeInMilliseconds = Math.abs(startDate.getTime() - endDate.getTime());
+		
+		return TimeUnit.DAYS.convert(dateDifferendeInMilliseconds, TimeUnit.MILLISECONDS);
 	}
 	
 	
