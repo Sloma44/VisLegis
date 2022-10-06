@@ -12,6 +12,7 @@ public class ClauseRequestForm extends JustificationRequestForm {
 	@Setter
 	private boolean validity;
 
+	@Override
 	public boolean getValidity() {
 		return validity;
 	}

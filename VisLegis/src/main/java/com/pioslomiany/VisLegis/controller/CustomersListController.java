@@ -24,7 +24,7 @@ import com.pioslomiany.VisLegis.customer.entity.Letter;
 import com.pioslomiany.VisLegis.customer.service.CustomerService;
 import com.pioslomiany.VisLegis.doc.entity.ClauseRequestForm;
 import com.pioslomiany.VisLegis.doc.entity.Court;
-import com.pioslomiany.VisLegis.doc.entity.DocxForm;
+import com.pioslomiany.VisLegis.doc.entity.JoiningTheCaseForm;
 import com.pioslomiany.VisLegis.doc.entity.JustificationRequestForm;
 import com.pioslomiany.VisLegis.doc.service.DocGeneratorService;
 
@@ -385,7 +385,7 @@ public class CustomersListController {
 		String caseSignature = theLawCase.getSignature();
 		
 		model.addAttribute("courts", courts);
-		model.addAttribute("prosecutorAccession", new DocxForm(courtId, firstName, lastName, caseSignature));
+		model.addAttribute("prosecutorAccession", new JoiningTheCaseForm(courtId, firstName, lastName, caseSignature));
 		
 		// for button back "<<Powrót". If caseIdContion is not null it will go back to caseDetail page,
 		// else it will go back to DocGenerater main menu from DocGeneratorController
@@ -460,7 +460,7 @@ public class CustomersListController {
 		String caseSignature = theLawCase.getSignature();
 		
 		model.addAttribute("courts", courts);
-		model.addAttribute("joinTheCase", new DocxForm(courtId, firstName, lastName, caseSignature));
+		model.addAttribute("joinTheCase", new JoiningTheCaseForm(courtId, firstName, lastName, caseSignature));
 		
 		// for button back "<<Powrót". If caseIdContion is not null it will go back to caseDetail page,
 		// else it will go back to DocGenerater main menu from DocGeneratorController

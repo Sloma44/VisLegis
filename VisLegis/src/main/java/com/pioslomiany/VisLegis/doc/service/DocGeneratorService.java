@@ -7,53 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pioslomiany.VisLegis.doc.dao.ClauseRequestDAOImpl;
 import com.pioslomiany.VisLegis.doc.dao.CourtDAOImpl;
-import com.pioslomiany.VisLegis.doc.dao.JoiningTheCaseDAOImpl;
-import com.pioslomiany.VisLegis.doc.dao.JustificationRequestDAOImpl;
-import com.pioslomiany.VisLegis.doc.dao.ProsecutorAccesionDAOImpl;
-import com.pioslomiany.VisLegis.doc.entity.ClauseRequestForm;
+import com.pioslomiany.VisLegis.doc.dao.DocumentGeneratorStreamDAO;
 import com.pioslomiany.VisLegis.doc.entity.Court;
-import com.pioslomiany.VisLegis.doc.entity.DocxForm;
-import com.pioslomiany.VisLegis.doc.entity.JustificationRequestForm;
+import com.pioslomiany.VisLegis.doc.entity.Form;
+import com.pioslomiany.VisLegis.doc.entity.FormType;
 
 @Service
 public class DocGeneratorService {
 	
 	@Autowired
-	ProsecutorAccesionDAOImpl prosecutorAccesionDAOImpl;
-	
-	@Autowired
-	JustificationRequestDAOImpl justificationRequestDAOImpl;
-	
-	@Autowired
-	ClauseRequestDAOImpl clauseRequestDAOImpl;
-	
-	@Autowired
-	JoiningTheCaseDAOImpl joiningTheCaseDAOImpl;
-	
-	@Autowired
 	CourtDAOImpl courtDAOImpl;
 	
-	
-	/*"Prokuratura wstąpienie"*/
-	public ByteArrayOutputStream generateProsecutorAccesionFile(DocxForm prosecutorAccessionForm) throws Throwable {
-	    return prosecutorAccesionDAOImpl.generateProsecutorAccesionFile(prosecutorAccessionForm);
-	}
-	
-	/* Wniosek o uzasadnienie */
-	public ByteArrayOutputStream generateJustificationRequestFormFile(JustificationRequestForm justificationRequestForm) throws Throwable {
-		return justificationRequestDAOImpl.generateJustificationRequestFormFile(justificationRequestForm);
-	}
-
-	/* Wniosek o odpis z klauzulą */
-	public ByteArrayOutputStream generateClauseRequestFormFile(ClauseRequestForm clauseRequestForm) throws Throwable {
-		return clauseRequestDAOImpl.generateClauseRequestFormFile(clauseRequestForm);
-	}
-	
-	/* Wstąpienie do sprawy */
-	public ByteArrayOutputStream generateJoiningTheCaseFile(DocxForm joiningTheCaseForm) throws Throwable {
-		return joiningTheCaseDAOImpl.generateJoiningTheCaseFormFile(joiningTheCaseForm);
+	public ByteArrayOutputStream generateDocumentStream(Form form, FormType formType) throws Exception {
+		int courtId = form.getCourtId();
+		Court court = courtDAOImpl.getCourtById(courtId);
+		DocumentGeneratorStreamDAO documentGeneratorStreamDAO = new DocumentGeneratorStreamDAO();
+		return documentGeneratorStreamDAO.generateDocumentStream(court, form, formType);
 	}
 	
 	

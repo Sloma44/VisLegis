@@ -19,7 +19,7 @@ import lombok.Setter;
 	 */
 
 @Getter @Setter
-public class DocxForm {
+public class JoiningTheCaseForm implements Form {
 
 	@DateTimeFormat(iso = ISO.DATE, fallbackPatterns = { "M/d/yy", "dd.MM.yyyy" })
 	@CurrentDateConstraint
@@ -36,16 +36,41 @@ public class DocxForm {
 	@NotEmpty(message="Pole nie może być puste")
 	private String caseSignature;
 	
-	public DocxForm () {
+	public JoiningTheCaseForm () {
 		this.actDate = LocalDate.now();
 	}
 	
-	public DocxForm(int courtId, String firstName, String lastName, String caseSignature) {
+	public JoiningTheCaseForm(int courtId, String firstName, String lastName, String caseSignature) {
 		this.actDate = LocalDate.now();
 		this.courtId = courtId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.caseSignature = caseSignature;
 	}
+
+	@Override
+	public LocalDate getVerdictDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean getVerdict() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean getValidity() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean getCostFree() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 	
 }

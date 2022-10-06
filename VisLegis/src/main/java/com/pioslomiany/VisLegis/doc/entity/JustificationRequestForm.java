@@ -7,7 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.pioslomiany.VisLegis.calculator.validators.CurrentDateConstraint;
 
-import lombok.Getter;
 import lombok.Setter;
 
 	/*
@@ -15,12 +14,12 @@ import lombok.Setter;
 	 * "Wniosek o uzasadnienie" - JustificationRequest
 	 */
 
-public class JustificationRequestForm extends DocxForm {
+public class JustificationRequestForm extends JoiningTheCaseForm {
 	
 	@Setter
 	private boolean verdict;
 	
-	@Getter @Setter
+	@Setter
 	@DateTimeFormat(iso = ISO.DATE, fallbackPatterns = { "M/d/yy", "dd.MM.yyyy" })
 	@CurrentDateConstraint
 	private LocalDate verdictDate;
@@ -36,10 +35,17 @@ public class JustificationRequestForm extends DocxForm {
 		super(courtId, firstName, lastName, caseSignature);
 	}
 
+	@Override
+	public LocalDate getVerdictDate() {
+		return verdictDate;
+	}
+	
+	@Override
 	public boolean getVerdict() {
 		return verdict;
 	}
 
+	@Override
 	public boolean getCostFree() {
 		return costFree;
 	}
