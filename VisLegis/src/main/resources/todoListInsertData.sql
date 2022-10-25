@@ -1,0 +1,3 @@
+INSERT INTO todo_list (id, category, dead_line_date, description, status) VALUES (10, 'blue', '2023-12-10', 'Task One', 'Zakończono')
+INSERT INTO todo_list (id, category, dead_line_date, description, status) VALUES (11, 'blue', '2018-12-10', 'Task Two', 'Zakończono')
+INSERT INTO todo_list (id, category, dead_line_date, description, status) VALUES (12, 'green', '2019-12-10', 'Task Three', 'W trakcie')
