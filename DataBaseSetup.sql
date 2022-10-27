@@ -33,6 +33,15 @@ FOREIGN KEY (customer_id)
 	REFERENCES customer (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+/* Courts (institutions) */
+CREATE TABLE IF NOT EXISTS court_registry (
+id INT PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(75),
+department VARCHAR(75),
+street_and_number VARCHAR(75),
+postal_and_city VARCHAR(75)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
 /* Law cases table */
 CREATE TABLE IF NOT EXISTS law_case (
 case_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -93,15 +102,6 @@ room VARCHAR(10) DEFAULT '',
 case_id INT,
 FOREIGN KEY (case_id)
 	REFERENCES law_case (case_id)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-/* Courts (institutions) */
-CREATE TABLE IF NOT EXISTS court_registry (
-id INT PRIMARY KEY AUTO_INCREMENT,
-name VARCHAR(75),
-department VARCHAR(75),
-street_and_number VARCHAR(75),
-postal_and_city VARCHAR(75)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /* To-Do List */
