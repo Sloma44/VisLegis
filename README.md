@@ -10,6 +10,7 @@
 * [Setup](#setup)
 * [Database structure](#database-structure)
 * [Features](#features)
+* [Docker](#docker)
 * [Project status](#project-status)
 * [Room for improvement](#room-for-improvement)
 * [Acknowledgements](#acknowledgements)
@@ -206,6 +207,16 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			.antMatchers("/vislegis").hasAnyRole("ADMIN", "MANAGER", "EMPLOYEE")
 		)
 ```
+
+## Docker
+To create docker MySql database and applicaton image you need to:
+- go to application.properties file comment out "MySQL connection properties" section and uncomment "MySQL connection properties for Docker image",
+- create jar file using maven ```mvn clean package```,
+- change jar file name to 'vislegis' (Docker does not handle camelCase notation),
+- go to ```VisLegis/docker``` and run ```sudo docker compose up``` (you need to have docker compose application),
+- check if image and container are running: ```sudo docker images``` and ```sudo docker container ls -a```.
+
+Docker will create new MySql database running in container on port 3307 (to avoid conflict if you already have some locale database running on port 3306) and application running on port 8080 (port can be changed in ```docker-compose.yml``` file). Default user and password (both) for data base is: ```root```.
 
 ## Project status
 The main core of the application is finished. Is has all the functions that were established at the beginning of the project. The architecture of the application allows to add more features without major interference with the current ones.
